@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Open Graph for Discord Embeds -->
     <meta property="og:title" content="SLASHUP | Competitive PvP">
     <meta property="og:description" content="Check my stats on SlashUp. Ranked Matchmaking & High Fidelity Combat.">
     <meta property="og:color" content="#ff3e3e">
@@ -47,210 +46,8 @@
             background-size: 100% 4px; pointer-events: none; z-index: 999;
         }
 
-        /* --- NEW MATCH HISTORY CARDS --- */
-        .match-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .match-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1rem 1.5rem;
-            border-left: 4px solid #555; /* Default */
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .match-card:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-    
-        /* Win/Loss Variants */
-        .match-card.win {
-            border-left-color: var(--win);
-            background: linear-gradient(90deg, rgba(68, 255, 68, 0.05) 0%, transparent 100%);
-        }
-
-        .match-card.loss {
-            border-left-color: var(--loss);
-            background: linear-gradient(90deg, rgba(255, 68, 68, 0.05) 0%, transparent 100%);
-        }
-
-        /* Inner Layout */
-        .match-outcome {
-            font-family: 'Share Tech Mono';
-            font-size: 1.2rem;
-            font-weight: bold;
-            width: 100px;
-        }
-        .match-card.win .match-outcome { color: var(--win); text-shadow: 0 0 10px rgba(68, 255, 68, 0.3); }
-        .match-card.loss .match-outcome { color: var(--loss); text-shadow: 0 0 10px rgba(255, 68, 68, 0.3); }
-
-        .match-vs {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-grow: 1;
-            margin-left: 2rem;
-        }
-
-        .opponent-head {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
-        }
-
-        .opponent-name {
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .match-date {
-            font-family: 'Share Tech Mono';
-            font-size: 0.8rem;
-            color: #666;
-        }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
 
-
-                /* --- TEAM SECTION --- */
-        .team-section { margin-top: 5rem; text-align: center; }
-        .team-header { font-size: 2.5rem; margin-bottom: 0.5rem; text-transform: uppercase; }
-        .team-sub { color: var(--text-dim); margin-bottom: 3rem; font-size: 0.9rem; }
-
-        .team-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-
-        .team-card {
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 2rem;
-            width: 300px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .team-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .team-skin {
-            height: 150px;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
-            transition: 0.3s;
-        }
-        .team-card:hover .team-skin { transform: scale(1.1); }
-        
-        .team-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
-        .team-role { color: var(--accent); font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; }
-        .team-desc { color: var(--text-dim); font-size: 0.8rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        
-        .social-links { display: flex; justify-content: center; gap: 15px; }
-        .social-icon {
-            color: #888; font-size: 1.2rem; transition: 0.2s; cursor: pointer;
-        }
-        .social-icon:hover { color: white; transform: scale(1.2); }
-        
-        /* --- DISCORD BANNER --- */
-        .discord-banner {
-            margin-top: 5rem;
-            background: linear-gradient(90deg, rgba(88, 101, 242, 0.1), rgba(0,0,0,0.6));
-            border: 1px solid #5865F2;
-            padding: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Glow effect behind banner */
-        .discord-banner::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
-            background: #5865F2; box-shadow: 0 0 20px #5865F2;
-        }
-        
-        .discord-left { display: flex; align-items: center; gap: 20px; }
-        .discord-logo-box {
-            background: #5865F2; width: 60px; height: 60px; display: flex; 
-            align-items: center; justify-content: center; border-radius: 5px;
-            font-size: 2rem; color: white;
-        }
-        
-        .discord-text h3 { font-size: 1.5rem; margin-bottom: 5px; text-transform: uppercase; }
-        .discord-text span { color: #5865F2; }
-        .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
-        
-        .discord-btn {
-            background: #5865F2; color: white; border: none; padding: 1rem 2rem;
-            font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
-            transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
-        }
-        .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
-        
-        @media (max-width: 800px) {
-            .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
-            .discord-left { flex-direction: column; }
-        }
-        
-        /* --- NEW: SHARE BUTTON --- */
-        .share-btn {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            cursor: pointer;
-            font-size: 1rem;
-            margin-left: 15px;
-            transition: 0.3s;
-        }
-        .share-btn:hover {
-            color: var(--accent);
-            transform: scale(1.2);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        /* --- NEW: PLAYER TAGS --- */
-        .player-tag {
-            font-family: 'Share Tech Mono';
-            font-size: 0.6rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            vertical-align: middle;
-        }
-
-        /* Tag Variants */
-        .tag-owner {
-            background: linear-gradient(45deg, #ff3e3e, #ff0000);
-            color: white;
-            border: 1px solid #ff9999;
-            box-shadow: 0 0 10px rgba(255, 62, 62, 0.4);
-        }
-
-        .tag-admin {
-            background: #44ff44;
-            color: black;
-            box-shadow: 0 0 5px rgba(68, 255, 68, 0.4);
-        }
-
-        .tag-dev {
-            background: #00ccff;
-            color: black;
-        }
-        
         /* --- NAVIGATION --- */
         nav {
             background: rgba(11, 11, 16, 0.9); backdrop-filter: blur(10px);
@@ -263,7 +60,6 @@
         .logo span { color: var(--accent); }
         .logo:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--accent); }
         
-        /* Live Status Dot */
         .server-status {
             font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #666; 
             position: absolute; bottom: -12px; right: 0; display: flex; align-items: center; gap: 5px;
@@ -285,7 +81,86 @@
         }
         .nav-btn:hover, .nav-btn.active { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* --- 3D TILT CARDS --- */
+        /* --- HERO --- */
+        .hero {
+            height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem; padding-bottom: 2rem;
+        }
+        .hero h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.6; }
+        
+        .cta-btn {
+            background: var(--accent); color: white; padding: 1rem 3rem; font-family: 'Share Tech Mono';
+            font-size: 1.2rem; border: none; cursor: pointer; transition: 0.3s;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
+
+        /* --- CONTENT --- */
+        .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
+        .panel-box { background: var(--panel); border: var(--panel-border); padding: 2rem; }
+        .section-title {
+            font-size: 1.5rem; color: var(--accent); margin-bottom: 1.5rem; font-family: 'Share Tech Mono';
+            text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
+        }
+        
+        /* Fixed News CSS */
+        .news-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s; }
+        .news-item:hover { border-left-color: var(--accent); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
+        .news-date { color: var(--accent); font-size: 0.8rem; font-family: 'Share Tech Mono'; margin-bottom: 5px; }
+        .news-head { font-size: 1.2rem; margin-bottom: 5px; color: white; font-weight: bold; }
+        
+        .mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+
+        /* --- TEAM SECTION CSS --- */
+        .team-section { margin-top: 5rem; text-align: center; }
+        .team-header { font-size: 2.5rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .team-sub { color: var(--text-dim); margin-bottom: 3rem; font-size: 0.9rem; }
+        .team-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .team-card {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 2rem; width: 300px;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .team-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .team-skin { height: 150px; margin-bottom: 1rem; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); transition: 0.3s; }
+        .team-card:hover .team-skin { transform: scale(1.1); }
+        .team-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
+        .team-role { color: var(--accent); font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .team-desc { color: var(--text-dim); font-size: 0.8rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .social-links { display: flex; justify-content: center; gap: 15px; }
+        .social-icon { color: #888; font-size: 1.2rem; transition: 0.2s; cursor: pointer; }
+        .social-icon:hover { color: white; transform: scale(1.2); }
+
+        /* --- DISCORD BANNER CSS --- */
+        .discord-banner {
+            margin-top: 5rem; background: linear-gradient(90deg, rgba(88, 101, 242, 0.1), rgba(0,0,0,0.6));
+            border: 1px solid #5865F2; padding: 2rem; display: flex; align-items: center; justify-content: space-between;
+            position: relative; overflow: hidden;
+        }
+        .discord-banner::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: #5865F2; box-shadow: 0 0 20px #5865F2;
+        }
+        .discord-left { display: flex; align-items: center; gap: 20px; }
+        .discord-logo-box {
+            background: #5865F2; width: 60px; height: 60px; display: flex; 
+            align-items: center; justify-content: center; border-radius: 5px; font-size: 2rem; color: white;
+        }
+        .discord-text h3 { font-size: 1.5rem; margin-bottom: 5px; text-transform: uppercase; }
+        .discord-text span { color: #5865F2; }
+        .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
+        .discord-btn {
+            background: #5865F2; color: white; border: none; padding: 1rem 2rem;
+            font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+        }
+        .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
+        @media (max-width: 800px) {
+            .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
+            .discord-left { flex-direction: column; }
+        }
+
+        /* --- 3D TILT --- */
         .tilt-card {
             background: rgba(255,255,255,0.03); border: var(--panel-border); padding: 1.5rem;
             transition: transform 0.1s; position: relative; overflow: hidden;
@@ -309,95 +184,21 @@
         }
         #toast-box.show { right: 30px; }
 
-        /* --- GENERAL UI --- */
+        /* --- PAGE SECTIONS --- */
         .page-section { display: none; animation: fadeIn 0.5s ease; padding-bottom: 5rem; }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .hero {
-            height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem; padding-bottom: 2rem;
-        }
-        .hero h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.6; }
-        
-        .cta-btn {
-            background: var(--accent); color: white; padding: 1rem 3rem; font-family: 'Share Tech Mono';
-            font-size: 1.2rem; border: none; cursor: pointer; transition: 0.3s;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-        }
-        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
-        
-        .nav-btn.disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
-
-        .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
-        .panel-box { background: var(--panel); border: var(--panel-border); padding: 2rem; }
-        .section-title {
-            font-size: 1.5rem; color: var(--accent); margin-bottom: 1.5rem; font-family: 'Share Tech Mono';
-            text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
-        }
-
-        <!-- TEAM SECTION -->
-        <div class="team-section">
-            <h2 class="team-header">Meet Our Team</h2>
-            <p class="team-sub">Passionate individuals dedicated to creating the best PvP experience.</p>
-                
-            <div class="team-grid">
-                <!-- HugeAdventure Card -->
-                <div class="team-card">
-                    <img src="https://visage.surgeplay.com/bust/256/HugeAdventure" class="team-skin">
-                    <div class="team-name">HugeAdventure</div>
-                    <div class="team-role">Founder & Lead Developer</div>
-                        p class="team-desc">
-                        The visionary behind SlashUp. Responsible for the combat engine, backend architecture, and game design.
-                    </p>
-                    <div class="social-links">
-                        <i class="fab fa-github social-icon" title="GitHub"></i>
-                        <i class="fab fa-discord social-icon" title="Discord"></i>
-                        <i class="fab fa-tiktok social-icon" title="TikTok"></i>
-                    </div>
-                </div>
-
-                <!-- You can copy/paste the block above to add more staff later -->
-            </div>
-        </div>
-
-        <!-- DISCORD BANNER -->
-        <div class="discord-banner">
-            <div class="discord-left">
-                <div class="discord-logo-box">
-                    <i class="fab fa-discord"></i>
-                </div>
-                <div class="discord-text">
-                    <h3>Join the <span>Community</span></h3>
-                    <p>Connect with tons of players, find scrim partners, and get update alerts on our Discord server.</p>
-                </div>
-            </div>
-            <button class="discord-btn" onclick="window.open('https://discord.gg/vSrF97MfpW', '_blank')">
-                <i class="fab fa-discord"></i> Join Server
-            </button>
-        </div>
-        
-        
-        .news-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s; }
-        .news-item:hover { border-left-color: var(--accent); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
-        .news-date { color: var(--accent); font-size: 0.8rem; font-family: 'Share Tech Mono'; margin-bottom: 5px; }
-        .news-head { font-size: 1.2rem; margin-bottom: 5px; color: white; font-weight: bold; }
-        
-        .mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-
-        /* ---  --- */
+        /* --- LEADERBOARD --- */
         .lb-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
         .lb-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
         .lb-table th { text-align: left; padding: 1rem; color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; }
         .lb-row { background: rgba(255,255,255,0.02); transition: 0.2s; }
         .lb-row:hover { background: rgba(255,255,255,0.05); transform: scale(1.01); box-shadow: 0 0 15px rgba(0,0,0,0.3); }
         .lb-row td { padding: 1rem; vertical-align: middle; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        
         .rank-num { font-family: 'Share Tech Mono'; font-size: 1.2rem; width: 50px; text-align: center; }
         .player-cell { display: flex; align-items: center; gap: 15px; }
         .lb-head { width: 32px; height: 32px; border-radius: 4px; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
-        
         .lb-row.rank-1 { background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent); border-left: 4px solid var(--gold); }
         .lb-row.rank-1 .rank-num { color: var(--gold); font-size: 1.5rem; text-shadow: 0 0 10px var(--gold); }
         .lb-row.rank-2 { border-left: 4px solid var(--silver); } 
@@ -412,26 +213,20 @@
             color:white; outline:none; font-family: 'Share Tech Mono'; font-size: 1.2rem; transition: 0.3s;
         }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
-        
         .profile-container { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; display: none; width: 100%; transition: opacity 0.3s; }
         .profile-container.visible { display: grid; }
         .profile-container.loading { opacity: 0.5; pointer-events: none; }
-        
         .skin-viewer { 
             height: 450px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); 
-            display: flex; justify-content: center; align-items: center; border: var(--panel-border); 
-            position: relative;
+            display: flex; justify-content: center; align-items: center; border: var(--panel-border); position: relative;
         }
         .skin-img { 
-            height: 90%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); 
-            animation: float 4s ease-in-out infinite; 
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0; 
+            height: 90%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); animation: float 4s ease-in-out infinite; 
+            transition: opacity 0.3s, transform 0.3s; opacity: 0; 
         }
         .skin-img.loaded { opacity: 1; }
         .skin-img:hover { transform: scale(1.05); }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-
         .player-data { width: 100%; }
         .stats-big-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
         .big-stat { background: rgba(255,255,255,0.03); padding: 1.5rem; border-left: 3px solid var(--text-dim); transition: 0.3s; }
@@ -445,6 +240,34 @@
         .wr-bar { height: 8px; width: 100%; background: #333; display: flex; border-radius: 4px; overflow: hidden; }
         .wr-win { background: var(--win); height: 100%; transition: width 1s; }
         .wr-loss { background: var(--loss); height: 100%; transition: width 1s; }
+
+        /* MATCH HISTORY CARDS */
+        .match-list { display: flex; flex-direction: column; gap: 10px; }
+        .match-card {
+            display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.02);
+            padding: 1rem 1.5rem; border-left: 4px solid #555; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .match-card:hover { transform: translateX(5px); background: rgba(255, 255, 255, 0.05); }
+        .match-card.win { border-left-color: var(--win); background: linear-gradient(90deg, rgba(68, 255, 68, 0.05) 0%, transparent 100%); }
+        .match-card.loss { border-left-color: var(--loss); background: linear-gradient(90deg, rgba(255, 68, 68, 0.05) 0%, transparent 100%); }
+        .match-outcome { font-family: 'Share Tech Mono'; font-size: 1.2rem; font-weight: bold; width: 100px; }
+        .match-card.win .match-outcome { color: var(--win); text-shadow: 0 0 10px rgba(68, 255, 68, 0.3); }
+        .match-card.loss .match-outcome { color: var(--loss); text-shadow: 0 0 10px rgba(255, 68, 68, 0.3); }
+        .match-vs { display: flex; align-items: center; gap: 15px; flex-grow: 1; margin-left: 2rem; }
+        .opponent-head { width: 32px; height: 32px; border-radius: 4px; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+        .opponent-name { font-size: 1.1rem; color: white; }
+        .match-date { font-family: 'Share Tech Mono'; font-size: 0.8rem; color: #666; }
+
+        /* SHARE & TAGS */
+        .share-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 1rem; margin-left: 15px; transition: 0.3s; }
+        .share-btn:hover { color: var(--accent); transform: scale(1.2); text-shadow: 0 0 10px var(--accent-glow); }
+        .player-tag {
+            font-family: 'Share Tech Mono'; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: 10px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; vertical-align: middle;
+        }
+        .tag-owner { background: linear-gradient(45deg, #ff3e3e, #ff0000); color: white; border: 1px solid #ff9999; box-shadow: 0 0 10px rgba(255, 62, 62, 0.4); }
+        .tag-admin { background: #44ff44; color: black; box-shadow: 0 0 5px rgba(68, 255, 68, 0.4); }
+        .tag-dev { background: #00ccff; color: black; }
 
         footer { margin-top: auto; border-top: var(--panel-border); padding: 2rem 0; text-align: center; color: #444; font-size: 0.8rem; }
         @media (max-width: 900px) { .content-row, .profile-container { grid-template-columns: 1fr; } .hero h1 { font-size: 3rem; } }
@@ -471,9 +294,7 @@
 
             <div class="nav-links">
                 <button class="nav-btn active" onclick="switchTab('home')" id="btn-home">HOME</button>
-                
                 <button class="nav-btn" onclick="switchTab('leaderboard')" id="btn-leaderboard">LEADERBOARD</button>
-                
                 <button class="nav-btn" onclick="switchTab('stats')" id="btn-stats">STATS</button>
                 <button class="nav-btn" onclick="copyIP()" style="color: #44ff44;">COPY IP</button>
             </div>
@@ -526,6 +347,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- TEAM SECTION -->
+            <div class="team-section">
+                <h2 class="team-header">Meet Our Team</h2>
+                <p class="team-sub">Passionate individuals dedicated to creating the best PvP experience.</p>
+                
+                <div class="team-grid">
+                    <!-- HugeAdventure Card -->
+                    <div class="team-card">
+                        <img src="https://visage.surgeplay.com/bust/256/HugeAdventure" class="team-skin">
+                        <div class="team-name">HugeAdventure</div>
+                        <div class="team-role">Founder & Lead Developer</div>
+                        <p class="team-desc">
+                            The visionary behind SlashUp. Responsible for the combat engine, backend architecture, and game design.
+                        </p>
+                        <div class="social-links">
+                            <i class="fab fa-github social-icon" title="GitHub"></i>
+                            <i class="fab fa-discord social-icon" title="Discord"></i>
+                            <i class="fab fa-tiktok social-icon" title="TikTok"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DISCORD BANNER -->
+            <div class="discord-banner">
+                <div class="discord-left">
+                    <div class="discord-logo-box">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="discord-text">
+                        <h3>Join the <span>Community</span></h3>
+                        <p>Connect with tons of players, find scrim partners, and get update alerts on our Discord server.</p>
+                    </div>
+                </div>
+                <button class="discord-btn" onclick="window.open('https://discord.gg/vSrF97MfpW', '_blank')">
+                    <i class="fab fa-discord"></i> Join Server
+                </button>
+            </div>
+
         </div>
     </div>
 
@@ -573,7 +434,6 @@
                 <div class="player-data">
                     <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:center;">
                         <div>
-
                             <h2 style="display:inline-block; margin:0;" id="nameDisplay">Player</h2>
                             <span id="tagDisplay"></span> 
             
@@ -602,7 +462,7 @@
                         </div>
                     </div>
 
-                    <!-- NEW: Win Rate Bar -->
+                    <!-- Win Rate Bar -->
                     <div class="win-rate-container">
                         <div class="wr-label">
                             <span>WIN RATE</span>
@@ -616,8 +476,7 @@
 
                     <div class="panel-box">
                         <div class="section-title" style="font-size:1rem;">Recent Matches</div>
-                        <div id="matchHistoryList" class="match-list">
-                        </div>
+                        <div id="matchHistoryList" class="match-list"></div>
                     </div>
                 </div>
             </div>
@@ -667,16 +526,14 @@
                     statusDot.classList.add('online');
                     statusText.innerHTML = `<span class="status-dot online"></span> ${data.players.online}/${data.players.max} ONLINE`;
                 } else {
-                    // Fallback for when server is offline
                     statusText.innerHTML = `<span class="status-dot offline"></span> OFFLINE`;
                 }
             } catch (e) {
                 console.log("Status check failed");
             }
         }
-        checkServerStatus(); // Run on load
+        checkServerStatus(); 
 
-        // --- 3D TILT ---
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -693,7 +550,6 @@
             });
         });
 
-        // --- NAVIGATION ---
         function switchTab(tab) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -702,8 +558,6 @@
             if(tab === 'leaderboard') loadLeaderboard(1);
         }
 
-        // --- DIRECT LINK HANDLER ---
-        // Checks if URL has ?player=Name and loads it automatically
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const playerParam = urlParams.get('player');
@@ -717,11 +571,17 @@
         function copyIP() {
             navigator.clipboard.writeText("play.slashup.net");
             const toast = document.getElementById("toast-box");
+            toast.innerHTML = `
+                <i class="fas fa-check-circle toast-icon"></i>
+                <div>
+                    <div style="font-weight: bold; color: white;">IP Copied!</div>
+                    <div style="font-size: 0.8rem; color: #aaa;">See you on the battlefield.</div>
+                </div>
+            `;
             toast.classList.add("show");
             setTimeout(() => toast.classList.remove("show"), 3000);
         }
 
-        // ---  LOGIC ---
         let currentLbPage = 1;
         let totalLbPages = 1;
 
@@ -770,8 +630,8 @@
                                     <img src="https://visage.surgeplay.com/face/64/${p.name}" class="lb-head">
                                     <div>
                                         <span style="font-weight:bold; font-size:1.1rem;">${p.name}</span>
-                                        ${specialTag} <!-- Owner/Admin Tag -->
-                                        ${extraTag}   <!-- Top 10 Tag -->
+                                        ${specialTag}
+                                        ${extraTag}
                                     </div>
                                 </div>
                             </td>
@@ -796,7 +656,6 @@
             loadLeaderboard(currentLbPage + dir);
         }
 
-        // --- STATS FETCH ---
         document.getElementById('playerInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') fetchStats();
         });
@@ -807,13 +666,12 @@
             document.getElementById('nameDisplay').innerText = username;
             
             const tagEl = document.getElementById('tagDisplay');
-            tagEl.innerHTML = ""; // Clear old tag
+            tagEl.innerHTML = ""; 
             const lowerName = username.toLowerCase();
             if(SPECIAL_TAGS[lowerName]) {
                 const tagData = SPECIAL_TAGS[lowerName];
                 tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
             }
-
             
             if(!username) return;
 
@@ -839,7 +697,6 @@
                 document.getElementById('winsVal').innerText = data.stats.wins;
                 document.getElementById('streakVal').innerText = data.stats.best_streak;
                 
-                // Rank Badge Logic
                 const rankEl = document.getElementById('rankDisplay');
                 rankEl.innerText = `#${data.stats.rank}`;
                 rankEl.style.background = 'var(--panel)';
@@ -848,9 +705,8 @@
                 else if(data.stats.rank === 2) { rankEl.style.background = 'var(--silver)'; rankEl.style.color = 'black'; }
                 else if(data.stats.rank === 3) { rankEl.style.background = 'var(--bronze)'; rankEl.style.color = 'black'; }
 
-                // Win Rate Bar Logic
                 const wins = data.stats.wins || 0;
-                const losses = data.stats.losses || 0; // Ensure your API returns 'losses'
+                const losses = data.stats.losses || 0;
                 const totalGames = wins + losses;
                 let winPercent = 0;
                 if(totalGames > 0) winPercent = Math.round((wins / totalGames) * 100);
@@ -859,20 +715,17 @@
                 document.getElementById('bar-win').style.width = `${winPercent}%`;
                 document.getElementById('bar-loss').style.width = `${100 - winPercent}%`;
 
-                // History
                 const historyContainer = document.getElementById('matchHistoryList');
-                historyContainer.innerHTML = ''; // Clear old
+                historyContainer.innerHTML = ''; 
 
                 data.matches.forEach(match => {
                     const isWin = match.winner_name.toLowerCase() === username.toLowerCase();
                     const opponent = isWin ? match.loser_name : match.winner_name;
                     const dateStr = new Date(match.match_time).toLocaleDateString();
     
-                    // Determine Classes
                     const cardClass = isWin ? 'win' : 'loss';
                     const outcomeText = isWin ? 'VICTORY' : 'DEFEAT';
 
-                    // Create the Card HTML
                     const cardHTML = `
                         <div class="match-card ${cardClass}">
                             <div class="match-outcome">${outcomeText}</div>
