@@ -179,6 +179,17 @@
         .discord-text h3 { 
             font-size: 2rem; margin-bottom: 10px; text-transform: uppercase; 
             text-shadow: 0 0 20px rgba(88, 101, 242, 0.5); 
+        .discord-text span { color: #5865F2; }
+        .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
+        .discord-btn {
+            background: #5865F2; color: white; border: none; padding: 1rem 2rem;
+            font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+        }
+        .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
+        @media (max-width: 800px) {
+            .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
+            .discord-left { flex-direction: column; }
         }
 
         /* --- 3D TILT --- */
