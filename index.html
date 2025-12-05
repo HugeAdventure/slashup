@@ -71,7 +71,7 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-/* Win/Loss Variants */
+        /* Win/Loss Variants */
         .match-card.win {
             border-left-color: var(--win);
             background: linear-gradient(90deg, rgba(68, 255, 68, 0.05) 0%, transparent 100%);
@@ -120,6 +120,55 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
 
+
+        /* --- NEW: SHARE BUTTON --- */
+        .share-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 15px;
+            transition: 0.3s;
+        }
+        .share-btn:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* --- NEW: PLAYER TAGS --- */
+        .player-tag {
+            font-family: 'Share Tech Mono';
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
+
+        /* Tag Variants */
+        .tag-owner {
+            background: linear-gradient(45deg, #ff3e3e, #ff0000);
+            color: white;
+            border: 1px solid #ff9999;
+            box-shadow: 0 0 10px rgba(255, 62, 62, 0.4);
+        }
+
+        .tag-admin {
+            background: #44ff44;
+            color: black;
+            box-shadow: 0 0 5px rgba(68, 255, 68, 0.4);
+        }
+
+        .tag-dev {
+            background: #00ccff;
+            color: black;
+        }
+        
         /* --- NAVIGATION --- */
         nav {
             background: rgba(11, 11, 16, 0.9); backdrop-filter: blur(10px);
@@ -396,8 +445,17 @@
                 <div class="player-data">
                     <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:center;">
                         <div>
-                            <h2 id="nameDisplay">Player</h2>
-                            <span class="rank-badge" id="rankDisplay" style="background:var(--panel); color:var(--text-dim); border:1px solid var(--text-dim); padding:2px 8px; font-weight:bold;"># -</span>
+
+                            <h2 style="display:inline-block; margin:0;" id="nameDisplay">Player</h2>
+                            <span id="tagDisplay"></span> 
+            
+                            <button class="share-btn" onclick="shareProfile()" title="Copy Profile Link">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+            
+                            <div style="margin-top: 5px;">
+                                <span class="rank-badge" id="rankDisplay" style="background:var(--panel); color:var(--text-dim); border:1px solid var(--text-dim); padding:2px 8px; font-weight:bold;"># -</span>
+                            </div>
                         </div>
                     </div>
 
@@ -441,10 +499,34 @@
     <footer><div class="container">&copy; 2025 SlashUp PvP. Not affiliated with Mojang AB.</div></footer>
 
     <script>
-        // --- LIVE SERVER STATUS ---
-        // Checks if the server is online using mcstatus.io
+        const SPECIAL_TAGS = {
+            "hugeadventure": { text: "OWNER", class: "tag-owner" },
+            "admin_name":    { text: "ADMIN", class: "tag-admin" },
+            "dev_name":      { text: "DEV",   class: "tag-dev" }
+        };
+
+        function shareProfile() {
+            const username = document.getElementById('nameDisplay').innerText;
+            if(username === "Player") return;
+
+            const url = `${window.location.origin}${window.location.pathname}?player=${username}`;
+    
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.getElementById("toast-box");
+                toast.innerHTML = `
+                    <i class="fas fa-link toast-icon"></i>
+                    <div>
+                        <div style="font-weight: bold; color: white;">Link Copied!</div>
+                        <div style="font-size: 0.8rem; color: #aaa;">Share it with your friends.</div>
+                    </div>
+                `;
+                toast.classList.add("show");
+                setTimeout(() => toast.classList.remove("show"), 3000);
+            });
+        }
+        
         async function checkServerStatus() {
-            const ip = "play.slashup.net"; // Change this to your real IP
+            const ip = "194.164.96.27:25601"; 
             const statusText = document.getElementById('server-status-text');
             const statusDot = document.getElementById('status-dot');
 
