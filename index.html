@@ -61,6 +61,35 @@
             pointer-events: none;
         }
 
+
+        .recent-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            color: #888;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Share Tech Mono';
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .recent-tag:hover {
+            border-color: var(--accent);
+            color: white;
+            background: rgba(255, 62, 62, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .recent-head {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+        }
+            
+        
         /* search autocomplete*/
         
         .search-container {
@@ -558,9 +587,13 @@
                 <button class="cta-btn" onclick="fetchStats()" style="padding:0 2rem; margin:0;"><i class="fas fa-search"></i></button>
             </div>
             
-            <div id="recent-search" style="margin-bottom: 2rem; font-size: 0.9rem; color: #666; display:none; font-family: 'Share Tech Mono';">
-                <i class="fas fa-history" style="margin-right:5px;"></i> RECENT: 
-                <span id="recent-name" style="color:var(--accent); cursor:pointer; text-decoration:underline;"></span>
+            <div id="recent-container" style="display:none; margin-bottom: 2rem;">
+                <div style="font-size: 0.7rem; color: #666; margin-bottom: 8px; font-family: 'Share Tech Mono'; text-transform:uppercase;">
+                    <i class="fas fa-history"></i> Recent Searches
+                </div>
+                <div id="recent-list" style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <!-- js tags -->
+                </div>
             </div>
             
             <div class="profile-container" id="profileDisplay">
@@ -1081,19 +1114,49 @@
 
         
         function updateRecent() {
-            const last = localStorage.getItem('lastSearch');
-            if(last) {
-                document.getElementById('recent-search').style.display = 'block';
-                const el = document.getElementById('recent-name');
-                el.innerText = last;
-                el.onclick = function() {
-                    document.getElementById('playerInput').value = last;
-                    fetchStats();
-                }
+            let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            
+            const container = document.getElementById('recent-container');
+            const list = document.getElementById('recent-list');
+            
+            if(history.length === 0) {
+                container.style.display = 'none';
+                return;
             }
+        
+            container.style.display = 'block';
+            list.innerHTML = '';
+        
+            history.forEach(name => {
+                const tag = document.createElement('div');
+                tag.className = 'recent-tag';
+                tag.innerHTML = `
+                    <img src="https://visage.surgeplay.com/face/32/${name}" class="recent-head">
+                    ${name}
+                `;
+                
+                tag.onclick = () => {
+                    document.getElementById('playerInput').value = name;
+                    fetchStats();
+                };
+                
+                list.appendChild(tag);
+            });
         }
         
-        // Call this once on load
+        function saveToHistory(name) {
+            let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            
+            history = history.filter(n => n.toLowerCase() !== name.toLowerCase());
+            
+            history.unshift(name);
+            
+            if(history.length > 3) history.pop();
+            
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateRecent();
+        }
+        
         updateRecent();
         
     </script>
