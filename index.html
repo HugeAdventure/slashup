@@ -102,12 +102,17 @@
         .hero {
             height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
             background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem;
+            padding-bottom: 2rem;
         }
         .hero h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .cta-btn {
             background: var(--accent); color: white; padding: 1rem 3rem; font-family: 'Share Tech Mono';
             font-size: 1.2rem; border: none; cursor: pointer; transition: 0.3s;
             clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 3rem auto; 
+            line-height: 1.6;
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
 
