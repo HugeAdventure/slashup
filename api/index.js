@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
 
   let connection;
   try {
-    
     console.log("[API] Connecting to Database...");
     
     connection = await mysql.createConnection({
@@ -32,25 +31,6 @@ module.exports = async (req, res) => {
       connectTimeout: 10000
     });
 
-    const [statsRows] = await connection.execute(
-      'SELECT * FROM slashup_stats WHERE name = ?',
-      [player]
-    );
-
-    if (statsRows.length === 0) {
-    }
-
-    const [rankRows] = await connection.execute(
-        'SELECT COUNT(*) + 1 as rank FROM slashup_stats WHERE wins > ?',
-        [statsRows[0].wins]
-    );
-    const exactRank = rankRows[0].rank;
-
-    res.status(200).json({
-      stats: { ...statsRows[0], rank: exactRank }, 
-      matches: matchRows
-    });
-    
     console.log("[API] Connected! Fetching stats...");
 
     const [statsRows] = await connection.execute(
@@ -64,6 +44,13 @@ module.exports = async (req, res) => {
       return res.status(404).json({ error: 'Player not found' });
     }
 
+
+    const [rankRows] = await connection.execute(
+        'SELECT COUNT(*) + 1 as rank FROM slashup_stats WHERE wins > ?',
+        [statsRows[0].wins]
+    );
+    const exactRank = rankRows[0].rank;
+
     const [matchRows] = await connection.execute(
       'SELECT winner_name, loser_name, match_time FROM slashup_matches WHERE winner_name = ? OR loser_name = ? ORDER BY id DESC LIMIT 5',
       [player, player]
@@ -73,7 +60,7 @@ module.exports = async (req, res) => {
     console.log("[API] Success! Sending data.");
 
     res.status(200).json({
-      stats: statsRows[0],
+      stats: { ...statsRows[0], rank: exactRank },
       matches: matchRows
     });
 
