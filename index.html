@@ -618,6 +618,7 @@
 
                 let rankCounter = (page - 1) * 20 + 1;
                 data.players.forEach(p => {
+                    
                     let rankClass = '';
                     let extraTag = '';
                     if(rankCounter === 1) rankClass = 'rank-1';
@@ -626,20 +627,25 @@
                     
                     if(rankCounter > 3 && rankCounter <= 10) extraTag = `<span class="top-10-tag">TOP 10</span>`;
 
-                    const row = `
-                        <tr class="lb-row ${rankClass}">
-                            <td class="rank-num">#${rankCounter}</td>
-                            <td>
-                                <div class="player-cell">
-                                    <img src="https://visage.surgeplay.com/face/64/${p.name}" class="lb-head">
+                let specialTag = '';
+                if(SPECIAL_TAGS[p.name.toLowerCase()]) {
+                    const t = SPECIAL_TAGS[p.name.toLowerCase()];
+                    specialTag = `<span class="player-tag ${t.class}" style="font-size:0.5rem; margin-left:5px;">${t.text}</span>`;
+                }
+
+                const row = `
+                    <tr class="lb-row ${rankClass}">
+                        <td class="rank-num">#${rankCounter}</td>
+                        <td>
+                            <div class="player-cell">
+                                <img src="https://visage.surgeplay.com/face/64/${p.name}" class="lb-head">
+                                <div>
                                     <span style="font-weight:bold; font-size:1.1rem;">${p.name}</span>
-                                    ${extraTag}
+                                    ${specialTag} <!-- Insert Tag Here -->
+                                    ${extraTag}   <!-- Insert Top 10 Tag Here -->
                                 </div>
-                            </td>
-                            <td style="color:var(--win); font-family:'Share Tech Mono'">${p.wins}</td>
-                            <td style="font-family:'Share Tech Mono'">${parseFloat(p.kdr).toFixed(2)}</td>
-                            <td style="color:var(--gold); font-family:'Share Tech Mono'">${p.best_streak || 0}</td>
-                        </tr>
+                            </div>
+                        </td>
                     `;
                     tbody.innerHTML += row;
                     rankCounter++;
@@ -662,6 +668,18 @@
 
         async function fetchStats() {
             const username = document.getElementById('playerInput').value;
+
+            document.getElementById('nameDisplay').innerText = username;
+            
+            const tagEl = document.getElementById('tagDisplay');
+            tagEl.innerHTML = ""; // Clear old tag
+            const lowerName = username.toLowerCase();
+            if(SPECIAL_TAGS[lowerName]) {
+                const tagData = SPECIAL_TAGS[lowerName];
+                tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
+            }
+
+            
             if(!username) return;
 
             const container = document.getElementById('profileDisplay');
