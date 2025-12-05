@@ -70,7 +70,7 @@
             transform: translateX(5px);
             background: rgba(255, 255, 255, 0.05);
         }
-
+    
         /* Win/Loss Variants */
         .match-card.win {
             border-left-color: var(--win);
@@ -121,6 +121,88 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
 
 
+                /* --- TEAM SECTION --- */
+        .team-section { margin-top: 5rem; text-align: center; }
+        .team-header { font-size: 2.5rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .team-sub { color: var(--text-dim); margin-bottom: 3rem; font-size: 0.9rem; }
+
+        .team-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+
+        .team-card {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            width: 300px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .team-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .team-skin {
+            height: 150px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            transition: 0.3s;
+        }
+        .team-card:hover .team-skin { transform: scale(1.1); }
+        
+        .team-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
+        .team-role { color: var(--accent); font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .team-desc { color: var(--text-dim); font-size: 0.8rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .social-links { display: flex; justify-content: center; gap: 15px; }
+        .social-icon {
+            color: #888; font-size: 1.2rem; transition: 0.2s; cursor: pointer;
+        }
+        .social-icon:hover { color: white; transform: scale(1.2); }
+        
+        /* --- DISCORD BANNER --- */
+        .discord-banner {
+            margin-top: 5rem;
+            background: linear-gradient(90deg, rgba(88, 101, 242, 0.1), rgba(0,0,0,0.6));
+            border: 1px solid #5865F2;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Glow effect behind banner */
+        .discord-banner::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: #5865F2; box-shadow: 0 0 20px #5865F2;
+        }
+        
+        .discord-left { display: flex; align-items: center; gap: 20px; }
+        .discord-logo-box {
+            background: #5865F2; width: 60px; height: 60px; display: flex; 
+            align-items: center; justify-content: center; border-radius: 5px;
+            font-size: 2rem; color: white;
+        }
+        
+        .discord-text h3 { font-size: 1.5rem; margin-bottom: 5px; text-transform: uppercase; }
+        .discord-text span { color: #5865F2; }
+        .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
+        
+        .discord-btn {
+            background: #5865F2; color: white; border: none; padding: 1rem 2rem;
+            font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+        }
+        .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
+        
+        @media (max-width: 800px) {
+            .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
+            .discord-left { flex-direction: column; }
+        }
+        
         /* --- NEW: SHARE BUTTON --- */
         .share-btn {
             background: none;
@@ -254,6 +336,49 @@
             font-size: 1.5rem; color: var(--accent); margin-bottom: 1.5rem; font-family: 'Share Tech Mono';
             text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
         }
+
+        <!-- TEAM SECTION -->
+        <div class="team-section">
+            <h2 class="team-header">Meet Our Team</h2>
+            <p class="team-sub">Passionate individuals dedicated to creating the best PvP experience.</p>
+                
+            <div class="team-grid">
+                <!-- HugeAdventure Card -->
+                <div class="team-card">
+                    <img src="https://visage.surgeplay.com/bust/256/HugeAdventure" class="team-skin">
+                    <div class="team-name">HugeAdventure</div>
+                    <div class="team-role">Founder & Lead Developer</div>
+                        p class="team-desc">
+                        The visionary behind SlashUp. Responsible for the combat engine, backend architecture, and game design.
+                    </p>
+                    <div class="social-links">
+                        <i class="fab fa-github social-icon" title="GitHub"></i>
+                        <i class="fab fa-discord social-icon" title="Discord"></i>
+                        <i class="fab fa-tiktok social-icon" title="TikTok"></i>
+                    </div>
+                </div>
+
+                <!-- You can copy/paste the block above to add more staff later -->
+            </div>
+        </div>
+
+        <!-- DISCORD BANNER -->
+        <div class="discord-banner">
+            <div class="discord-left">
+                <div class="discord-logo-box">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <div class="discord-text">
+                    <h3>Join the <span>Community</span></h3>
+                    <p>Connect with tons of players, find scrim partners, and get update alerts on our Discord server.</p>
+                </div>
+            </div>
+            <button class="discord-btn" onclick="window.open('https://discord.gg/vSrF97MfpW', '_blank')">
+                <i class="fab fa-discord"></i> Join Server
+            </button>
+        </div>
+        
+        
         .news-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s; }
         .news-item:hover { border-left-color: var(--accent); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
         .news-date { color: var(--accent); font-size: 0.8rem; font-family: 'Share Tech Mono'; margin-bottom: 5px; }
