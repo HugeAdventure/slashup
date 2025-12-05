@@ -36,7 +36,6 @@
             flex-direction: column;
         }
 
-        /* CRT Scanlines */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
@@ -53,8 +52,6 @@
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 2rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; position: relative; }
         .logo span { color: var(--accent); }
-        
-        /* Logo Glitch Hover */
         .logo:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--accent); }
         @keyframes glitch { 
             0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 
@@ -83,7 +80,7 @@
         .tilt-card:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .tilt-card:hover::before { transform: translateX(100%); }
 
-        /* --- TOAST NOTIFICATION --- */
+        /* --- TOAST --- */
         #toast-box {
             position: fixed; bottom: 30px; right: -300px;
             background: var(--panel); border-left: 4px solid var(--accent);
@@ -93,28 +90,27 @@
         }
         #toast-box.show { right: 30px; }
 
-        /* --- SECTIONS --- */
+        /* --- GENERAL UI --- */
         .page-section { display: none; animation: fadeIn 0.5s ease; padding-bottom: 5rem; }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- HERO --- */
         .hero {
             height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem;
-            padding-bottom: 2rem;
+            background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem; padding-bottom: 2rem;
         }
         .hero h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.6; }
+        
         .cta-btn {
             background: var(--accent); color: white; padding: 1rem 3rem; font-family: 'Share Tech Mono';
             font-size: 1.2rem; border: none; cursor: pointer; transition: 0.3s;
             clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            color: var(--text-dim);
-            max-width: 600px;
-            margin: 0 auto 3rem auto; 
-            line-height: 1.6;
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
+        
+        /* Disabled Button State */
+        .nav-btn.disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
         .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
         .panel-box { background: var(--panel); border: var(--panel-border); padding: 2rem; }
@@ -122,15 +118,14 @@
             font-size: 1.5rem; color: var(--accent); margin-bottom: 1.5rem; font-family: 'Share Tech Mono';
             text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
         }
-        .news-item {
-            margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s;
-        }
+        .news-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s; }
         .news-item:hover { border-left-color: var(--accent); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
         .news-date { color: var(--accent); font-size: 0.8rem; font-family: 'Share Tech Mono'; margin-bottom: 5px; }
         .news-head { font-size: 1.2rem; margin-bottom: 5px; color: white; font-weight: bold; }
         
         .mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
 
+        /* --- LEADERBOARD --- */
         .lb-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
         .lb-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
         .lb-table th { text-align: left; padding: 1rem; color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; }
@@ -148,6 +143,7 @@
         .lb-row.rank-3 { border-left: 4px solid var(--bronze); }
         .top-10-tag { font-size: 0.6rem; background: rgba(255, 62, 62, 0.2); color: var(--accent); padding: 2px 6px; border: 1px solid var(--accent); margin-left: 10px; }
 
+        /* --- STATS PROFILE --- */
         .stats-hero { margin-top: 3rem; display: flex; flex-direction: column; align-items: center; }
         .search-wrapper { display:flex; gap:10px; margin-bottom:3rem; width: 100%; max-width: 600px; }
         .search-input { 
@@ -156,8 +152,9 @@
         }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
         
-        .profile-container { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; display: none; width: 100%; }
+        .profile-container { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; display: none; width: 100%; transition: opacity 0.3s; }
         .profile-container.visible { display: grid; }
+        .profile-container.loading { opacity: 0.5; pointer-events: none; } /* Loading State */
         
         .skin-viewer { 
             height: 450px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); 
@@ -167,8 +164,10 @@
         .skin-img { 
             height: 90%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); 
             animation: float 4s ease-in-out infinite; 
-            transition: transform 0.3s;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0; /* Hidden by default until loaded */
         }
+        .skin-img.loaded { opacity: 1; }
         .skin-img:hover { transform: scale(1.05); }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
@@ -205,6 +204,7 @@
         </div>
     </nav>
 
+    <!-- === HOME === -->
     <div id="home-page" class="page-section active">
         <div class="container">
             <section class="hero">
@@ -253,14 +253,15 @@
         </div>
     </div>
 
+    <!-- === LEADERBOARD === -->
     <div id="leaderboard-page" class="page-section">
         <div class="container">
             <h1 style="text-align:center; margin: 3rem 0;">GLOBAL RANKINGS</h1>
             
             <div class="lb-controls">
-                <button class="nav-btn" onclick="changeLbPage(-1)"><i class="fas fa-chevron-left"></i> PREV</button>
+                <button class="nav-btn" id="lb-prev" onclick="changeLbPage(-1)"><i class="fas fa-chevron-left"></i> PREV</button>
                 <span id="lb-page-num" style="font-family:'Share Tech Mono'">PAGE 1</span>
-                <button class="nav-btn" onclick="changeLbPage(1)">NEXT <i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn" id="lb-next" onclick="changeLbPage(1)">NEXT <i class="fas fa-chevron-right"></i></button>
             </div>
 
             <table class="lb-table">
@@ -296,7 +297,7 @@
                 <div class="player-data">
                     <div style="margin-bottom:2rem;">
                         <h2 id="nameDisplay">Player</h2>
-                        <span class="rank-badge" id="rankDisplay" style="background:var(--gold); color:black; padding:2px 8px; font-weight:bold;"># -</span>
+                        <span class="rank-badge" id="rankDisplay" style="background:var(--panel); color:var(--text-dim); border:1px solid var(--text-dim); padding:2px 8px; font-weight:bold;"># -</span>
                     </div>
 
                     <div class="stats-big-grid">
@@ -328,6 +329,7 @@
     <footer><div class="container">&copy; 2025 SlashUp PvP. Not affiliated with Mojang AB.</div></footer>
 
     <script>
+        // --- 3D TILT ---
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -344,6 +346,7 @@
             });
         });
 
+        // --- NAVIGATION ---
         function switchTab(tab) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -359,10 +362,20 @@
             setTimeout(() => toast.classList.remove("show"), 3000);
         }
 
+        // --- LEADERBOARD LOGIC ---
         let currentLbPage = 1;
+        let totalLbPages = 1;
+
         async function loadLeaderboard(page) {
             currentLbPage = page;
             document.getElementById('lb-page-num').innerText = `PAGE ${page}`;
+            
+            // Disable buttons logic
+            const prevBtn = document.getElementById('lb-prev');
+            const nextBtn = document.getElementById('lb-next');
+            
+            if(page === 1) prevBtn.classList.add('disabled'); else prevBtn.classList.remove('disabled');
+            
             const tbody = document.getElementById('lb-body');
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888;">Loading...</td></tr>';
 
@@ -370,6 +383,9 @@
                 const res = await fetch(`/api/leaderboard?page=${page}`);
                 const data = await res.json();
                 tbody.innerHTML = '';
+                
+                totalLbPages = data.totalPages;
+                if(page >= totalLbPages) nextBtn.classList.add('disabled'); else nextBtn.classList.remove('disabled');
 
                 let rankCounter = (page - 1) * 20 + 1;
                 data.players.forEach(p => {
@@ -410,28 +426,55 @@
             loadLeaderboard(currentLbPage + dir);
         }
 
+        // --- STATS FETCH ---
+        // Enter key support
+        document.getElementById('playerInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') fetchStats();
+        });
+
         async function fetchStats() {
             const username = document.getElementById('playerInput').value;
             if(!username) return;
 
-            document.getElementById('profileDisplay').classList.add('visible');
-            document.getElementById('nameDisplay').innerText = username;
-            document.getElementById('skinImg').src = `https://visage.surgeplay.com/full/512/${username}`;
-            
+            const container = document.getElementById('profileDisplay');
+            const skinImg = document.getElementById('skinImg');
+
+            // 1. Show Container but set Loading State
+            container.classList.add('visible');
+            container.classList.add('loading'); // Fades out text
+            skinImg.classList.remove('loaded'); // Fades out image
+
             try {
                 const response = await fetch(`/api?player=${username}`);
                 const data = await response.json();
 
-                if(data.error) { alert("Player not found!"); return; }
+                if(data.error) { 
+                    alert("Player not found!"); 
+                    container.classList.remove('loading');
+                    return; 
+                }
 
+                // 2. Update Text Data (Happens instantly)
+                document.getElementById('nameDisplay').innerText = username;
                 document.getElementById('kdrVal').innerText = parseFloat(data.stats.kdr).toFixed(2);
                 document.getElementById('winsVal').innerText = data.stats.wins;
                 document.getElementById('streakVal').innerText = data.stats.best_streak;
-                document.getElementById('rankDisplay').innerText = `#${data.stats.rank}`;
+                
+                // Rank Badge Logic
+                const rankEl = document.getElementById('rankDisplay');
+                rankEl.innerText = `#${data.stats.rank}`;
+                
+                // Reset Badge Style
+                rankEl.style.background = 'var(--panel)';
+                rankEl.style.color = 'var(--text-dim)';
+                
+                if(data.stats.rank === 1) { rankEl.style.background = 'var(--gold)'; rankEl.style.color = 'black'; }
+                else if(data.stats.rank === 2) { rankEl.style.background = 'var(--silver)'; rankEl.style.color = 'black'; }
+                else if(data.stats.rank === 3) { rankEl.style.background = 'var(--bronze)'; rankEl.style.color = 'black'; }
 
+                // History
                 const historyBody = document.getElementById('matchHistoryBody');
                 historyBody.innerHTML = '';
-
                 data.matches.forEach(match => {
                     const isWin = match.winner_name.toLowerCase() === username.toLowerCase();
                     const opponent = isWin ? match.loser_name : match.winner_name;
@@ -444,7 +487,19 @@
                             <td style="color:#666">${dateStr}</td>
                         </tr>`;
                 });
-            } catch (error) { console.error(error); }
+
+                // 3. Handle Image Loading Animation
+                // We set the src, but wait for 'onload' to fade it in
+                skinImg.onload = () => {
+                    skinImg.classList.add('loaded'); // Fade In
+                    container.classList.remove('loading'); // Restore Text Opacity
+                };
+                skinImg.src = `https://visage.surgeplay.com/full/512/${username}`;
+
+            } catch (error) { 
+                console.error(error);
+                container.classList.remove('loading');
+            }
         }
     </script>
 </body>
