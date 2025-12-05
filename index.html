@@ -315,7 +315,29 @@
         .win-rate-container { margin-bottom: 2rem; background: rgba(255,255,255,0.03); padding: 1rem; border: var(--panel-border); }
         .wr-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: #888; margin-bottom: 5px; font-family: 'Share Tech Mono'; }
         .wr-bar { height: 8px; width: 100%; background: #333; display: flex; border-radius: 4px; overflow: hidden; }
-        .wr-win { background: var(--win); height: 100%; transition: width 1s; }
+        .wr-win {
+            background: 
+                linear-gradient(
+                    45deg, 
+                    var(--win) 25%, 
+                    #55ff55 25%, 
+                    #55ff55 50%, 
+                    var(--win) 50%, 
+                    var(--win) 75%, 
+                    #55ff55 75%, 
+                    #55ff55 100%
+                );
+            background-size: 20px 20px;
+            animation: barberpole 2s linear infinite;
+            height: 100%;
+            transition: width 1s;
+            box-shadow: 0 0 10px rgba(68, 255, 68, 0.3); /* Glow */
+        }
+        
+        @keyframes barberpole {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 20px; }
+        }
         .wr-loss { background: var(--loss); height: 100%; transition: width 1s; }
 
         /* MATCH HISTORY CARDS */
