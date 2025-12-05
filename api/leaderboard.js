@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
     const totalPlayers = countRows[0].total;
 
     const [rows] = await connection.execute(
-      'SELECT name, wins, kdr, streak FROM slashup_stats ORDER BY wins DESC LIMIT ? OFFSET ?',
+      'SELECT name, wins, kdr, best_streak FROM slashup_stats ORDER BY wins DESC LIMIT ? OFFSET ?',
       [limit.toString(), offset.toString()]
     );
 
