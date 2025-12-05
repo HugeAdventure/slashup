@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Open Graph for Discord Embeds -->
+    <meta property="og:title" content="SLASHUP | Competitive PvP">
+    <meta property="og:description" content="Check my stats on SlashUp. Ranked Matchmaking & High Fidelity Combat.">
+    <meta property="og:color" content="#ff3e3e">
+    
     <title>SLASHUP | Competitive PvP</title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -50,9 +55,21 @@
             border-bottom: var(--panel-border); position: sticky; top: 0; z-index: 100; padding: 1.5rem 0;
         }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 2rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; position: relative; }
+        
+        .logo-container { position: relative; cursor: pointer; }
+        .logo { font-size: 2rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
         .logo span { color: var(--accent); }
         .logo:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--accent); }
+        
+        /* Live Status Dot */
+        .server-status {
+            font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #666; 
+            position: absolute; bottom: -12px; right: 0; display: flex; align-items: center; gap: 5px;
+        }
+        .status-dot { width: 6px; height: 6px; background: #666; border-radius: 50%; }
+        .status-dot.online { background: var(--win); box-shadow: 0 0 5px var(--win); }
+        .status-dot.offline { background: var(--loss); box-shadow: 0 0 5px var(--loss); }
+
         @keyframes glitch { 
             0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 
             40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) } 
@@ -109,7 +126,6 @@
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
         
-        /* Disabled Button State */
         .nav-btn.disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
         .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
@@ -154,7 +170,7 @@
         
         .profile-container { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; display: none; width: 100%; transition: opacity 0.3s; }
         .profile-container.visible { display: grid; }
-        .profile-container.loading { opacity: 0.5; pointer-events: none; } /* Loading State */
+        .profile-container.loading { opacity: 0.5; pointer-events: none; }
         
         .skin-viewer { 
             height: 450px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); 
@@ -165,18 +181,25 @@
             height: 90%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); 
             animation: float 4s ease-in-out infinite; 
             transition: opacity 0.3s, transform 0.3s;
-            opacity: 0; /* Hidden by default until loaded */
+            opacity: 0; 
         }
         .skin-img.loaded { opacity: 1; }
         .skin-img:hover { transform: scale(1.05); }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
         .player-data { width: 100%; }
-        .stats-big-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .stats-big-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
         .big-stat { background: rgba(255,255,255,0.03); padding: 1.5rem; border-left: 3px solid var(--text-dim); transition: 0.3s; }
         .big-stat:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
         .big-stat.accent { border-color: var(--accent); }
         .big-stat-val { font-size: 2.5rem; font-family: 'Share Tech Mono'; }
+
+        /* WIN RATE BAR */
+        .win-rate-container { margin-bottom: 2rem; background: rgba(255,255,255,0.03); padding: 1rem; border: var(--panel-border); }
+        .wr-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: #888; margin-bottom: 5px; font-family: 'Share Tech Mono'; }
+        .wr-bar { height: 8px; width: 100%; background: #333; display: flex; border-radius: 4px; overflow: hidden; }
+        .wr-win { background: var(--win); height: 100%; transition: width 1s; }
+        .wr-loss { background: var(--loss); height: 100%; transition: width 1s; }
 
         footer { margin-top: auto; border-top: var(--panel-border); padding: 2rem 0; text-align: center; color: #444; font-size: 0.8rem; }
         @media (max-width: 900px) { .content-row, .profile-container { grid-template-columns: 1fr; } .hero h1 { font-size: 3rem; } }
@@ -194,7 +217,12 @@
 
     <nav>
         <div class="container nav-inner">
-            <div class="logo" onclick="switchTab('home')">SLASH<span>UP</span></div>
+            <div class="logo-container" onclick="switchTab('home')">
+                <div class="logo">SLASH<span>UP</span></div>
+                <div class="server-status" id="server-status-text">
+                    <span class="status-dot offline" id="status-dot"></span> OFFLINE
+                </div>
+            </div>
             <div class="nav-links">
                 <button class="nav-btn active" onclick="switchTab('home')" id="btn-home">HOME</button>
                 <button class="nav-btn" onclick="switchTab('leaderboard')" id="btn-leaderboard">LEADERBOARD</button>
@@ -295,9 +323,11 @@
                 </div>
 
                 <div class="player-data">
-                    <div style="margin-bottom:2rem;">
-                        <h2 id="nameDisplay">Player</h2>
-                        <span class="rank-badge" id="rankDisplay" style="background:var(--panel); color:var(--text-dim); border:1px solid var(--text-dim); padding:2px 8px; font-weight:bold;"># -</span>
+                    <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <h2 id="nameDisplay">Player</h2>
+                            <span class="rank-badge" id="rankDisplay" style="background:var(--panel); color:var(--text-dim); border:1px solid var(--text-dim); padding:2px 8px; font-weight:bold;"># -</span>
+                        </div>
                     </div>
 
                     <div class="stats-big-grid">
@@ -315,6 +345,18 @@
                         </div>
                     </div>
 
+                    <!-- NEW: Win Rate Bar -->
+                    <div class="win-rate-container">
+                        <div class="wr-label">
+                            <span>WIN RATE</span>
+                            <span id="wr-percent">50%</span>
+                        </div>
+                        <div class="wr-bar">
+                            <div class="wr-win" id="bar-win" style="width: 50%"></div>
+                            <div class="wr-loss" id="bar-loss" style="width: 50%"></div>
+                        </div>
+                    </div>
+
                     <div class="panel-box">
                         <div class="section-title" style="font-size:1rem;">Recent Matches</div>
                         <table class="lb-table">
@@ -329,6 +371,31 @@
     <footer><div class="container">&copy; 2025 SlashUp PvP. Not affiliated with Mojang AB.</div></footer>
 
     <script>
+        // --- LIVE SERVER STATUS ---
+        // Checks if the server is online using mcstatus.io
+        async function checkServerStatus() {
+            const ip = "play.slashup.net"; // Change this to your real IP
+            const statusText = document.getElementById('server-status-text');
+            const statusDot = document.getElementById('status-dot');
+
+            try {
+                const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+                const data = await res.json();
+                
+                if(data.online) {
+                    statusDot.classList.remove('offline');
+                    statusDot.classList.add('online');
+                    statusText.innerHTML = `<span class="status-dot online"></span> ${data.players.online}/${data.players.max} ONLINE`;
+                } else {
+                    // Fallback for when server is offline
+                    statusText.innerHTML = `<span class="status-dot offline"></span> OFFLINE`;
+                }
+            } catch (e) {
+                console.log("Status check failed");
+            }
+        }
+        checkServerStatus(); // Run on load
+
         // --- 3D TILT ---
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -355,6 +422,18 @@
             if(tab === 'leaderboard') loadLeaderboard(1);
         }
 
+        // --- DIRECT LINK HANDLER ---
+        // Checks if URL has ?player=Name and loads it automatically
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerParam = urlParams.get('player');
+            if(playerParam) {
+                document.getElementById('playerInput').value = playerParam;
+                switchTab('stats');
+                fetchStats();
+            }
+        }
+
         function copyIP() {
             navigator.clipboard.writeText("play.slashup.net");
             const toast = document.getElementById("toast-box");
@@ -370,10 +449,8 @@
             currentLbPage = page;
             document.getElementById('lb-page-num').innerText = `PAGE ${page}`;
             
-            // Disable buttons logic
             const prevBtn = document.getElementById('lb-prev');
             const nextBtn = document.getElementById('lb-next');
-            
             if(page === 1) prevBtn.classList.add('disabled'); else prevBtn.classList.remove('disabled');
             
             const tbody = document.getElementById('lb-body');
@@ -427,7 +504,6 @@
         }
 
         // --- STATS FETCH ---
-        // Enter key support
         document.getElementById('playerInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') fetchStats();
         });
@@ -439,10 +515,9 @@
             const container = document.getElementById('profileDisplay');
             const skinImg = document.getElementById('skinImg');
 
-            // 1. Show Container but set Loading State
             container.classList.add('visible');
-            container.classList.add('loading'); // Fades out text
-            skinImg.classList.remove('loaded'); // Fades out image
+            container.classList.add('loading');
+            skinImg.classList.remove('loaded');
 
             try {
                 const response = await fetch(`/api?player=${username}`);
@@ -454,7 +529,6 @@
                     return; 
                 }
 
-                // 2. Update Text Data (Happens instantly)
                 document.getElementById('nameDisplay').innerText = username;
                 document.getElementById('kdrVal').innerText = parseFloat(data.stats.kdr).toFixed(2);
                 document.getElementById('winsVal').innerText = data.stats.wins;
@@ -463,14 +537,22 @@
                 // Rank Badge Logic
                 const rankEl = document.getElementById('rankDisplay');
                 rankEl.innerText = `#${data.stats.rank}`;
-                
-                // Reset Badge Style
                 rankEl.style.background = 'var(--panel)';
                 rankEl.style.color = 'var(--text-dim)';
-                
                 if(data.stats.rank === 1) { rankEl.style.background = 'var(--gold)'; rankEl.style.color = 'black'; }
                 else if(data.stats.rank === 2) { rankEl.style.background = 'var(--silver)'; rankEl.style.color = 'black'; }
                 else if(data.stats.rank === 3) { rankEl.style.background = 'var(--bronze)'; rankEl.style.color = 'black'; }
+
+                // Win Rate Bar Logic
+                const wins = data.stats.wins || 0;
+                const losses = data.stats.losses || 0; // Ensure your API returns 'losses'
+                const totalGames = wins + losses;
+                let winPercent = 0;
+                if(totalGames > 0) winPercent = Math.round((wins / totalGames) * 100);
+                
+                document.getElementById('wr-percent').innerText = `${winPercent}%`;
+                document.getElementById('bar-win').style.width = `${winPercent}%`;
+                document.getElementById('bar-loss').style.width = `${100 - winPercent}%`;
 
                 // History
                 const historyBody = document.getElementById('matchHistoryBody');
@@ -488,11 +570,9 @@
                         </tr>`;
                 });
 
-                // 3. Handle Image Loading Animation
-                // We set the src, but wait for 'onload' to fade it in
                 skinImg.onload = () => {
-                    skinImg.classList.add('loaded'); // Fade In
-                    container.classList.remove('loading'); // Restore Text Opacity
+                    skinImg.classList.add('loaded');
+                    container.classList.remove('loading');
                 };
                 skinImg.src = `https://visage.surgeplay.com/full/512/${username}`;
 
