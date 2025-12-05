@@ -96,18 +96,6 @@
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
 
-        /* Hidden Object state - Hello huge was here :D */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         /* --- CONTENT --- */
         .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
         .panel-box { background: var(--panel); border: var(--panel-border); padding: 2rem; }
@@ -116,7 +104,6 @@
             text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
         }
         
-        /* Fixed News CSS */
         .news-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--text-dim); transition: 0.3s; }
         .news-item:hover { border-left-color: var(--accent); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); }
         .news-date { color: var(--accent); font-size: 0.8rem; font-family: 'Share Tech Mono'; margin-bottom: 5px; }
@@ -158,15 +145,11 @@
             transition: 0.3s;
         }
         
-        .discord-banner:hover {
-            border-color: #5865F2;
-            box-shadow: 0 0 50px rgba(88, 101, 242, 0.2);
-        }
+        .discord-banner:hover { border-color: #5865F2; box-shadow: 0 0 50px rgba(88, 101, 242, 0.2); }
         
         .discord-banner::before {
             content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: #5865F2;
-            box-shadow: 0 0 15px #5865F2;
+            background: #5865F2; box-shadow: 0 0 15px #5865F2;
         }
         
         .discord-banner::after {
@@ -178,15 +161,18 @@
         
         .discord-text h3 { 
             font-size: 2rem; margin-bottom: 10px; text-transform: uppercase; 
-            text-shadow: 0 0 20px rgba(88, 101, 242, 0.5); 
+            text-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
+        }
         .discord-text span { color: #5865F2; }
         .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
+        
         .discord-btn {
             background: #5865F2; color: white; border: none; padding: 1rem 2rem;
             font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
             transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
         }
         .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
+        
         @media (max-width: 800px) {
             .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
             .discord-left { flex-direction: column; }
@@ -220,6 +206,10 @@
         .page-section { display: none; animation: fadeIn 0.5s ease; padding-bottom: 5rem; }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- LEADERBOARD --- */
         .lb-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
@@ -344,7 +334,7 @@
                 </div>
             </section>
 
-            <div class="content-row">
+            <div class="content-row reveal">
                 <div class="panel-box">
                     <div class="section-title">Latest Updates</div>
                     
@@ -381,7 +371,7 @@
             </div>
 
             <!-- TEAM SECTION -->
-            <div class="team-section">
+            <div class="team-section reveal">
                 <h2 class="team-header">Meet Our Team</h2>
                 <p class="team-sub">Passionate individuals dedicated to creating the best PvP experience.</p>
                 
@@ -404,7 +394,7 @@
             </div>
 
             <!-- DISCORD BANNER -->
-            <div class="discord-banner">
+            <div class="discord-banner reveal">
                 <div class="discord-left">
                     <div class="discord-logo-box">
                         <i class="fab fa-discord"></i>
@@ -802,6 +792,7 @@
                 container.classList.remove('loading');
             }
         }
+        
         // --- SCROLL REVEAL ANIMATION ---
         window.addEventListener('scroll', reveal);
         
