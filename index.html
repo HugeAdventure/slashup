@@ -625,19 +625,34 @@
                 document.getElementById('bar-loss').style.width = `${100 - winPercent}%`;
 
                 // History
-                const historyBody = document.getElementById('matchHistoryBody');
-                historyBody.innerHTML = '';
+                const historyContainer = document.getElementById('matchHistoryList');
+                historyContainer.innerHTML = ''; // Clear old
+
                 data.matches.forEach(match => {
                     const isWin = match.winner_name.toLowerCase() === username.toLowerCase();
                     const opponent = isWin ? match.loser_name : match.winner_name;
                     const dateStr = new Date(match.match_time).toLocaleDateString();
+    
+                    // Determine Classes
+                    const cardClass = isWin ? 'win' : 'loss';
+                    const outcomeText = isWin ? 'VICTORY' : 'DEFEAT';
 
-                    historyBody.innerHTML += `
-                        <tr>
-                            <td style="color:${isWin ? 'var(--win)' : 'var(--loss)'}">${isWin ? 'VICTORY' : 'DEFEAT'}</td>
-                            <td style="color:#ccc">${opponent}</td>
-                            <td style="color:#666">${dateStr}</td>
-                        </tr>`;
+                    // Create the Card HTML
+                    const cardHTML = `
+                        <div class="match-card ${cardClass}">
+                            <div class="match-outcome">${outcomeText}</div>
+            
+                            <div class="match-vs">
+                                <span style="color:#666; font-size:0.8rem; margin-right:10px;">VS</span>
+                                <img src="https://visage.surgeplay.com/face/64/${opponent}" class="opponent-head">
+                                <span class="opponent-name">${opponent}</span>
+                            </div>
+
+                            <div class="match-date">${dateStr}</div>
+                        </div>
+                    `;
+
+                    historyContainer.innerHTML += cardHTML;
                 });
 
                 skinImg.onload = () => {
