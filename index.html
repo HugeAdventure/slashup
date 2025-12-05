@@ -96,6 +96,18 @@
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
 
+        /* Hidden Object state - Hello huge was here :D */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         /* --- CONTENT --- */
         .content-row { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 4rem; }
         .panel-box { background: var(--panel); border: var(--panel-border); padding: 2rem; }
@@ -133,31 +145,40 @@
 
         /* --- DISCORD BANNER CSS --- */
         .discord-banner {
-            margin-top: 5rem; background: linear-gradient(90deg, rgba(88, 101, 242, 0.1), rgba(0,0,0,0.6));
-            border: 1px solid #5865F2; padding: 2rem; display: flex; align-items: center; justify-content: space-between;
-            position: relative; overflow: hidden;
+            margin-top: 5rem;
+            background: radial-gradient(circle at 0% 50%, rgba(88, 101, 242, 0.2) 0%, rgba(0,0,0,0.8) 100%);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            padding: 3rem; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
         }
+        
+        .discord-banner:hover {
+            border-color: #5865F2;
+            box-shadow: 0 0 50px rgba(88, 101, 242, 0.2);
+        }
+        
         .discord-banner::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
-            background: #5865F2; box-shadow: 0 0 20px #5865F2;
+            content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: #5865F2;
+            box-shadow: 0 0 15px #5865F2;
         }
-        .discord-left { display: flex; align-items: center; gap: 20px; }
-        .discord-logo-box {
-            background: #5865F2; width: 60px; height: 60px; display: flex; 
-            align-items: center; justify-content: center; border-radius: 5px; font-size: 2rem; color: white;
+        
+        .discord-banner::after {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, transparent 60%);
+            opacity: 0; transform: scale(0.5); transition: 0.5s; pointer-events: none;
         }
-        .discord-text h3 { font-size: 1.5rem; margin-bottom: 5px; text-transform: uppercase; }
-        .discord-text span { color: #5865F2; }
-        .discord-text p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
-        .discord-btn {
-            background: #5865F2; color: white; border: none; padding: 1rem 2rem;
-            font-family: 'Share Tech Mono'; font-size: 1rem; cursor: pointer;
-            transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px;
-        }
-        .discord-btn:hover { background: #4752c4; box-shadow: 0 0 20px rgba(88, 101, 242, 0.4); }
-        @media (max-width: 800px) {
-            .discord-banner { flex-direction: column; text-align: center; gap: 20px; }
-            .discord-left { flex-direction: column; }
+        .discord-banner:hover::after { opacity: 1; transform: scale(1); }
+        
+        .discord-text h3 { 
+            font-size: 2rem; margin-bottom: 10px; text-transform: uppercase; 
+            text-shadow: 0 0 20px rgba(88, 101, 242, 0.5); 
         }
 
         /* --- 3D TILT --- */
@@ -483,7 +504,23 @@
         </div>
     </div>
 
-    <footer><div class="container">&copy; 2025 SlashUp PvP. Not affiliated with Mojang AB.</div></footer>
+    <footer>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 2rem 0;">
+        
+            <!-- Left: Copyright -->
+            <div style="text-align:left;">
+                <div style="font-weight:bold; font-size:1.2rem; color:white; margin-bottom:5px;">SLASH<span style="color:var(--accent)">UP</span></div>
+                <div style="color:#666;">&copy; 2025 SlashUp. <br>Not affiliated with Mojang AB.</div>
+            </div>
+
+            <!-- Right: Links -->
+            <div style="display:flex; gap:20px;">
+                <a href="#" style="color:#888; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#888'">Store</a>
+                <a href="#" style="color:#888; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#888'">Rules</a>
+                <a href="#" style="color:#888; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#888'">Appeal</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const SPECIAL_TAGS = {
@@ -754,6 +791,23 @@
                 container.classList.remove('loading');
             }
         }
+        // --- SCROLL REVEAL ANIMATION ---
+        window.addEventListener('scroll', reveal);
+        
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+        
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150; // Trigger point
+        
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
     </script>
 </body>
 </html>
