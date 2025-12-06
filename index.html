@@ -29,6 +29,30 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        #global-feed {
+            /* Firefox support */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg);
+        }
+        
+        /* Chrome, Edge, Safari */
+        #global-feed::-webkit-scrollbar {
+            height: 4px; /* Very thin */
+        }
+        
+        #global-feed::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        
+        #global-feed::-webkit-scrollbar-thumb {
+            background: var(--accent); 
+            border-radius: 10px;
+        }
+        
+        #global-feed::-webkit-scrollbar-thumb:hover {
+            background: #ff6666; /* Lighter red on hover */
+        }
+    
         body {
             background-color: var(--bg);
             background-image: linear-gradient(to bottom, transparent, var(--bg)), url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
