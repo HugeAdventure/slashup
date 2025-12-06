@@ -855,48 +855,58 @@
             if (e.key === 'Enter') fetchStats();
         });
 
+        let myChart = null; // Global variable to hold chart instance
+
         async function fetchStats() {
             const username = document.getElementById('playerInput').value;
-
-            document.getElementById('nameDisplay').innerText = username;
-            
-            const tagEl = document.getElementById('tagDisplay');
-            tagEl.innerHTML = ""; 
-            const lowerName = username.toLowerCase();
-            if(SPECIAL_TAGS[lowerName]) {
-                const tagData = SPECIAL_TAGS[lowerName];
-                tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
-            }
-            
             if(!username) return;
-
+        
+            // 1. SHOW SKELETONS (Reset UI to loading state)
             const container = document.getElementById('profileDisplay');
+            container.classList.add('visible'); // Make sure it's display:grid
+            
+            // Add 'skeleton' class to all dynamic elements
+            const idsToLoad = ['nameDisplay', 'rankDisplay', 'viewCount', 'kdrVal', 
+                               'winsVal', 'streakVal', 'skinContainer', 'chartBox', 'wrBox'];
+            idsToLoad.forEach(id => document.getElementById(id).classList.add('skeleton'));
+            
+            // Reset Image
             const skinImg = document.getElementById('skinImg');
-
-            container.classList.add('visible');
-            container.classList.add('loading');
             skinImg.classList.remove('loaded');
-
+            skinImg.src = ''; 
+        
+            // Reset Match History to skeleton items
+            const historyContainer = document.getElementById('matchHistoryList');
+            historyContainer.innerHTML = `
+                <div class="match-card skeleton" style="height: 60px;"></div>
+                <div class="match-card skeleton" style="height: 60px;"></div>
+                <div class="match-card skeleton" style="height: 60px;"></div>
+            `;
+        
+            // 2. FETCH DATA
             try {
+                // Simulating API delay so you can see the skeleton effect (Remove this setTimeout in production)
+                // await new Promise(r => setTimeout(r, 800)); 
+        
                 const response = await fetch(`/api?player=${username}`);
                 const data = await response.json();
-
+        
                 if(data.error) { 
                     alert("Player not found!"); 
-                    container.classList.remove('loading');
                     return; 
                 }
-
+        
                 saveToHistory(username);
-                localStorage.setItem('lastSearch', username);
                 updateRecent();
-
-                document.getElementById('nameDisplay').innerText = username;
+        
+                // 3. UPDATE DOM TEXT
+                document.getElementById('nameDisplay').innerText = data.stats.name || username; // Use data name if available
                 document.getElementById('kdrVal').innerText = parseFloat(data.stats.kdr).toFixed(2);
                 document.getElementById('winsVal').innerText = data.stats.wins;
                 document.getElementById('streakVal').innerText = data.stats.best_streak;
                 document.getElementById('viewCount').innerText = data.stats.views || 0;
-                
+        
+                // Rank Logic
                 const rankEl = document.getElementById('rankDisplay');
                 rankEl.innerText = `#${data.stats.rank}`;
                 rankEl.style.background = 'var(--panel)';
@@ -904,59 +914,150 @@
                 if(data.stats.rank === 1) { rankEl.style.background = 'var(--gold)'; rankEl.style.color = 'black'; }
                 else if(data.stats.rank === 2) { rankEl.style.background = 'var(--silver)'; rankEl.style.color = 'black'; }
                 else if(data.stats.rank === 3) { rankEl.style.background = 'var(--bronze)'; rankEl.style.color = 'black'; }
-
+        
+                // Win Rate Bar
                 const wins = data.stats.wins || 0;
                 const losses = data.stats.losses || 0;
                 const totalGames = wins + losses;
-                let winPercent = 0;
+                let winPercent = 50; // Default center
                 if(totalGames > 0) winPercent = Math.round((wins / totalGames) * 100);
                 
                 document.getElementById('wr-percent').innerText = `${winPercent}%`;
                 document.getElementById('bar-win').style.width = `${winPercent}%`;
                 document.getElementById('bar-loss').style.width = `${100 - winPercent}%`;
-
-                const historyContainer = document.getElementById('matchHistoryList');
+        
+                // 4. GENERATE CHART
+                renderChart(data.matches, username);
+        
+                // 5. RENDER MATCH HISTORY
                 historyContainer.innerHTML = ''; 
-
                 data.matches.forEach(match => {
                     const isWin = match.winner_name.toLowerCase() === username.toLowerCase();
                     const opponent = isWin ? match.loser_name : match.winner_name;
                     const dateStr = new Date(match.match_time).toLocaleDateString();
-    
                     const cardClass = isWin ? 'win' : 'loss';
                     const outcomeText = isWin ? 'VICTORY' : 'DEFEAT';
                     const icon = isWin ? '<i class="fas fa-trophy"></i>' : '<i class="fas fa-skull"></i>';
-
+        
                     const cardHTML = `
                         <div class="match-card ${cardClass}">
-                            <div class="match-outcome">
-                                ${icon}
-                                <span>${outcomeText}</span>
-                            </div>
-                    
+                            <div class="match-outcome">${icon} <span>${outcomeText}</span></div>
                             <div class="match-vs">
                                 <span style="color:#666; font-size:0.8rem; margin-right:10px;">VS</span>
                                 <img src="https://visage.surgeplay.com/face/64/${opponent}" class="opponent-head">
                                 <span class="opponent-name">${opponent}</span>
                             </div>
-                    
                             <div class="match-date">${dateStr}</div>
                         </div>
                     `;
-
                     historyContainer.innerHTML += cardHTML;
                 });
-
+        
+                // 6. LOAD SKIN
                 skinImg.onload = () => {
                     skinImg.classList.add('loaded');
-                    container.classList.remove('loading');
+                    // Remove skeleton from skin container
+                    document.getElementById('skinContainer').classList.remove('skeleton');
                 };
                 skinImg.src = `https://visage.surgeplay.com/full/512/${username}`;
-
+        
+                // 7. REMOVE SKELETON CLASSES (Reveal Content)
+                idsToLoad.forEach(id => {
+                    if(id !== 'skinContainer') { // Skin is handled by onload
+                        document.getElementById(id).classList.remove('skeleton');
+                    }
+                });
+                
+                // Handle special tags
+                const tagEl = document.getElementById('tagDisplay');
+                tagEl.innerHTML = ""; 
+                const lowerName = username.toLowerCase();
+                if(SPECIAL_TAGS[lowerName]) {
+                    const tagData = SPECIAL_TAGS[lowerName];
+                    tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
+                }
+        
             } catch (error) { 
                 console.error(error);
-                container.classList.remove('loading');
+                alert("Error fetching data");
             }
+        }
+
+        function renderChart(matches, username) {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            const sortedMatches = [...matches].reverse(); 
+            
+            let currentScore = 0;
+            const dataPoints = sortedMatches.map(m => {
+                const isWin = m.winner_name.toLowerCase() === username.toLowerCase();
+                currentScore += isWin ? 1 : -1;
+                return currentScore;
+            });
+            
+            const labels = sortedMatches.map((_, index) => `Match ${index + 1}`);
+        
+            if(myChart) {
+                myChart.destroy();
+            }
+        
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(255, 62, 62, 0.5)'); 
+            gradient.addColorStop(1, 'rgba(255, 62, 62, 0)');
+        
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Net Score Trend',
+                        data: dataPoints,
+                        borderColor: '#ff3e3e', 
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#fff',
+                        pointRadius: 3,
+                        fill: true,
+                        tension: 0.4 
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 20, 25, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#ccc',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false, 
+                            grid: { display: false }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#666',
+                                font: { family: "'Share Tech Mono', monospace" }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
         }
         
         // --- SCROLL REVEAL ANIMATION ---
