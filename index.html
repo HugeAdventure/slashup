@@ -1119,7 +1119,6 @@
                 data.forEach((match, index) => {
                     const dateStr = new Date(match.match_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     
-                    // --- YOUR FIXED CARD CODE ---
                     const card = `
                         <div style="
                             min-width: 280px; 
@@ -1175,7 +1174,6 @@
                         </div>
                     `;
                     
-                    // --- IMPORTANT: DONT FORGET THIS LINE ---
                     feed.innerHTML += card; 
                 });
         
