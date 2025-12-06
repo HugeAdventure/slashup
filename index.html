@@ -863,12 +863,24 @@
                 const res = await fetch(`/api/leaderboard?page=${page}&sort=${currentLbSort}`);
                 const data = await res.json();
                 
+                // ERROR HANDLING: If the API sent an error, show it!
+                if(data.error) {
+                    console.error("API Error:", data.error);
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--loss);">SERVER ERROR: ${data.error}</td></tr>`;
+                    return;
+                }
+        
                 tbody.innerHTML = '';
-                totalLbPages = data.totalPages;
+                totalLbPages = data.totalPages || 1;
                 
                 if(page >= totalLbPages) nextBtn.classList.add('disabled'); else nextBtn.classList.remove('disabled');
         
                 let rankCounter = (page - 1) * 20 + 1;
+        
+                if(!data.players || data.players.length === 0) {
+                     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#666;">No players found.</td></tr>`;
+                     return;
+                }
         
                 data.players.forEach(p => {
                     let rankClass = '';
@@ -886,17 +898,14 @@
                     }
         
                     const hlWins = currentLbSort === 'wins' ? 'col-highlight' : '';
-                    const hlKills = currentLbSort === 'kills' ? 'col-highlight' : ''; 
+                    const hlKills = currentLbSort === 'kills' ? 'col-highlight' : '';
                     const hlKdr = currentLbSort === 'kdr' ? 'col-highlight' : '';
                     const hlStreak = currentLbSort === 'streak' ? 'col-highlight' : '';
         
                     const kdrVal = parseFloat(p.kdr || 0).toFixed(2);
-                    const killsVal = p.kills || 0; 
-                    
-                    const delay = (rankCounter % 20) * 0.05; 
                     
                     const row = `
-                        <tr class="lb-row ${rankClass}" style="opacity: 0; animation: lbSlideIn 0.3s ease-out forwards; animation-delay: ${delay}s;">
+                        <tr class="lb-row ${rankClass}">
                             <td class="rank-num" style="text-align:center;">${rankCounter}</td>
                             <td>
                                 <div class="player-cell">
@@ -909,8 +918,7 @@
                                 </div>
                             </td>
                             <td class="${hlWins}" style="text-align:center; font-family:'Share Tech Mono'">${p.wins}</td>
-                            <!-- KILLS COLUMN -->
-                            <td class="${hlKills}" style="text-align:center; font-family:'Share Tech Mono'">${killsVal}</td>
+                            <td class="${hlKills}" style="text-align:center; font-family:'Share Tech Mono'">${p.kills || 0}</td>
                             <td class="${hlKdr}" style="text-align:center; font-family:'Share Tech Mono'">${kdrVal}</td>
                             <td class="${hlStreak}" style="text-align:center; color:var(--gold); font-family:'Share Tech Mono'">${p.best_streak || 0}</td>
                         </tr>
@@ -922,13 +930,8 @@
         
             } catch (e) {
                 console.error(e);
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--loss);">Connection Lost. Retrying...</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--loss);">Connection Failed: ${e.message}</td></tr>`;
             }
-        }
-
-        function changeLbPage(dir) {
-            if(currentLbPage + dir < 1) return;
-            loadLeaderboard(currentLbPage + dir);
         }
 
         document.getElementById('playerInput').addEventListener('keypress', function (e) {
