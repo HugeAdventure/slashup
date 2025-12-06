@@ -8,6 +8,7 @@ module.exports = async (req, res) => {
   const limit = 20; 
   const offset = (page - 1) * limit;
   
+  // 1. Handle Sorting (Default to 'wins')
   const sortParam = req.query.sort || 'wins';
   const validSorts = ['wins', 'kills', 'kdr', 'streak', 'best_streak'];
   const sortBy = validSorts.includes(sortParam) ? sortParam : 'wins';
@@ -25,13 +26,14 @@ module.exports = async (req, res) => {
     const [countRows] = await connection.query('SELECT COUNT(*) as total FROM slashup_stats');
     const totalPlayers = countRows[0].total;
 
-    const [rows] = await connection.query(
-      `SELECT name, wins, losses, kills, deaths, kdr, streak, best_streak 
-       FROM slashup_stats 
-       ORDER BY ${sortBy} DESC 
-       LIMIT ? OFFSET ?`,
-      [limit, offset]
-    );
+    const query = `
+        SELECT name, wins, losses, kills, deaths, kdr, streak, best_streak 
+        FROM slashup_stats 
+        ORDER BY ${sortBy} DESC 
+        LIMIT ${limit} OFFSET ${offset}
+    `;
+
+    const [rows] = await connection.query(query);
 
     await connection.end();
 
@@ -42,7 +44,7 @@ module.exports = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Leaderboard Error:", error); 
+    console.error("Leaderboard API Error:", error);
     if(connection) await connection.end();
     res.status(500).json({ error: error.message });
   }
