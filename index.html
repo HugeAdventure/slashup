@@ -580,76 +580,76 @@
                 </div>
 
                 <div class="profile-container" id="profileDisplay">
-    <!-- Skin Viewer -->
-    <div class="skin-viewer skeleton" id="skinContainer">
-        <img src="" id="skinImg" class="skin-img" alt="Player Skin">
-    </div>
-
-    <div class="player-data">
-        <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:flex-end;">
-            <div>
-                <div style="display:flex; align-items:center; gap: 10px;">
-                    <!-- Added skeleton class here -->
-                    <h2 class="skeleton" style="display:inline-block; margin:0; min-width: 150px;" id="nameDisplay">Player</h2>
-                    <span id="tagDisplay"></span> 
-                    <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
+            <!-- Skin Viewer -->
+            <div class="skin-viewer skeleton" id="skinContainer">
+                <img src="" id="skinImg" class="skin-img" alt="Player Skin">
+            </div>
+        
+            <div class="player-data">
+                <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap: 10px;">
+                            <!-- Added skeleton class here -->
+                            <h2 class="skeleton" style="display:inline-block; margin:0; min-width: 150px;" id="nameDisplay">Player</h2>
+                            <span id="tagDisplay"></span> 
+                            <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                
+                        <div style="margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                            <span class="rank-badge skeleton" id="rankDisplay" style="padding:2px 8px; min-width: 50px;"># -</span>
+                            <div class="skeleton" style="color: var(--text-dim); min-width: 60px;">
+                                <span id="viewCount">0</span> Views
+                            </div>
+                        </div>
+                    </div>
                 </div>
         
-                <div style="margin-top: 10px; display: flex; align-items: center; gap: 15px;">
-                    <span class="rank-badge skeleton" id="rankDisplay" style="padding:2px 8px; min-width: 50px;"># -</span>
-                    <div class="skeleton" style="color: var(--text-dim); min-width: 60px;">
-                        <span id="viewCount">0</span> Views
+                <!-- Big Stats Grid -->
+                <div class="stats-big-grid">
+                    <div class="big-stat accent">
+                        <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">K/D RATIO</div>
+                        <div class="big-stat-val skeleton" id="kdrVal" style="min-width: 60px; min-height: 40px;">-</div>
+                    </div>
+                    <div class="big-stat">
+                        <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">TOTAL WINS</div>
+                        <div class="big-stat-val skeleton" id="winsVal" style="min-width: 60px; min-height: 40px;">-</div>
+                    </div>
+                    <div class="big-stat">
+                        <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">BEST STREAK</div>
+                        <div class="big-stat-val skeleton" id="streakVal" style="min-width: 60px; min-height: 40px;">-</div>
+                    </div>
+                </div>
+        
+                <!-- NEW: Performance Graph -->
+                <div class="chart-container skeleton" id="chartBox">
+                    <div class="section-title" style="font-size:1rem; border:none; margin-bottom:10px;">Performance History</div>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+        
+                <!-- Win Rate Bar -->
+                <div class="win-rate-container skeleton" id="wrBox">
+                    <div class="wr-label">
+                        <span>WIN RATE</span>
+                        <span id="wr-percent">50%</span>
+                    </div>
+                    <div class="wr-bar">
+                        <div class="wr-win" id="bar-win" style="width: 50%"></div>
+                        <div class="wr-loss" id="bar-loss" style="width: 50%"></div>
+                    </div>
+                </div>
+        
+                <!-- Match History -->
+                <div class="panel-box">
+                    <div class="section-title" style="font-size:1rem;">Recent Matches</div>
+                    <div id="matchHistoryList" class="match-list">
+                        <!-- Skeletons for match items -->
+                        <div class="match-card skeleton" style="height: 60px;"></div>
+                        <div class="match-card skeleton" style="height: 60px;"></div>
+                        <div class="match-card skeleton" style="height: 60px;"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Big Stats Grid -->
-        <div class="stats-big-grid">
-            <div class="big-stat accent">
-                <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">K/D RATIO</div>
-                <div class="big-stat-val skeleton" id="kdrVal" style="min-width: 60px; min-height: 40px;">-</div>
-            </div>
-            <div class="big-stat">
-                <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">TOTAL WINS</div>
-                <div class="big-stat-val skeleton" id="winsVal" style="min-width: 60px; min-height: 40px;">-</div>
-            </div>
-            <div class="big-stat">
-                <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">BEST STREAK</div>
-                <div class="big-stat-val skeleton" id="streakVal" style="min-width: 60px; min-height: 40px;">-</div>
-            </div>
-        </div>
-
-        <!-- NEW: Performance Graph -->
-        <div class="chart-container skeleton" id="chartBox">
-            <div class="section-title" style="font-size:1rem; border:none; margin-bottom:10px;">Performance History</div>
-            <canvas id="performanceChart"></canvas>
-        </div>
-
-        <!-- Win Rate Bar -->
-        <div class="win-rate-container skeleton" id="wrBox">
-            <div class="wr-label">
-                <span>WIN RATE</span>
-                <span id="wr-percent">50%</span>
-            </div>
-            <div class="wr-bar">
-                <div class="wr-win" id="bar-win" style="width: 50%"></div>
-                <div class="wr-loss" id="bar-loss" style="width: 50%"></div>
-            </div>
-        </div>
-
-        <!-- Match History -->
-        <div class="panel-box">
-            <div class="section-title" style="font-size:1rem;">Recent Matches</div>
-            <div id="matchHistoryList" class="match-list">
-                <!-- Skeletons for match items -->
-                <div class="match-card skeleton" style="height: 60px;"></div>
-                <div class="match-card skeleton" style="height: 60px;"></div>
-                <div class="match-card skeleton" style="height: 60px;"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
     <footer>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 2rem 0;">
