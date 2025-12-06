@@ -40,21 +40,6 @@
             flex-direction: column;
         }
 
-        @keyframes lbSlideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse { 
-            0% { opacity: 1; } 
-            50% { opacity: 0.5; } 
-            100% { opacity: 1; } 
-        }
-        
-        #global-feed::-webkit-scrollbar { height: 6px; }
-        #global-feed::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-        #global-feed::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
-        
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
@@ -63,20 +48,12 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
 
-
         /* Background Canvas */
-        
         #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
         }
 
-
+        /* Recent Tags */
         .recent-tag {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -90,62 +67,24 @@
             align-items: center;
             gap: 8px;
         }
-        
         .recent-tag:hover {
-            border-color: var(--accent);
-            color: white;
-            background: rgba(255, 62, 62, 0.1);
-            transform: translateY(-2px);
+            border-color: var(--accent); color: white; background: rgba(255, 62, 62, 0.1); transform: translateY(-2px);
         }
-        
-        .recent-head {
-            width: 16px;
-            height: 16px;
-            border-radius: 2px;
-        }
+        .recent-head { width: 16px; height: 16px; border-radius: 2px; }
             
-        
-        /* search autocomplete*/
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-        }
-        
+        /* Search Autocomplete */
+        .search-container { position: relative; width: 100%; max-width: 600px; }
         #suggestions-box {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--panel);
-            border: 1px solid #333;
-            border-top: none;
-            z-index: 1000;
-            display: none; 
+            position: absolute; top: 100%; left: 0; width: 100%;
+            background: var(--panel); border: 1px solid #333; border-top: none;
+            z-index: 1000; display: none; 
         }
-        
         .suggestion-item {
-            padding: 1rem;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding: 1rem; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.2s; display: flex; align-items: center; gap: 10px;
         }
-        
-        .suggestion-item:hover {
-            background: rgba(255, 62, 62, 0.1);
-            color: var(--accent);
-            padding-left: 1.5rem;
-        }
-        
-        .sug-head {
-            width: 24px; 
-            height: 24px; 
-            border-radius: 3px;
-        }
+        .suggestion-item:hover { background: rgba(255, 62, 62, 0.1); color: var(--accent); padding-left: 1.5rem; }
+        .sug-head { width: 24px; height: 24px; border-radius: 3px; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -181,11 +120,11 @@
         .nav-btn:hover, .nav-btn.active { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
         /* --- HERO --- */
-        section class="hero" {
+        .hero {
             height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
             background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%); margin-bottom: 4rem; padding-bottom: 2rem;
         }
-        section class= h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .hero h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.6; }
         
         .cta-btn {
@@ -243,7 +182,6 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
             transition: 0.3s;
         }
-        
         .discord-banner:hover { border-color: #5865F2; box-shadow: 0 0 50px rgba(88, 101, 242, 0.2); }
         
         .discord-banner::before {
@@ -310,6 +248,17 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* --- SERVER PULSE ANIMATION --- */
+        @keyframes pulse { 
+            0% { opacity: 1; } 
+            50% { opacity: 0.5; } 
+            100% { opacity: 1; } 
+        }
+        @keyframes lbSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- LEADERBOARD --- */
         .lb-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
         .lb-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
@@ -340,22 +289,13 @@
         .skin-viewer { 
             height: 450px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); 
             display: flex; justify-content: center; align-items: center; border: var(--panel-border); position: relative;
-            position: relative;
-            box-shadow: 0 0 50px rgba(255, 62, 62, 0.1); /* Red glow matches your accent */
-            border: 1px solid rgba(255, 62, 62, 0.2);   /* Subtle border */
+            box-shadow: 0 0 50px rgba(255, 62, 62, 0.1); 
+            border: 1px solid rgba(255, 62, 62, 0.2);
         }
         .skin-viewer::after {
-            content: "";
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 20px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
-            z-index: -1;
+            content: ""; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 20px; background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%); z-index: -1;
         }
-        
         .skin-img { 
             height: 90%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)); animation: float 4s ease-in-out infinite; 
             transition: opacity 0.3s, transform 0.3s; opacity: 0; 
@@ -376,31 +316,11 @@
         .wr-bar { height: 8px; width: 100%; background: #333; display: flex; border-radius: 4px; overflow: hidden; }
         .wr-win {
             background-color: var(--win);
-            
-            background-image: linear-gradient(
-                45deg,
-                rgba(255, 255, 255, 0.2) 25%,
-                transparent 25%,
-                transparent 50%,
-                rgba(255, 255, 255, 0.2) 50%,
-                rgba(255, 255, 255, 0.2) 75%,
-                transparent 75%,
-                transparent
-            );
-            
-            background-size: 40px 40px;
-            
-            animation: barberpole 1s linear infinite;
-            
-            height: 100%;
-            transition: width 1s;
-            box-shadow: 0 0 15px rgba(68, 255, 68, 0.4);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+            background-size: 40px 40px; animation: barberpole 1s linear infinite;
+            height: 100%; transition: width 1s; box-shadow: 0 0 15px rgba(68, 255, 68, 0.4);
         }
-        
-        @keyframes barberpole {
-            from { background-position: 0 0; }
-            to { background-position: 40px 0; }
-        }
+        @keyframes barberpole { from { background-position: 0 0; } to { background-position: 40px 0; } }
         .wr-loss { background: var(--loss); height: 100%; transition: width 1s; }
 
         /* MATCH HISTORY CARDS */
@@ -413,14 +333,8 @@
         .match-card.win { border-left-color: var(--win); background: linear-gradient(90deg, rgba(68, 255, 68, 0.05) 0%, transparent 100%); }
         .match-card.loss { border-left-color: var(--loss); background: linear-gradient(90deg, rgba(255, 68, 68, 0.05) 0%, transparent 100%); }
         .match-outcome {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Share Tech Mono';
-            font-size: 1.2rem;
-            font-weight: bold;
-            width: 140px; 
-            flex-shrink: 0;     
+            display: flex; align-items: center; gap: 8px; font-family: 'Share Tech Mono';
+            font-size: 1.2rem; font-weight: bold; width: 140px; flex-shrink: 0;     
         }
         .match-card.win .match-outcome { color: var(--win); text-shadow: 0 0 10px rgba(68, 255, 68, 0.3); }
         .match-card.loss .match-outcome { color: var(--loss); text-shadow: 0 0 10px rgba(255, 68, 68, 0.3); }
@@ -441,7 +355,7 @@
         .tag-dev { background: #00ccff; color: black; }
 
         footer { margin-top: auto; border-top: var(--panel-border); padding: 2rem 0; text-align: center; color: #444; font-size: 0.8rem; }
-        @media (max-width: 900px) { .content-row, .profile-container { grid-template-columns: 1fr; } class="hero" h1 { font-size: 3rem; } }
+        @media (max-width: 900px) { .content-row, .profile-container { grid-template-columns: 1fr; } .hero h1 { font-size: 3rem; } }
     </style>
 </head>
 <body>
@@ -489,8 +403,6 @@
                     <div style="width:10px; height:10px; background:var(--accent); border-radius:50%; box-shadow:0 0 10px var(--accent); animation: pulse 2s infinite;"></div>
                     <div class="section-title" style="margin:0; border:none; font-size: 1.2rem;">LIVE BATTLES</div>
                 </div>
-                
-                <!-- Horizontal Scrolling Feed -->
                 <div id="global-feed" style="display:flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: thin;">
                     <div style="color:#666; font-family:'Share Tech Mono'">Loading live battles...</div>
                 </div>
@@ -538,7 +450,6 @@
                 <p class="team-sub">Passionate individuals dedicated to creating the best PvP experience.</p>
                 
                 <div class="team-grid">
-                    <!-- HugeAdventure Card -->
                     <div class="team-card">
                         <img src="https://visage.surgeplay.com/bust/256/HugeAdventure" class="team-skin">
                         <div class="team-name">HugeAdventure</div>
@@ -607,8 +518,7 @@
             
             <div class="search-wrapper">
                 <div class="search-container">
-                   
-                    <input type="text" id="playerInput" class="search-input" placeholder="Search Username..." value="" autocomplete="off">
+                    <input type="text" id="playerInput" class="search-input" placeholder="Search Username..." autocomplete="off">
                     <div id="suggestions-box"></div>
                 </div>
                 <button class="cta-btn" onclick="fetchStats()" style="padding:0 2rem; margin:0;"><i class="fas fa-search"></i></button>
@@ -618,21 +528,15 @@
                 <div style="font-size: 0.7rem; color: #666; margin-bottom: 8px; font-family: 'Share Tech Mono'; text-transform:uppercase;">
                     <i class="fas fa-history"></i> Recent Searches
                 </div>
-                <div id="recent-list" style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <!-- js tags -->
-                </div>
+                <div id="recent-list" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
             </div>
-            
+
             <div class="profile-container" id="profileDisplay">
-                <!-- Left: Skin -->
                 <div class="skin-viewer">
                     <img src="" id="skinImg" class="skin-img" alt="Player Skin">
                 </div>
 
-                <!-- Right: Data -->
                 <div class="player-data">
-                    
-                    <!-- Header: Name, Tag, Share, Rank, Views -->
                     <div style="margin-bottom:2rem; display:flex; justify-content:space-between; align-items:flex-end;">
                         <div>
                             <div style="display:flex; align-items:center; gap: 10px;">
@@ -654,7 +558,6 @@
                         </div>
                     </div>
 
-                    <!-- Big Stats Grid -->
                     <div class="stats-big-grid">
                         <div class="big-stat accent">
                             <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">K/D RATIO</div>
@@ -670,7 +573,6 @@
                         </div>
                     </div>
 
-                    <!-- Win Rate Bar -->
                     <div class="win-rate-container">
                         <div class="wr-label">
                             <span>WIN RATE</span>
@@ -682,23 +584,21 @@
                         </div>
                     </div>
 
-                    <!-- Match History -->
                     <div class="panel-box">
                         <div class="section-title" style="font-size:1rem;">Recent Matches</div>
                         <div id="matchHistoryList" class="match-list"></div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 2rem 0;">
-        
-            <!-- Left: Copyright -->
             <div style="text-align:left;">
                 <div style="font-weight:bold; font-size:1.2rem; color:white; margin-bottom:5px;">SLASH<span style="color:var(--accent)">UP</span></div>
                 <div style="color:#666;">&copy; 2025 SlashUp. <br>Not affiliated with Mojang AB.</div>
             </div>
-
-            <!-- Right: Links -->
             <div style="display:flex; gap:20px;">
                 <a href="#" style="color:#888; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#888'">Store</a>
                 <a href="#" style="color:#888; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#888'">Rules</a>
@@ -778,7 +678,6 @@
             document.getElementById(tab + '-page').classList.add('active');
             document.getElementById('btn-' + tab).classList.add('active');
             
-            // --- HIDE FOOTER ON STATS PAGE ---
             const footer = document.querySelector('footer');
             if (tab === 'stats') {
                 footer.style.display = 'none';
@@ -926,21 +825,14 @@
                     return; 
                 }
 
-
                 saveToHistory(username);
-                
                 localStorage.setItem('lastSearch', username);
                 updateRecent();
-                
+
                 document.getElementById('nameDisplay').innerText = username;
                 document.getElementById('kdrVal').innerText = parseFloat(data.stats.kdr).toFixed(2);
                 document.getElementById('winsVal').innerText = data.stats.wins;
                 document.getElementById('streakVal').innerText = data.stats.best_streak;
-
-                /*  
-                    stats views
-                */
-                
                 document.getElementById('viewCount').innerText = data.stats.views || 0;
                 
                 const rankEl = document.getElementById('rankDisplay');
@@ -971,14 +863,13 @@
     
                     const cardClass = isWin ? 'win' : 'loss';
                     const outcomeText = isWin ? 'VICTORY' : 'DEFEAT';
-
                     const icon = isWin ? '<i class="fas fa-trophy"></i>' : '<i class="fas fa-skull"></i>';
 
                     const cardHTML = `
                         <div class="match-card ${cardClass}">
                             <div class="match-outcome">
                                 ${icon}
-                                <span>${outcomeText}</span> <!-- Removed the inline margin-left style -->
+                                <span>${outcomeText}</span>
                             </div>
                     
                             <div class="match-vs">
@@ -1006,7 +897,6 @@
             }
         }
         
-        // --- SCROLL REVEAL ANIMATION ---
         window.addEventListener('scroll', reveal);
         
         function reveal() {
@@ -1015,7 +905,7 @@
             for (var i = 0; i < reveals.length; i++) {
                 var windowheight = window.innerHeight;
                 var revealtop = reveals[i].getBoundingClientRect().top;
-                var revealpoint = 150; // Trigger point
+                var revealpoint = 150; 
         
                 if (revealtop < windowheight - revealpoint) {
                     reveals[i].classList.add('active');
@@ -1024,7 +914,6 @@
         }
         reveal();
 
-        // --- BACKGROUND PARTICLES (EMBERS) ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1043,7 +932,7 @@
         
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 100; // Start below screen
+                this.y = canvas.height + Math.random() * 100;
                 this.size = Math.random() * 3 + 1;
                 this.speedY = Math.random() * 1 + 0.5;
                 this.speedX = (Math.random() - 0.5) * 0.5;
@@ -1062,15 +951,14 @@
             }
         
             draw() {
-                ctx.fillStyle = `rgba(255, 62, 62, ${this.opacity})`; // Your Accent Red
+                ctx.fillStyle = `rgba(255, 62, 62, ${this.opacity})`; 
                 ctx.beginPath();
-                ctx.rect(this.x, this.y, this.size, this.size); // Square "pixels" fit the MC theme
+                ctx.rect(this.x, this.y, this.size, this.size); 
                 ctx.fill();
             }
         }
         
         function initParticles() {
-            // Create 50 particles
             for (let i = 0; i < 50; i++) {
                 particles.push(new Particle());
             }
@@ -1088,15 +976,12 @@
         initParticles();
         animateParticles();
 
-        // --- AUTOCOMPLETE LOGIC ---
         const input = document.getElementById('playerInput');
         const box = document.getElementById('suggestions-box');
         let debounceTimer;
         
         input.addEventListener('input', function() {
             const val = this.value;
-            
-            // Clear old timer
             clearTimeout(debounceTimer);
             
             if (val.length < 2) {
@@ -1104,7 +989,6 @@
                 return;
             }
         
-            // Wait 300ms after typing stops before calling API (Saves resources)
             debounceTimer = setTimeout(async () => {
                 try {
                     const res = await fetch(`/api/search?q=${val}`);
@@ -1117,7 +1001,6 @@
                         names.forEach(n => {
                             const div = document.createElement('div');
                             div.className = 'suggestion-item';
-                            // Show small face + name
                             div.innerHTML = `
                                 <img src="https://visage.surgeplay.com/face/32/${n.name}" class="sug-head">
                                 <span>${n.name}</span>
@@ -1125,7 +1008,7 @@
                             div.onclick = () => {
                                 input.value = n.name;
                                 box.style.display = 'none';
-                                fetchStats(); // Auto search on click
+                                fetchStats(); 
                             };
                             box.appendChild(div);
                         });
@@ -1138,14 +1021,12 @@
             }, 300);
         });
         
-        // Close suggestions if clicking outside
         document.addEventListener('click', function(e) {
             if (e.target !== input && e.target !== box) {
                 box.style.display = 'none';
             }
         });
 
-        
         function updateRecent() {
             let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
             
@@ -1179,20 +1060,15 @@
         
         function saveToHistory(name) {
             let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            
             history = history.filter(n => n.toLowerCase() !== name.toLowerCase());
-            
             history.unshift(name);
-            
             if(history.length > 3) history.pop();
-            
             localStorage.setItem('searchHistory', JSON.stringify(history));
             updateRecent();
         }
         
         updateRecent();
 
-        // --- GLOBAL BATTLE FEED ---
         async function loadGlobalFeed() {
             const feed = document.getElementById('global-feed');
             if(!feed) return;
