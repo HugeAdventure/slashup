@@ -267,8 +267,37 @@
 
         /* --- LEADERBOARD --- */
         .lb-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
-        .lb-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-        .lb-table th { text-align: left; padding: 1rem; color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; }
+        .lb-table { 
+            width: 100%; 
+            border-collapse: separate; 
+            border-spacing: 0 10px; 
+            table-layout: fixed; 
+        }
+        .lb-table th { 
+            padding: 1rem; 
+            color: var(--text-dim); 
+            text-transform: uppercase; 
+            font-size: 0.8rem;
+            vertical-align: middle;
+        }
+        .lb-table th:nth-child(1), .lb-table td:nth-child(1) { 
+            text-align: center; 
+            width: 60px; 
+        } 
+        
+        .lb-table th:nth-child(2), .lb-table td:nth-child(2) { 
+            text-align: left; 
+            padding-left: 10px;
+        } 
+        
+        .lb-table th:nth-child(3), .lb-table td:nth-child(3),
+        .lb-table th:nth-child(4), .lb-table td:nth-child(4),
+        .lb-table th:nth-child(5), .lb-table td:nth-child(5),
+        .lb-table th:nth-child(6), .lb-table td:nth-child(6) { 
+            text-align: center; 
+            width: 15%; 
+        }
+        
         .lb-row { background: rgba(255,255,255,0.02); transition: 0.2s; }
         .lb-row:hover { background: rgba(255,255,255,0.05); transform: scale(1.01); box-shadow: 0 0 15px rgba(0,0,0,0.3); }
         .lb-row td { padding: 1rem; vertical-align: middle; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -610,7 +639,7 @@
             <table class="lb-table">
                 <thead>
                     <tr>
-                        <th style="width: 80px;">Rank</th>
+                        <th>Rank</th>
                         <th>Player</th>
                         <th id="th-wins">Wins</th>
                         <th id="th-kills">Kills</th> 
@@ -1260,6 +1289,18 @@
                     feed.innerHTML += card; 
                 });
             } catch (e) { console.error("Pulse error:", e); }
+        }
+
+        function changeLbPage(dir) {
+            const newPage = currentLbPage + dir;
+            
+            // Prevent going below Page 1
+            if (newPage < 1) return;
+            
+            // Prevent going past the Last Page
+            if (newPage > totalLbPages) return;
+            
+            loadLeaderboard(newPage);
         }
     </script>
 </body>
