@@ -22,15 +22,15 @@ module.exports = async (req, res) => {
       port: 3306
     });
 
-    const [countRows] = await connection.execute('SELECT COUNT(*) as total FROM slashup_stats');
+    const [countRows] = await connection.query('SELECT COUNT(*) as total FROM slashup_stats');
     const totalPlayers = countRows[0].total;
 
-    const [rows] = await connection.execute(
+    const [rows] = await connection.query(
       `SELECT name, wins, losses, kills, deaths, kdr, streak, best_streak 
        FROM slashup_stats 
        ORDER BY ${sortBy} DESC 
        LIMIT ? OFFSET ?`,
-      [limit.toString(), offset.toString()]
+      [limit, offset]
     );
 
     await connection.end();
@@ -42,6 +42,7 @@ module.exports = async (req, res) => {
     });
 
   } catch (error) {
+    console.error("Leaderboard Error:", error); 
     if(connection) await connection.end();
     res.status(500).json({ error: error.message });
   }
