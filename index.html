@@ -91,6 +91,8 @@
         .logo span { color: var(--accent); }
         .logo:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; color: var(--accent); }
 
+
+        
         .server-status {
             font-family: 'Share Tech Mono'; font-size: 0.7rem; color: #666;
             position: absolute; bottom: -12px; right: 0; display: flex; align-items: center; gap: 5px;
@@ -318,10 +320,42 @@
         .big-stat.accent { border-color: var(--accent); }
         .big-stat-val { font-size: 2.5rem; font-family: 'Share Tech Mono'; margin-top: 5px; }
 
+        .share-btn { 
+            background: transparent !important; 
+            border: none; 
+            color: var(--text-dim); 
+            cursor: pointer; 
+            font-size: 1rem; 
+            transition: 0.3s; 
+        }
+        .share-btn:hover { color: var(--accent); transform: scale(1.2); }
+
         /* Charts */
         .chart-container { 
-            background: rgba(255,255,255,0.03); border: var(--panel-border); 
-            padding: 1.5rem; height: 350px; width: 100%; position: relative;
+            background: rgba(255,255,255,0.03); 
+            border: var(--panel-border); 
+            padding: 1.5rem; 
+            height: 350px; 
+            width: 100%; 
+            position: relative; 
+            overflow: hidden;
+        }
+        canvas#performanceChart {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        #global-feed::-webkit-scrollbar { height: 4px; }
+        #global-feed::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        #global-feed::-webkit-scrollbar-thumb { 
+            background: var(--accent); 
+            border-radius: 2px; 
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
         }
         
         /* Sequence Ticker */
@@ -334,6 +368,16 @@
         /* Win Rate Bar */
         .win-rate-container { background: rgba(255,255,255,0.03); padding: 1.5rem; border: var(--panel-border); }
         .wr-bar { height: 10px; width: 100%; background: #333; display: flex; border-radius: 5px; overflow: hidden; margin-top: 10px; }
+        .wr-label { 
+            display: flex; 
+            justify-content: space-between; /* Pushes items to edges */
+            align-items: center;
+            width: 100%; 
+            font-size: 0.8rem; 
+            color: #888; 
+            margin-bottom: 5px; 
+            font-family: 'Share Tech Mono'; 
+        }
         .wr-win { background-color: var(--win); background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent); background-size: 40px 40px; animation: barberpole 1s linear infinite; height: 100%; transition: width 1s; box-shadow: 0 0 15px rgba(68,255,68,0.4); }
         .wr-loss { background: var(--loss); height: 100%; transition: width 1s; }
         @keyframes barberpole { from { background-position: 0 0; } to { background-position: 40px 0; } }
@@ -861,7 +905,7 @@
                     else if(rankCounter === 2) rankClass = 'rank-2';
                     else if(rankCounter === 3) rankClass = 'rank-3';
                     
-                    let extraTag = (rankCounter > 3 && rankCounter <= 10) ? `<span class="top-10-tag">TOP 10</span>` : '';
+                    let extraTag = ''
                     let specialTag = '';
                     if(p.name && SPECIAL_TAGS[p.name.toLowerCase()]) {
                         const t = SPECIAL_TAGS[p.name.toLowerCase()];
