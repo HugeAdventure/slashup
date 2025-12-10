@@ -31,6 +31,8 @@ window.onload = function () {
     }
 
     checkLogin();
+    loadUserTheme();
+    
     setupAutocomplete();
     initParticles();
     animateParticles();
@@ -899,3 +901,97 @@ function myProfile() {
         fetchStats();
     }
 }
+
+
+// --- SETTINGS & CUSTOMIZATION ---
+
+let userRank = "DEFAULT";
+let selectedTheme = "default";
+
+async function openSettings() {
+    const user = JSON.parse(localStorage.getItem('slashup_user'));
+    if(!user) return;
+
+    document.getElementById('settings-modal').classList.add('open');
+    
+    try {
+        const res = await fetch(`/api?player=${user.name}`);
+        const data = await res.json();
+        
+        userRank = data.stats.rank_name || "DEFAULT"; 
+        const currentTheme = data.stats.site_theme || "default";
+        
+        updateLocks();
+        
+        previewTheme(currentTheme);
+        
+    } catch(e) { console.error(e); }
+}
+
+function closeSettings() {
+    document.getElementById('settings-modal').classList.remove('open');
+}
+
+function updateLocks() {
+    const isOwner = (userRank === "OWNER"); 
+    
+    const unlocks = {
+        'neon': isOwner || userRank === "VIP" || userRank === "MVP",
+        'gold': isOwner || userRank === "MVP",
+        'matrix': isOwner 
+    };
+
+    for (const [theme, unlocked] of Object.entries(unlocks)) {
+        const icon = document.getElementById(`lock-${theme}`);
+        if(icon) icon.style.display = unlocked ? 'none' : 'block';
+    }
+}
+
+function previewTheme(theme) {
+    selectedTheme = theme;
+    
+    document.body.classList.remove('theme-default', 'theme-neon', 'theme-gold', 'theme-matrix');
+    
+    document.body.classList.add(`theme-${theme}`);
+    
+    document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
+    document.getElementById(`opt-${theme}`).classList.add('active');
+}
+
+async function saveSettings() {
+    const user = JSON.parse(localStorage.getItem('slashup_user'));
+    if(!user) return;
+
+    if(document.getElementById(`lock-${selectedTheme}`)?.style.display !== 'none' && selectedTheme !== 'default') {
+        alert("You have not unlocked this theme!");
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uuid: user.uuid, theme: selectedTheme })
+        });
+        
+        const data = await res.json();
+        if(data.success) {
+            alert("Theme Saved!");
+            closeSettings();
+        } else {
+            alert("Error: " + data.error);
+        }
+    } catch(e) {
+        alert("Connection Failed");
+    }
+}
+
+function loadUserTheme() {
+    const user = JSON.parse(localStorage.getItem('slashup_user'));
+    if(user) {
+        fetch(`/api?player=${user.name}`).then(r => r.json()).then(data => {
+            if(data.stats.site_theme) previewTheme(data.stats.site_theme);
+        });
+    }
+}
+
