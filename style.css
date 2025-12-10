@@ -478,3 +478,63 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     font-size: 1.5rem; color: #666; cursor: pointer; transition: 0.2s;
 }
 .close-modal:hover { color: white; }
+
+
+.customize-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    height: 70vh; 
+    align-items: start;
+}
+
+.theme-inventory {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.inventory-card {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.inventory-card:hover { border-color: var(--accent); background: rgba(255,255,255,0.05); }
+.inventory-card.active { border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(255, 62, 62, 0.05); }
+.inventory-card.locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+
+.color-swatch {
+    width: 40px; height: 40px; border-radius: 50%;
+    margin-bottom: 15px; box-shadow: 0 0 15px currentColor;
+}
+
+.preview-deck {
+    background: rgba(20,20,25,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+.preview-deck::before {
+    content: "LIVE PREVIEW";
+    position: absolute; top: -10px; left: 20px;
+    background: var(--bg); padding: 0 10px;
+    color: var(--text-dim); font-family: 'Share Tech Mono'; font-size: 0.8rem;
+}
+
+.fake-stat-row { display: flex; gap: 1rem; }
+.fake-card { flex: 1; background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent); padding: 1rem; }
