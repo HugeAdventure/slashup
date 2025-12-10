@@ -488,12 +488,10 @@ document.getElementById("playerInput").addEventListener("keypress", e => {
 function setupAutocomplete() {
     const input = document.getElementById("playerInput");
     const box = document.getElementById("suggestions-box");
-
     let debounceTimer;
 
     input.addEventListener("input", function () {
         const val = this.value;
-
         clearTimeout(debounceTimer);
 
         if (val.length < 2) {
@@ -503,43 +501,39 @@ function setupAutocomplete() {
 
         debounceTimer = setTimeout(async () => {
             try {
-                const res = await fetch(`/api/search?q=${val}`);
+                const res = await fetch(`/api/search?q=${encodeURIComponent(val)}`);
                 const names = await res.json();
 
                 box.innerHTML = "";
 
                 if (names.length > 0) {
                     box.style.display = "block";
-
                     names.forEach(n => {
                         const div = document.createElement("div");
                         div.className = "suggestion-item";
-
+                        div.onmousedown = () => {
+                            input.value = n.name;
+                            box.style.display = "none";
+                            fetchStats(); 
+                        };
                         div.innerHTML = `
                             <img src="https://visage.surgeplay.com/face/32/${n.name}" class="sug-head">
                             <span>${n.name}</span>`;
-
-                        div.onclick = () => {
-                            input.value = n.name;
-                            box.style.display = "none";
-                            fetchStats();
-                        };
-
                         box.appendChild(div);
                     });
                 } else {
                     box.style.display = "none";
                 }
-
             } catch (e) {
-                console.error(e);
+                console.error("Search error:", e);
             }
         }, 300);
     });
 
     document.addEventListener("click", e => {
-        if (e.target !== input && e.target !== box)
+        if (e.target !== input && !box.contains(e.target)) {
             box.style.display = "none";
+        }
     });
 }
 
@@ -607,26 +601,30 @@ function copyIP() {
 }
 
 async function checkServerStatus() {
-    const ip = "194.164.96.27:25601";
+    const ip = "194.164.96.27:25601"; 
 
     const statusText = document.getElementById("server-status-text");
     const statusDot = document.getElementById("status-dot");
+
+    if(!statusText || !statusDot) return;
 
     try {
         const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
         const data = await res.json();
 
-        if (data.online) {
+        if (data.online && data.players) {
             statusDot.classList.remove("offline");
             statusDot.classList.add("online");
 
             statusText.innerHTML =
                 `<span class="status-dot online"></span> ${data.players.online}/${data.players.max} ONLINE`;
         } else {
-            statusText.innerHTML = `<span class="status-dot offline"></span> OFFLINE`;
+            throw new Error("Offline");
         }
     } catch (e) {
-        console.log("Status check failed");
+        statusDot.classList.remove("online");
+        statusDot.classList.add("offline");
+        statusText.innerHTML = `<span class="status-dot offline"></span> OFFLINE`;
     }
 }
 
