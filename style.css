@@ -548,7 +548,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     margin-bottom: 20px;
 }
 
-/* The Theme Card */
 .theme-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -600,7 +599,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 
 .theme-card.active .theme-status { color: var(--accent); }
 
-/* Locked State styling */
 .theme-card.locked {
     opacity: 0.7;
     filter: grayscale(0.8);
@@ -622,7 +620,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 .theme-card.locked:hover .lock-overlay { opacity: 1; }
 
 
-/* Action Bar */
 .action-bar {
     display: flex;
     gap: 10px;
@@ -631,7 +628,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-/* RIGHT SIDE PREVIEW STAGE */
 .preview-stage {
     background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%);
     border: 1px solid rgba(255,255,255,0.05);
@@ -651,7 +647,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     letter-spacing: 2px;
 }
 
-/* The Mini UI Mockup */
 .mini-ui-container {
     width: 400px;
     background: var(--bg);
@@ -690,4 +685,46 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     font-family: 'Share Tech Mono';
     cursor: default;
     box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.socials-row {
+    display: flex; gap: 10px; margin-top: 10px;
+}
+.soc-btn {
+    width: 36px; height: 36px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    display: flex; justify-content: center; align-items: center;
+    color: #888;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.2s;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+.soc-btn:hover { transform: translateY(-3px); color: white; }
+
+.soc-btn.yt:hover { background: #ff0000; border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.4); }
+.soc-btn.tw:hover { background: #9146ff; border-color: #9146ff; box-shadow: 0 0 10px rgba(145, 70, 255, 0.4); }
+.soc-btn.dc:hover { background: #5865F2; border-color: #5865F2; box-shadow: 0 0 10px rgba(88, 101, 242, 0.4); }
+.soc-btn.x:hover { background: #1DA1F2; border-color: #1DA1F2; box-shadow: 0 0 10px rgba(29, 161, 242, 0.4); }
+
+.social-inputs {
+    display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+}
+.input-group {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0 15px;
+    border-radius: 4px;
+}
+.input-group i { width: 20px; text-align: center; }
+.input-group input {
+    background: transparent; border: none; color: white;
+    padding: 12px 0; width: 100%; outline: none;
+    font-family: 'Share Tech Mono';
+}
+.input-group:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
