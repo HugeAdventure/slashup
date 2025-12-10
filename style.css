@@ -5,47 +5,77 @@
     
     --accent: #ff3e3e; 
     --accent-glow: rgba(255, 62, 62, 0.5);
-    
-    --gold: #ffd700;
-    --silver: #c0c0c0;
-    --bronze: #cd7f32;
+    --text-main: #ffffff;
+    --text-dim: #8888aa;
     
     --win: #44ff44;
     --loss: #ff4444;
-    
-    --text-main: #ffffff;
-    --text-dim: #8888aa;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
 }
 
-/* 1. Default (Red/Dark) */
-body.theme-default {
+
+html.theme-default body {
     --accent: #ff3e3e;
     --accent-glow: rgba(255, 62, 62, 0.5);
     --bg: #0b0b10;
+    --panel: rgba(20, 20, 25, 0.95);
+    --win: #44ff44;
+    --loss: #ff4444;
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        repeating-linear-gradient(45deg, rgba(255,62,62,0.03) 0px, rgba(255,62,62,0.03) 1px, transparent 1px, transparent 10px);
 }
 
-/* 2. Cyber Blue (VIP) */
-body.theme-neon {
+html.theme-neon body {
     --accent: #00f2ff;
-    --accent-glow: rgba(0, 242, 255, 0.5);
-    --bg: #050a10;
-    --loss: #00f2ff; 
+    --accent-glow: rgba(0, 242, 255, 0.6);
+    --bg: #050510;
+    --panel: rgba(5, 10, 20, 0.9);
+    --panel-border: 1px solid rgba(0, 242, 255, 0.3);
+    
+    --win: #00f2ff;  
+    --loss: #ff00ff; 
+    --text-dim: #88aacc;
+    
+    background-image: 
+        linear-gradient(rgba(5,5,16,0.9), rgba(5,5,16,0.9)),
+        linear-gradient(0deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
-body.theme-gold {
+html.theme-gold body {
     --accent: #ffd700;
-    --accent-glow: rgba(255, 215, 0, 0.5);
-    --bg: #100f05;
-    --panel: rgba(25, 22, 10, 0.95);
+    --accent-glow: rgba(255, 215, 0, 0.6);
+    --bg: #121008;
+    --panel: rgba(20, 18, 10, 0.95);
+    --panel-border: 1px solid rgba(255, 215, 0, 0.2);
+    
     --win: #ffd700;
+    --loss: #888888; 
+    --text-dim: #aa9977;
+
+    background-image: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, #121008 70%);
 }
 
-body.theme-matrix {
+html.theme-matrix body {
     --accent: #00ff00;
-    --accent-glow: rgba(0, 255, 0, 0.5);
+    --accent-glow: rgba(0, 255, 0, 0.6);
     --bg: #000000;
+    --panel: rgba(0, 15, 0, 0.95);
+    --panel-border: 1px solid rgba(0, 255, 0, 0.3);
+    
+    --win: #00ff00;
+    --loss: #005500; 
     --text-main: #ccffcc;
-    --panel: rgba(0, 20, 0, 0.95);
+    --text-dim: #448844;
+    
+    font-family: 'Share Tech Mono', monospace !important; 
+    
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 0, 0.05) 50%);
+    background-size: 100% 4px;
 }
 
 .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
