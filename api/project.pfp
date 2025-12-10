@@ -1,16 +1,1 @@
-class Person {
-    public $name;
-    public $age;
 
-    public function __construct($name, $age) {
-        $this->name = $name;
-        $this->age = $age;
-    }
-
-    public function introduce() {
-        return "My name is " . $this->name . " and I am " . $this->age . " years old.";
-    }
-}
-
-$person1 = new Person("Bob", 30);
-echo $person1->introduce();
