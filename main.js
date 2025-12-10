@@ -80,7 +80,6 @@ async function fetchStats() {
     const container = document.getElementById("profileDisplay");
     container.classList.add("visible");
 
-    // Add Skeleton loading state
     const idsToLoad = ["nameDisplay", "rankDisplay", "viewContainer", "kdrVal", "winsVal", "streakVal", "skinContainer", "chartBox", "wrBox", "bioBox", "nemesisBox"];
     idsToLoad.forEach(id => {
         const el = document.getElementById(id);
@@ -102,8 +101,33 @@ async function fetchStats() {
         const stats = data.stats || {};
         const matches = data.matches || [];
 
-        // Basic Stats
         document.getElementById("nameDisplay").innerText = stats.name || username;
+
+        const socBox = document.getElementById("socials-display");
+        const socYt = document.getElementById("soc-yt");
+        const socTw = document.getElementById("soc-tw");
+        const socDc = document.getElementById("soc-dc");
+        const socX = document.getElementById("soc-x");
+    
+        let hasSocials = false;
+    
+        const setSocial = (el, link) => {
+            if (link && link.length > 2) {
+                el.href = link.startsWith('http') ? link : `https://${link}`;
+                el.style.display = "flex";
+                hasSocials = true;
+            } else {
+                el.style.display = "none";
+            }
+        };
+    
+        setSocial(socYt, stats.social_youtube);
+        setSocial(socTw, stats.social_twitch);
+        setSocial(socDc, stats.social_discord);
+        setSocial(socX, stats.social_twitter);
+    
+        socBox.style.display = hasSocials ? "flex" : "none";
+        
         document.getElementById("kdrVal").innerText = parseFloat(stats.kdr || 0).toFixed(2);
         document.getElementById("winsVal").innerText = stats.wins || 0;
         document.getElementById("streakVal").innerText = stats.best_streak || 0;
@@ -214,23 +238,29 @@ async function openCustomizePage() {
     switchTab('customize');
 
     try {
-        // Fetch fresh data to ensure we get the Rank
+        const res = await fetch(`/api?player=${user.name}`);
+        const data = await res.json();
+
         const res = await fetch(`/api?player=${user.name}`);
         const data = await res.json();
         
-        // --- KEY FIX FOR YOUR DATABASE ---
-        // 1. Look for rank_name (DB column)
-        // 2. Fallback to "DEFAULT"
+
         let rawRank = "DEFAULT";
         if(data.stats) {
             rawRank = data.stats.rank_name || data.stats.rank || "DEFAULT";
         }
 
-        // 3. Force it to be a clean Uppercase String (Handles "Owner" vs "OWNER" vs "OWNER ")
         const cleanRank = String(rawRank).toUpperCase().trim();
         
         console.log("Barracks Debug -> Raw:", rawRank, "Clean:", cleanRank);
 
+        if(data.stats) {
+            document.getElementById('in-youtube').value = data.stats.social_youtube || "";
+            document.getElementById('in-twitch').value = data.stats.social_twitch || "";
+            document.getElementById('in-discord').value = data.stats.social_discord || "";
+            document.getElementById('in-twitter').value = data.stats.social_twitter || "";
+        }
+        
         // Load current theme
         const currentTheme = (data.stats && data.stats.site_theme) ? data.stats.site_theme : "default";
         cachedOriginalTheme = currentTheme;
