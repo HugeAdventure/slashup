@@ -372,3 +372,60 @@ html, body {
 #toast-box.show { right: 30px; }
 
 footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; text-align: center; color: #444; font-size: 0.8rem; background: #08080c; }
+
+
+/*  LOGIN & PROFILE UI  */
+
+.nav-profile {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; position: relative;
+    background: rgba(255,255,255,0.05);
+    padding: 5px 15px 5px 5px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+.nav-profile:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+#nav-head { width: 24px; height: 24px; border-radius: 3px; }
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%; right: 0;
+    background: var(--panel);
+    border: var(--panel-border);
+    width: 150px;
+    display: none; 
+    flex-direction: column;
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1001;
+}
+.profile-dropdown.show { display: flex; animation: fadeIn 0.2s; }
+.profile-dropdown div {
+    padding: 10px 15px; cursor: pointer; transition: 0.2s; font-size: 0.9rem;
+}
+.profile-dropdown div:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: none;
+    justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+
+.modal-box {
+    width: 400px; max-width: 90%;
+    background: #0b0b10;
+    border: 1px solid var(--accent);
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 0 50px rgba(255, 62, 62, 0.1);
+}
+
+.close-modal {
+    position: absolute; top: 10px; right: 15px;
+    font-size: 1.5rem; color: #666; cursor: pointer; transition: 0.2s;
+}
+.close-modal:hover { color: white; }
