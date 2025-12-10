@@ -772,4 +772,16 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 #global-feed::-webkit-scrollbar-thumb:hover {
     background: var(--text-main); 
     box-shadow: 0 0 10px var(--accent-glow);
+
+@media (max-width: 768px) {
+    .nav-inner { flex-direction: column; gap: 15px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    
+    .content-row { grid-template-columns: 1fr; }
+    .stats-big-grid { grid-template-columns: 1fr; }
+    
+    .hero h1 { font-size: 3rem; }
+    
+    .lb-table { display: block; overflow-x: auto; }
+}
 }
