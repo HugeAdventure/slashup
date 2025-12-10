@@ -488,53 +488,176 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     align-items: start;
 }
 
-.theme-inventory {
+/* --- BARRACKS LAYOUT --- */
+.customize-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 15px;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
     height: 100%;
-    overflow-y: auto;
-    padding-right: 10px;
+    overflow: hidden;
 }
 
-.inventory-card {
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.1);
-    aspect-ratio: 1/1;
+@media (max-width: 900px) {
+    .customize-layout { grid-template-columns: 1fr; overflow-y: auto; }
+}
+
+/* Theme List */
+.theme-selector-col {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.theme-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+/* The Theme Card */
+.theme-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateX(5px);
+}
+
+.theme-card.active {
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    border-left: 4px solid var(--accent);
+    border-color: var(--accent);
+}
+
+.theme-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.theme-info { flex-grow: 1; }
+
+.theme-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: 'Share Tech Mono';
+    letter-spacing: 1px;
+}
+
+.theme-desc {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.theme-status {
+    color: #444;
+    font-size: 1.2rem;
+}
+
+.theme-card.active .theme-status { color: var(--accent); }
+
+/* Locked State styling */
+.theme-card.locked {
+    opacity: 0.7;
+    filter: grayscale(0.8);
+}
+.theme-card.locked .lock-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono';
+    color: #888;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: 0.2s;
+    backdrop-filter: blur(2px);
+}
+.theme-card.locked:hover .lock-overlay { opacity: 1; }
+
+
+/* Action Bar */
+.action-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* RIGHT SIDE PREVIEW STAGE */
+.preview-stage {
+    background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+    border: 1px solid rgba(255,255,255,0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     position: relative;
-    transition: 0.2s;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    border-radius: 10px;
 }
 
-.inventory-card:hover { border-color: var(--accent); background: rgba(255,255,255,0.05); }
-.inventory-card.active { border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(255, 62, 62, 0.05); }
-.inventory-card.locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
-
-.color-swatch {
-    width: 40px; height: 40px; border-radius: 50%;
-    margin-bottom: 15px; box-shadow: 0 0 15px currentColor;
+.preview-label {
+    position: absolute; top: 20px; left: 20px;
+    font-family: 'Share Tech Mono';
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
 }
 
-.preview-deck {
-    background: rgba(20,20,25,0.5);
+/* The Mini UI Mockup */
+.mini-ui-container {
+    width: 400px;
+    background: var(--bg);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    position: relative;
-}
-.preview-deck::before {
-    content: "LIVE PREVIEW";
-    position: absolute; top: -10px; left: 20px;
-    background: var(--bg); padding: 0 10px;
-    color: var(--text-dim); font-family: 'Share Tech Mono'; font-size: 0.8rem;
+    padding: 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
 }
 
-.fake-stat-row { display: flex; gap: 1rem; }
-.fake-card { flex: 1; background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent); padding: 1rem; }
+.mini-nav {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.mini-hero { text-align: center; margin-bottom: 20px; }
+
+.mini-stats-row { display: flex; gap: 10px; margin-bottom: 20px; }
+.mini-card {
+    flex: 1;
+    background: var(--panel);
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+.mini-btn {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-family: 'Share Tech Mono';
+    cursor: default;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
