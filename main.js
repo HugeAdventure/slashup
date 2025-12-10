@@ -163,9 +163,32 @@ async function fetchStats() {
         renderMatchHistory(matches, username);
 
         // Load Skin
-        const skinImg = document.getElementById("skinImg");
-        skinImg.onload = () => { skinImg.classList.add("loaded"); document.getElementById("skinContainer").classList.remove("skeleton"); };
-        skinImg.src = `https://visage.surgeplay.com/full/512/${username}`;
+        const skinContainer = document.getElementById("skinContainer");
+        
+        skinContainer.innerHTML = ""; 
+        skinContainer.classList.remove("skeleton");
+
+        const skinViewer = new skinview3d.SkinViewer({
+            canvas: document.createElement("canvas"),
+            width: 300,
+            height: 400,
+            skin: `https://visage.surgeplay.com/skin/${username}`
+        });
+
+        skinViewer.canvas.classList.add("floating-skin");
+
+        skinViewer.animation = new skinview3d.IdleAnimation();
+        skinViewer.animation.speed = 0.5;
+
+        skinViewer.fov = 70;
+        skinViewer.zoom = 0.9;
+        
+        skinViewer.loadCape(null);
+        
+        skinViewer.controls.enableRotate = true;
+        skinViewer.controls.enableZoom = false;
+
+        skinContainer.appendChild(skinViewer.canvas);
 
         // Special Tags
         const tagEl = document.getElementById("tagDisplay");
