@@ -736,3 +736,16 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     border-color: var(--accent);
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
+/* 3D Skin Floating Effect */
+@keyframes float-3d { 
+    0% { transform: translateY(0px); } 
+    50% { transform: translateY(-15px); } 
+    100% { transform: translateY(0px); } 
+}
+
+.floating-skin {
+    animation: float-3d 4s ease-in-out infinite;
+    /* Optional: Add a drop shadow that grows/shrinks */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
