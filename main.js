@@ -240,9 +240,6 @@ async function openCustomizePage() {
     try {
         const res = await fetch(`/api?player=${user.name}`);
         const data = await res.json();
-
-        const res = await fetch(`/api?player=${user.name}`);
-        const data = await res.json();
         
 
         let rawRank = "DEFAULT";
@@ -796,46 +793,112 @@ function showToast(title, msg, type = "success") {
 }
 
 // =====================================================
-// 10. BACKGROUND PARTICLES
+// 10. DYNAMIC BACKGROUND PARTICLES
 // =====================================================
 
 const canvas = document.getElementById("bg-canvas");
 const ctx = canvas ? canvas.getContext("2d") : null;
 let particles = [];
 
-function resizeCanvas() { if(canvas) { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } }
+function resizeCanvas() { 
+    if(canvas) { 
+        canvas.width = window.innerWidth; 
+        canvas.height = window.innerHeight; 
+    } 
+}
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 class Particle {
-    constructor() { this.reset(); }
-    reset() {
+    constructor() { 
+        this.reset(true); 
+    }
+
+    reset(initial = false) {
         if(!canvas) return;
+
+        const isMatrix = document.documentElement.classList.contains('theme-matrix');
+        const isNeon = document.documentElement.classList.contains('theme-neon');
+
         this.x = Math.random() * canvas.width;
-        this.y = canvas.height + Math.random() * 100;
-        this.size = Math.random() * 3 + 1;
-        this.speedY = Math.random() * 1 + 0.5;
+        
+        if (isMatrix) {
+            this.y = initial ? Math.random() * canvas.height : -10;
+            this.speedY = Math.random() * 2 + 2; 
+            this.speedX = 0;
+            this.size = Math.random() * 2 + 1;
+        } else if (isNeon) {
+            this.y = Math.random() * canvas.height;
+            this.x = initial ? Math.random() * canvas.width : -10;
+            this.speedY = 0;
+            this.speedX = Math.random() * 2 + 1;
+            this.size = Math.random() * 2;
+        } else {
+            this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
+            this.speedY = (Math.random() * 1 + 0.5) * -1; 
+            this.speedX = Math.random() * 0.5 - 0.25; 
+            this.size = Math.random() * 3 + 1;
+        }
+
         this.opacity = Math.random() * 0.5 + 0.1;
+        
+        const style = getComputedStyle(document.body);
+        this.color = style.getPropertyValue('--accent').trim() || '#ff3e3e';
     }
+
     update() {
-        this.y -= this.speedY;
-        this.opacity -= 0.002;
-        if (this.opacity <= 0) this.reset();
+        this.y += this.speedY;
+        this.x += this.speedX;
+        
+        const isMatrix = document.documentElement.classList.contains('theme-matrix');
+        
+        if(isMatrix) {
+             if (this.y > canvas.height) this.reset();
+        } else {
+             this.opacity -= 0.002;
+             if (this.opacity <= 0) this.reset();
+        }
     }
+
     draw() {
         if(!ctx) return;
-        ctx.fillStyle = `rgba(255, 62, 62, ${this.opacity})`;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        
+        const isMatrix = document.documentElement.classList.contains('theme-matrix');
+        
+        if (isMatrix) {
+            ctx.fillRect(this.x, this.y, 2, 10);
+        } else {
+            ctx.fillRect(this.x, this.y, this.size, this.size);
+        }
+        
+        ctx.globalAlpha = 1.0; 
     }
 }
 
-function initParticles() { if(canvas) { for (let i = 0; i < 50; i++) particles.push(new Particle()); } }
+function initParticles() { 
+    if(canvas) { 
+        particles = [];
+        for (let i = 0; i < 70; i++) particles.push(new Particle()); 
+    } 
+}
+
 function animateParticles() {
     if(!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animateParticles);
 }
+
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.attributeName === "class") {
+            particles.forEach(p => p.reset(true)); 
+        }
+    });
+});
+observer.observe(document.documentElement, { attributes: true });
 
 window.addEventListener("scroll", () => {
     document.querySelectorAll(".reveal").forEach(el => {
