@@ -737,7 +737,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-/* 3D Skin Floating Effect */
 @keyframes float-3d { 
     0% { transform: translateY(0px); } 
     50% { transform: translateY(-15px); } 
@@ -746,6 +745,31 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 
 .floating-skin {
     animation: float-3d 4s ease-in-out infinite;
-    /* Optional: Add a drop shadow that grows/shrinks */
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
+
+#global-feed {
+    scrollbar-width: thin; 
+    scrollbar-color: var(--accent) rgba(0,0,0,0.3); 
+}
+
+#global-feed::-webkit-scrollbar {
+    height: 6px; 
+}
+
+#global-feed::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: 3px;
+    margin: 0 10px; 
+}
+
+#global-feed::-webkit-scrollbar-thumb {
+    background: var(--accent); 
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+#global-feed::-webkit-scrollbar-thumb:hover {
+    background: var(--text-main); 
+    box-shadow: 0 0 10px var(--accent-glow);
 }
