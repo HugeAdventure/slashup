@@ -908,33 +908,33 @@ function myProfile() {
 let userRank = "DEFAULT";
 let selectedTheme = "default";
 
-async function openSettings() {
+async function openCustomizePage() {
     const user = JSON.parse(localStorage.getItem('slashup_user'));
-    if(!user) return;
+    if(!user) {
+        showToast("Access Denied", "Login required to access Barracks.", "error");
+        openLoginModal();
+        return;
+    }
 
-    document.getElementById('settings-modal').classList.add('open');
+    switchTab('customize');
     
     try {
         const res = await fetch(`/api?player=${user.name}`);
         const data = await res.json();
         
-        userRank = data.stats.rank_name || "DEFAULT"; 
+        userRank = data.stats.rank_name || "DEFAULT";
         const currentTheme = data.stats.site_theme || "default";
         
-        updateLocks();
+        localStorage.setItem('slashup_theme_cache', currentTheme);
         
+        updateLocks();
         previewTheme(currentTheme);
         
     } catch(e) { console.error(e); }
 }
 
-function closeSettings() {
-    document.getElementById('settings-modal').classList.remove('open');
-}
-
 function updateLocks() {
-    const isOwner = (userRank === "OWNER"); 
-    
+    const isOwner = (userRank === "OWNER" || userRank === "ADMIN"); 
     const unlocks = {
         'neon': isOwner || userRank === "VIP" || userRank === "MVP",
         'gold': isOwner || userRank === "MVP",
@@ -943,29 +943,34 @@ function updateLocks() {
 
     for (const [theme, unlocked] of Object.entries(unlocks)) {
         const icon = document.getElementById(`lock-${theme}`);
+        const card = document.getElementById(`card-${theme}`);
+        
         if(icon) icon.style.display = unlocked ? 'none' : 'block';
+        if(card) {
+            if(!unlocked) card.classList.add('locked');
+            else card.classList.remove('locked');
+        }
     }
 }
 
 function previewTheme(theme) {
+    const card = document.getElementById(`card-${theme}`);
+    if(card && card.classList.contains('locked')) {
+        showToast("Locked", "This cosmetic requires a higher rank.", "error");
+        return;
+    }
+
     selectedTheme = theme;
     
-    document.body.classList.remove('theme-default', 'theme-neon', 'theme-gold', 'theme-matrix');
+    document.documentElement.className = `theme-${theme}`;
     
-    document.body.classList.add(`theme-${theme}`);
-    
-    document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
-    document.getElementById(`opt-${theme}`).classList.add('active');
+    document.querySelectorAll('.inventory-card').forEach(el => el.classList.remove('active'));
+    if(card) card.classList.add('active');
 }
 
 async function saveSettings() {
     const user = JSON.parse(localStorage.getItem('slashup_user'));
     if(!user) return;
-
-    if(document.getElementById(`lock-${selectedTheme}`)?.style.display !== 'none' && selectedTheme !== 'default') {
-        alert("You have not unlocked this theme!");
-        return;
-    }
 
     try {
         const res = await fetch('/api/settings', {
@@ -976,22 +981,30 @@ async function saveSettings() {
         
         const data = await res.json();
         if(data.success) {
-            alert("Theme Saved!");
-            closeSettings();
+            showToast("Configuration Saved", "Theme applied successfully.", "success");
+            localStorage.setItem('slashup_theme_cache', selectedTheme); 
         } else {
-            alert("Error: " + data.error);
+            showToast("Error", data.error, "error");
         }
     } catch(e) {
-        alert("Connection Failed");
+        showToast("Network Error", "Could not save settings.", "error");
     }
 }
 
-function loadUserTheme() {
-    const user = JSON.parse(localStorage.getItem('slashup_user'));
-    if(user) {
-        fetch(`/api?player=${user.name}`).then(r => r.json()).then(data => {
-            if(data.stats.site_theme) previewTheme(data.stats.site_theme);
-        });
-    }
+function showToast(title, msg, type = "success") {
+    const box = document.getElementById("toast-box");
+    const icon = type === "success" ? "fa-check-circle" : "fa-exclamation-circle";
+    const color = type === "success" ? "var(--win)" : "var(--loss)";
+    
+    box.style.borderLeftColor = color;
+    box.innerHTML = `
+        <i class="fas ${icon}" style="color:${color}; font-size:1.5rem;"></i>
+        <div>
+            <div style="font-weight: bold; color: white;">${title}</div>
+            <div style="font-size: 0.8rem; color: #aaa;">${msg}</div>
+        </div>
+    `;
+    box.classList.add("show");
+    setTimeout(() => box.classList.remove("show"), 3000);
 }
 
