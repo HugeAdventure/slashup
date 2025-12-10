@@ -905,106 +905,120 @@ function myProfile() {
 
 // --- SETTINGS & CUSTOMIZATION ---
 
-let userRank = "DEFAULT";
-let selectedTheme = "default";
+let cachedOriginalTheme = 'default';
+let pendingTheme = 'default';
 
 async function openCustomizePage() {
     const user = JSON.parse(localStorage.getItem('slashup_user'));
+    
     if(!user) {
-        showToast("Access Denied", "Login required to access Barracks.", "error");
+        showToast("Access Denied", "Login required for Barracks.", "error");
         openLoginModal();
         return;
     }
 
     switchTab('customize');
-    
+
     try {
         const res = await fetch(`/api?player=${user.name}`);
         const data = await res.json();
         
-        userRank = data.stats.rank_name || "DEFAULT";
-        const currentTheme = data.stats.site_theme || "default";
-        
-        localStorage.setItem('slashup_theme_cache', currentTheme);
-        
-        updateLocks();
-        previewTheme(currentTheme);
-        
-    } catch(e) { console.error(e); }
+        const rank = (data.stats && data.stats.rank_name) ? data.stats.rank_name : "DEFAULT";
+        const currentTheme = (data.stats && data.stats.site_theme) ? data.stats.site_theme : "default";
+
+        cachedOriginalTheme = currentTheme;
+        pendingTheme = currentTheme;
+
+        updateLockState(rank);
+        previewTheme(currentTheme, true); 
+
+    } catch(e) {
+        console.error("Customization fetch error:", e);
+        showToast("Network Error", "Could not load profile data.", "error");
+    }
 }
 
-function updateLocks() {
-    const isOwner = (userRank === "OWNER" || userRank === "ADMIN"); 
+function updateLockState(rank) {
+    const isOwner = (rank === "OWNER" || rank === "ADMIN"); 
+    
     const unlocks = {
-        'neon': isOwner || userRank === "VIP" || userRank === "MVP",
-        'gold': isOwner || userRank === "MVP",
-        'matrix': isOwner 
+        'default': true,
+        'neon': isOwner || rank === "VIP" || rank === "MVP",
+        'gold': isOwner || rank === "MVP",
+        'matrix': isOwner
     };
 
     for (const [theme, unlocked] of Object.entries(unlocks)) {
-        const icon = document.getElementById(`lock-${theme}`);
         const card = document.getElementById(`card-${theme}`);
-        
-        if(icon) icon.style.display = unlocked ? 'none' : 'block';
         if(card) {
-            if(!unlocked) card.classList.add('locked');
-            else card.classList.remove('locked');
+            if(unlocked) {
+                card.classList.remove('locked');
+                const statusIcon = card.querySelector('.theme-status i');
+                if(statusIcon) statusIcon.className = "fas fa-circle"; 
+            } else {
+                card.classList.add('locked');
+            }
         }
     }
 }
 
-function previewTheme(theme) {
+function previewTheme(theme, isInit = false) {
     const card = document.getElementById(`card-${theme}`);
-    if(card && card.classList.contains('locked')) {
-        showToast("Locked", "This cosmetic requires a higher rank.", "error");
+    
+    if(card && card.classList.contains('locked') && !isInit) {
+        showToast("Access Restricted", "Higher rank required.", "error");
         return;
     }
 
-    selectedTheme = theme;
-    
     document.documentElement.className = `theme-${theme}`;
-    
-    document.querySelectorAll('.inventory-card').forEach(el => el.classList.remove('active'));
-    if(card) card.classList.add('active');
+    pendingTheme = theme;
+
+    document.querySelectorAll('.theme-card').forEach(el => el.classList.remove('active'));
+    if(card) {
+        card.classList.add('active');
+        const allIcons = document.querySelectorAll('.theme-status i');
+        allIcons.forEach(i => i.className = "fas fa-circle"); 
+        
+        const thisIcon = card.querySelector('.theme-status i');
+        if(thisIcon) thisIcon.className = "fas fa-check";
+    }
+}
+
+function cancelCustomization() {
+    previewTheme(cachedOriginalTheme, true);
+    switchTab('home'); 
 }
 
 async function saveSettings() {
     const user = JSON.parse(localStorage.getItem('slashup_user'));
     if(!user) return;
 
+    const btn = document.querySelector('.action-bar .cta-btn');
+    const originalText = btn.innerText;
+    btn.innerText = "SAVING...";
+    btn.disabled = true;
+
     try {
         const res = await fetch('/api/settings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ uuid: user.uuid, theme: selectedTheme })
+            body: JSON.stringify({ uuid: user.uuid, theme: pendingTheme })
         });
         
         const data = await res.json();
+        
         if(data.success) {
-            showToast("Configuration Saved", "Theme applied successfully.", "success");
-            localStorage.setItem('slashup_theme_cache', selectedTheme); 
+            showToast("System Updated", "Interface theme installed.", "success");
+            localStorage.setItem('slashup_theme_cache', pendingTheme);
+            cachedOriginalTheme = pendingTheme; 
         } else {
-            showToast("Error", data.error, "error");
+            showToast("Error", data.error || "Save failed", "error");
         }
     } catch(e) {
-        showToast("Network Error", "Could not save settings.", "error");
+        showToast("Connection Lost", "Could not reach server.", "error");
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
     }
-}
-
-function showToast(title, msg, type = "success") {
-    const box = document.getElementById("toast-box");
-    const icon = type === "success" ? "fa-check-circle" : "fa-exclamation-circle";
-    const color = type === "success" ? "var(--win)" : "var(--loss)";
-    
-    box.style.borderLeftColor = color;
-    box.innerHTML = `
-        <i class="fas ${icon}" style="color:${color}; font-size:1.5rem;"></i>
-        <div>
-            <div style="font-weight: bold; color: white;">${title}</div>
-            <div style="font-size: 0.8rem; color: #aaa;">${msg}</div>
-        </div>
-    `;
-    box.classList.add("show");
-    setTimeout(() => box.classList.remove("show"), 3000);
 }
 
