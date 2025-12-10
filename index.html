@@ -289,74 +289,98 @@
     </div>
 
     <div id="customize-page" class="page-section">
-        <div class="container">
-            <h1 style="margin: 3rem 0; text-align: left;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle;">// PROFILE CUSTOMIZATION</span></h1>
+        <div class="container" style="height: calc(100vh - 100px); display: flex; flex-direction: column;">
+            <h1 style="margin: 2rem 0; font-size: 2.5rem;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle; letter-spacing: 2px;">// INTERFACE OVERRIDE</span></h1>
     
-            <div class="customize-grid">
-                
-                <div>
-                    <div class="section-title">SELECT INTERFACE</div>
-                    <div class="theme-inventory">
+            <div class="customize-layout">
+                <!-- LEFT: SELECTION MENU -->
+                <div class="theme-selector-col">
+                    <div class="section-title">AVAILABLE MODULES</div>
+                    <div class="theme-list" id="theme-list-container">
                         
-                        <div class="inventory-card active" onclick="previewTheme('default')" id="card-default">
-                            <div class="color-swatch" style="background:#ff3e3e; color:#ff3e3e;"></div>
-                            <div style="font-family:'Share Tech Mono'">OPERATOR</div>
+                        <!-- Operator (Default) -->
+                        <div class="theme-card active" onclick="previewTheme('default')" id="card-default">
+                            <div class="theme-icon" style="background: #ff3e3e;"></div>
+                            <div class="theme-info">
+                                <div class="theme-name">OPERATOR</div>
+                                <div class="theme-desc">Standard issue interface.</div>
+                            </div>
+                            <div class="theme-status"><i class="fas fa-check"></i></div>
                         </div>
     
-                        <div class="inventory-card" onclick="previewTheme('neon')" id="card-neon">
-                            <i class="fas fa-lock lock-icon" id="lock-neon"></i>
-                            <div class="color-swatch" style="background:#00f2ff; color:#00f2ff;"></div>
-                            <div style="font-family:'Share Tech Mono'; color:#00f2ff;">CYBERNETIC</div>
+                        <!-- Cybernetic (Neon) -->
+                        <div class="theme-card locked" onclick="previewTheme('neon')" id="card-neon" data-req="VIP">
+                            <div class="theme-icon" style="background: #00f2ff; box-shadow: 0 0 10px #00f2ff;"></div>
+                            <div class="theme-info">
+                                <div class="theme-name" style="color:#00f2ff;">CYBERNETIC</div>
+                                <div class="theme-desc">High contrast neon metrics.</div>
+                            </div>
+                            <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            <div class="lock-overlay">REQUIRES <span style="color:#fff">VIP</span></div>
                         </div>
     
-                        <div class="inventory-card" onclick="previewTheme('gold')" id="card-gold">
-                            <i class="fas fa-lock lock-icon" id="lock-gold"></i>
-                            <div class="color-swatch" style="background:#ffd700; color:#ffd700;"></div>
-                            <div style="font-family:'Share Tech Mono'; color:#ffd700;">PRESTIGE</div>
+                        <!-- Prestige (Gold) -->
+                        <div class="theme-card locked" onclick="previewTheme('gold')" id="card-gold" data-req="MVP">
+                            <div class="theme-icon" style="background: #ffd700; box-shadow: 0 0 10px #ffd700;"></div>
+                            <div class="theme-info">
+                                <div class="theme-name" style="color:#ffd700;">PRESTIGE</div>
+                                <div class="theme-desc">Luxurious gold plating.</div>
+                            </div>
+                            <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            <div class="lock-overlay">REQUIRES <span style="color:#fff">MVP</span></div>
                         </div>
     
-                        <div class="inventory-card" onclick="previewTheme('matrix')" id="card-matrix">
-                            <i class="fas fa-lock lock-icon" id="lock-matrix"></i>
-                            <div class="color-swatch" style="background:#00ff00; color:#00ff00;"></div>
-                            <div style="font-family:'Share Tech Mono'; color:#00ff00;">MAINFRAME</div>
+                        <!-- Mainframe (Matrix) -->
+                        <div class="theme-card locked" onclick="previewTheme('matrix')" id="card-matrix" data-req="ADMIN">
+                            <div class="theme-icon" style="background: #00ff00; box-shadow: 0 0 10px #00ff00;"></div>
+                            <div class="theme-info">
+                                <div class="theme-name" style="color:#00ff00;">MAINFRAME</div>
+                                <div class="theme-desc">Raw code output.</div>
+                            </div>
+                            <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            <div class="lock-overlay">ADMIN ONLY</div>
                         </div>
     
+                    </div>
+                    
+                    <div class="action-bar">
+                        <button class="nav-btn" onclick="cancelCustomization()" style="flex:1; border:1px solid #444;">DISCARD</button>
+                        <button class="cta-btn" onclick="saveSettings()" style="flex:2;">INSTALL THEME</button>
                     </div>
                 </div>
     
-                <div>
-                    <div class="section-title">VISUAL DIAGNOSTIC</div>
-                    <div class="preview-deck tilt-card">
-                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:10px;">
-                            <div style="width:50px; height:50px; background:#333; border-radius:4px;"></div>
-                            <div>
-                                <h2 style="margin:0; line-height:1;">PlayerName</h2>
-                                <span class="player-tag tag-admin" style="margin:0;">ADMIN</span>
+                <!-- RIGHT: LIVE PREVIEW -->
+                <div class="preview-stage">
+                    <div class="preview-label">LIVE SYSTEM DIAGNOSTIC</div>
+                    
+                    <!-- This mini UI inherits the CSS variables dynamically -->
+                    <div class="mini-ui-container">
+                        <div class="mini-nav">
+                            <div style="font-weight:bold;">SLASH<span style="color:var(--accent)">UP</span></div>
+                            <div class="mini-links">
+                                <div style="background:var(--accent); height:2px; width:20px;"></div>
                             </div>
                         </div>
     
-                        <div class="fake-stat-row">
-                            <div class="fake-card">
-                                <div style="color:#888; font-size:0.8rem;">K/D RATIO</div>
-                                <div style="font-family:'Share Tech Mono'; font-size:1.5rem;">4.20</div>
-                            </div>
-                            <div class="fake-card">
-                                <div style="color:#888; font-size:0.8rem;">WINS</div>
-                                <div style="font-family:'Share Tech Mono'; font-size:1.5rem;">1,337</div>
-                            </div>
+                        <div class="mini-hero">
+                            <div style="font-size:1.5rem; font-weight:bold;">VICTORY</div>
+                            <div style="color:var(--accent); font-family:'Share Tech Mono'">RANK #1</div>
                         </div>
     
-                        <button class="cta-btn" style="width:100%; margin-top:1rem;">
-                            TEST BUTTON INTERACTION
-                        </button>
-                    </div>
-    
-                    <div style="margin-top: 2rem; display:flex; gap: 1rem; justify-content: flex-end;">
-                        <button class="nav-btn" onclick="switchTab('stats')" style="border:1px solid #444; padding:10px 20px;">CANCEL</button>
-                        <button class="cta-btn" onclick="saveSettings()" style="padding:10px 40px;">CONFIRM & SAVE</button>
+                        <div class="mini-stats-row">
+                            <div class="mini-card">
+                                <span style="color:#666; font-size:0.7rem;">K/D RATIO</span>
+                                <div style="color:var(--text-main); font-size:1.2rem; font-family:'Share Tech Mono'">4.20</div>
+                            </div>
+                            <div class="mini-card" style="border-color:var(--accent);">
+                                <span style="color:#666; font-size:0.7rem;">WINS</span>
+                                <div style="color:var(--text-main); font-size:1.2rem; font-family:'Share Tech Mono'">1,337</div>
+                            </div>
+                        </div>
+                        
+                        <button class="mini-btn">BUTTON INTERACTION</button>
                     </div>
                 </div>
-    
             </div>
         </div>
     </div>
