@@ -38,6 +38,20 @@
                 <button class="nav-btn" onclick="switchTab('leaderboard')" id="btn-leaderboard">LEADERBOARD</button>
                 <button class="nav-btn" onclick="switchTab('stats')" id="btn-stats">STATS</button>
                 <button class="nav-btn" onclick="copyIP()" style="color: #44ff44;">COPY IP</button>
+                <button class="nav-btn" id="login-btn" onclick="openLoginModal()" style="color:white; border: 1px solid rgba(255,255,255,0.2); padding: 5px 15px;">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN
+                </button>
+            
+                <div id="nav-profile" class="nav-profile" style="display:none;" onclick="toggleProfileMenu()">
+                    <img id="nav-head" src="" alt="">
+                    <span id="nav-name">Player</span>
+                    <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div onclick="myProfile()">My Stats</div>
+                        <div onclick="logout()" style="color:var(--loss);">Logout</div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -294,5 +308,22 @@
             </div>
         </div>
     </footer>
+
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-box tilt-card">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2 class="section-title" style="text-align:center; border:none;">LINK ACCOUNT</h2>
+            <p style="color:#888; text-align:center; margin-bottom:1.5rem; font-size:0.9rem;">
+                Type <span style="color:var(--accent); font-family:'Share Tech Mono'">/link</span> in-game to generate a code.
+            </p>
+            
+            <input type="text" id="link-code" class="search-input" placeholder="ENTER CODE (e.g. A1B2C3)" style="text-align:center; letter-spacing: 5px; font-size: 1.5rem; margin-bottom: 1.5rem; text-transform:uppercase;">
+            
+            <button class="cta-btn" onclick="submitLogin()" style="width:100%; display:flex; justify-content:center; align-items:center; gap:10px;">
+                <i class="fas fa-link"></i> CONNECT
+            </button>
+            <div id="login-msg" style="text-align:center; margin-top:10px; font-family:'Share Tech Mono'; height:20px;"></div>
+        </div>
+    </div>
 </body>
 </html>
