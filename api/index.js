@@ -1,7 +1,6 @@
 const mysql = require('mysql2/promise');
 
 module.exports = async (req, res) => {
-  // 1. Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
@@ -29,23 +28,18 @@ module.exports = async (req, res) => {
       connectTimeout: 10000
     });
 
-    // --- VIEW COUNT LOGIC (Anti-Spam) ---
     const cookieName = `viewed_${player.toLowerCase()}`;
     const cookies = req.headers.cookie || "";
     const hasViewed = cookies.includes(cookieName);
 
     if (!hasViewed) {
-        // If they haven't viewed this player recently, increment the DB
         await connection.execute(
             'UPDATE slashup_stats SET views = views + 1 WHERE name = ?',
             [player]
         );
         
-        // Set a cookie that expires in 1 hour (3600 seconds)
-        // This prevents them from adding another view for 1 hour
         res.setHeader('Set-Cookie', `${cookieName}=true; Max-Age=3600; Path=/; SameSite=None; Secure`);
     }
-    // ------------------------------------
 
     const [statsRows] = await connection.execute(
       'SELECT * FROM slashup_stats WHERE name = ?',
@@ -70,8 +64,16 @@ module.exports = async (req, res) => {
 
     await connection.end();
 
+    const userData = statsRows[0];
+    
+    const realRankName = userData.rank_name || userData.rank || userData.group || userData.role || "DEFAULT";
+
     res.status(200).json({
-      stats: { ...statsRows[0], rank: exactRank },
+      stats: { 
+          ...userData, 
+          rank: exactRank,
+          rank_name: realRankName
+      },
       matches: matchRows
     });
 
