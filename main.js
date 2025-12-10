@@ -30,6 +30,7 @@ window.onload = function () {
         fetchStats();
     }
 
+    checkLogin();
     setupAutocomplete();
     initParticles();
     animateParticles();
@@ -800,3 +801,101 @@ function reveal() {
 }
 
 reveal();
+
+
+
+// --- AUTHENTICATION SYSTEM ---
+
+function checkLogin() {
+    const storedUser = localStorage.getItem('slashup_user');
+    if (storedUser) {
+        const user = JSON.parse(storedUser);
+        updateNavForLogin(user);
+    }
+}
+
+function openLoginModal() {
+    const modal = document.getElementById('login-modal');
+    modal.classList.add('open');
+    document.getElementById('link-code').focus();
+}
+
+function closeLoginModal() {
+    document.getElementById('login-modal').classList.remove('open');
+}
+
+function toggleProfileMenu() {
+    document.getElementById('profile-dropdown').classList.toggle('show');
+}
+
+window.onclick = function(e) {
+    if (!e.target.closest('.nav-profile')) {
+        document.getElementById('profile-dropdown').classList.remove('show');
+    }
+    if (e.target.classList.contains('modal-overlay')) {
+        closeLoginModal();
+    }
+}
+
+async function submitLogin() {
+    const code = document.getElementById('link-code').value.trim();
+    const msg = document.getElementById('login-msg');
+    
+    if (code.length < 3) {
+        msg.style.color = 'var(--loss)';
+        msg.innerText = "Invalid Code Length";
+        return;
+    }
+
+    msg.style.color = '#fff';
+    msg.innerText = "Verifying...";
+
+    try {
+        const res = await fetch(`/api/auth?code=${code}`);
+        const data = await res.json();
+
+        if (data.success) {
+            msg.style.color = 'var(--win)';
+            msg.innerText = "SUCCESS! Redirecting...";
+            
+            const userObj = { name: data.name, uuid: data.uuid };
+            localStorage.setItem('slashup_user', JSON.stringify(userObj));
+            
+            setTimeout(() => {
+                closeLoginModal();
+                updateNavForLogin(userObj);
+            }, 1000);
+        } else {
+            msg.style.color = 'var(--loss)';
+            msg.innerText = "Invalid or Expired Code";
+        }
+    } catch (e) {
+        console.error(e);
+        msg.style.color = 'var(--loss)';
+        msg.innerText = "Connection Error";
+    }
+}
+
+function updateNavForLogin(user) {
+    document.getElementById('login-btn').style.display = 'none';
+    const profile = document.getElementById('nav-profile');
+    
+    document.getElementById('nav-name').innerText = user.name;
+    document.getElementById('nav-head').src = `https://visage.surgeplay.com/face/32/${user.uuid}`;
+    
+    profile.style.display = 'flex';
+}
+
+function logout() {
+    localStorage.removeItem('slashup_user');
+    location.reload();
+}
+
+function myProfile() {
+    const user = JSON.parse(localStorage.getItem('slashup_user'));
+    if(user) {
+        document.getElementById('playerInput').value = user.name;
+        switchTab('stats');
+        fetchStats();
+    }
+}
