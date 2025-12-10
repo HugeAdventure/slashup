@@ -309,6 +309,8 @@
         </div>
     </footer>
 
+
+    <!-- PROFILE MODALS -->
     <div id="login-modal" class="modal-overlay">
         <div class="modal-box tilt-card">
             <span class="close-modal" onclick="closeLoginModal()">&times;</span>
@@ -323,6 +325,45 @@
                 <i class="fas fa-link"></i> CONNECT
             </button>
             <div id="login-msg" style="text-align:center; margin-top:10px; font-family:'Share Tech Mono'; height:20px;"></div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-box tilt-card" style="width: 500px;">
+            <span class="close-modal" onclick="closeSettings()">&times;</span>
+            <h2 class="section-title" style="text-align:center; border:none;">CUSTOMIZE PROFILE</h2>
+            
+            <p style="color:#888; font-size:0.8rem; margin-bottom:10px;">SELECT INTERFACE THEME</p>
+            
+            <div class="theme-grid">
+                <div class="theme-option" onclick="previewTheme('default')" id="opt-default">
+                    <div class="theme-preview" style="background:#ff3e3e;"></div>
+                    <div style="font-family:'Share Tech Mono'">DEFAULT</div>
+                </div>
+    
+                <div class="theme-option" onclick="previewTheme('neon')" id="opt-neon">
+                    <i class="fas fa-lock lock-icon" id="lock-neon"></i>
+                    <div class="theme-preview" style="background:#00f2ff;"></div>
+                    <div style="font-family:'Share Tech Mono'; color:#00f2ff;">CYBER NEON</div>
+                </div>
+    
+                <div class="theme-option" onclick="previewTheme('gold')" id="opt-gold">
+                    <i class="fas fa-lock lock-icon" id="lock-gold"></i>
+                    <div class="theme-preview" style="background:#ffd700;"></div>
+                    <div style="font-family:'Share Tech Mono'; color:#ffd700;">MIDAS GOLD</div>
+                </div>
+    
+                <div class="theme-option" onclick="previewTheme('matrix')" id="opt-matrix">
+                    <i class="fas fa-lock lock-icon" id="lock-matrix"></i>
+                    <div class="theme-preview" style="background:#00ff00;"></div>
+                    <div style="font-family:'Share Tech Mono'; color:#00ff00;">MATRIX</div>
+                </div>
+            </div>
+    
+            <button class="cta-btn" onclick="saveSettings()" style="width:100%;">
+                <i class="fas fa-save"></i> SAVE CHANGES
+            </button>
         </div>
     </div>
 </body>
