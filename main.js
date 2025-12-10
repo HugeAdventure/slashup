@@ -164,31 +164,21 @@ async function fetchStats() {
 
         // Load Skin
         const skinContainer = document.getElementById("skinContainer");
+        const skinImg = document.getElementById("skinImg");
         
-        skinContainer.innerHTML = ""; 
+        skinContainer.innerHTML = "";
         skinContainer.classList.remove("skeleton");
 
-        const skinViewer = new skinview3d.SkinViewer({
-            canvas: document.createElement("canvas"),
-            width: 300,
-            height: 400,
-            skin: `https://visage.surgeplay.com/skin/${username}`
-        });
-
-        skinViewer.canvas.classList.add("floating-skin");
-
-        skinViewer.animation = new skinview3d.IdleAnimation();
-        skinViewer.animation.speed = 0.5;
-
-        skinViewer.fov = 70;
-        skinViewer.zoom = 0.9;
+        const newImg = document.createElement("img");
+        newImg.id = "skinImg";
+        newImg.className = "skin-img floating-skin"; 
+        newImg.src = `https://visage.surgeplay.com/full/512/${username}`;
         
-        skinViewer.loadCape(null);
-        
-        skinViewer.controls.enableRotate = true;
-        skinViewer.controls.enableZoom = false;
+        newImg.onload = () => {
+            newImg.classList.add("loaded");
+        };
 
-        skinContainer.appendChild(skinViewer.canvas);
+        skinContainer.appendChild(newImg);
 
         // Special Tags
         const tagEl = document.getElementById("tagDisplay");
