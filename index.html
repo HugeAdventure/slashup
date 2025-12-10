@@ -7,25 +7,18 @@
 
     <script>
         (function() {
-            const user = JSON.parse(localStorage.getItem('slashup_user'));
             const savedTheme = localStorage.getItem('slashup_theme_cache') || 'default';
             document.documentElement.className = `theme-${savedTheme}`;
         })();
     </script>
     
-    <!-- FONTS & ICONS -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     
-    <!-- CHART.JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Style Sheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- scripts -->
     <script src="main.js" defer></script>
-    
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
@@ -57,7 +50,7 @@
                     
                     <div class="profile-dropdown" id="profile-dropdown">
                         <div onclick="myProfile()">My Stats</div>
-                        <div onclick="openCustomizePage()">Customize</div>
+                        <div onclick="openCustomizePage()">Barracks</div>
                         <div onclick="logout()" style="color:var(--loss);">Logout</div>
                     </div>
                 </div>
@@ -65,7 +58,6 @@
         </div>
     </nav>
 
-    <!-- === HOME PAGE === -->
     <div id="home-page" class="page-section active">
         <div class="container">
             <section class="hero">
@@ -76,7 +68,6 @@
                 </div>
             </section>
 
-            <!-- LIVE FEED -->
             <div class="container reveal" style="margin-bottom: 4rem;">
                 <div style="display:flex; align-items:center; gap:10px; margin-bottom: 1rem;">
                     <div style="width:10px; height:10px; background:var(--accent); border-radius:50%; box-shadow:0 0 10px var(--accent); animation: pulse 2s infinite;"></div>
@@ -87,7 +78,6 @@
                 </div>
             </div>
             
-            <!-- NEWS & MECHANICS :O -->
             <div class="content-row reveal">
                 <div class="panel-box">
                     <div class="section-title">Latest Updates</div>
@@ -119,7 +109,6 @@
                 </div>
             </div>
 
-            <!-- TEAM (me, flex ikr) & DISCORD -->
             <div class="team-section reveal">
                 <h2 class="team-header">Meet Our Team</h2>
                 <div class="team-grid">
@@ -147,7 +136,6 @@
         </div>
     </div>
 
-    <!-- LEADERBOARD  -->
     <div id="leaderboard-page" class="page-section">
         <div class="container">
             <h1 style="text-align:center; margin: 3rem 0 1.5rem 0;">GLOBAL RANKINGS</h1>
@@ -189,7 +177,6 @@
         </div>
     </div>
 
-    <!-- STATS -->
     <div id="stats-page" class="page-section">
         <div class="container stats-hero">
             <h1 style="margin: 3rem 0;">PLAYER DATABASE</h1>
@@ -209,10 +196,8 @@
                 <div id="recent-list"></div>
             </div>
 
-            <!-- PROFILE GRID -->
             <div class="profile-container" id="profileDisplay">
                 
-                <!-- LEFT COLUMN -->
                 <div class="profile-left">
                     <div class="skin-viewer skeleton" id="skinContainer">
                         <img src="" id="skinImg" class="skin-img" alt="Player Skin">
@@ -242,7 +227,6 @@
                     </div>
                 </div>
         
-                <!-- RIGHT COLUMN -->
                 <div class="player-data">
                     <div style="margin-bottom:1rem; display:flex; justify-content:space-between; align-items:flex-end;">
                         <div>
@@ -304,40 +288,6 @@
         </div>
     </div>
 
-    <footer>
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="text-align:left;">
-                <div style="font-weight:bold; font-size:1.2rem; color:white; margin-bottom:5px;">SLASH<span style="color:var(--accent)">UP</span></div>
-                <div style="color:#666;">&copy; 2025 SlashUp. <br>Not affiliated with Mojang AB.</div>
-            </div>
-            <div style="display:flex; gap:20px;">
-                <a href="#" style="color:#888; text-decoration:none;">Store</a>
-                <a href="#" style="color:#888; text-decoration:none;">Rules</a>
-                <a href="#" style="color:#888; text-decoration:none;">Appeal</a>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- PROFILE MODALS -->
-    <div id="login-modal" class="modal-overlay">
-        <div class="modal-box tilt-card">
-            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            <h2 class="section-title" style="text-align:center; border:none;">LINK ACCOUNT</h2>
-            <p style="color:#888; text-align:center; margin-bottom:1.5rem; font-size:0.9rem;">
-                Type <span style="color:var(--accent); font-family:'Share Tech Mono'">/link</span> in-game to generate a code.
-            </p>
-            
-            <input type="text" id="link-code" class="search-input" placeholder="ENTER CODE (e.g. A1B2C3)" style="text-align:center; letter-spacing: 5px; font-size: 1.5rem; margin-bottom: 1.5rem; text-transform:uppercase;">
-            
-            <button class="cta-btn" onclick="submitLogin()" style="width:100%; display:flex; justify-content:center; align-items:center; gap:10px;">
-                <i class="fas fa-link"></i> CONNECT
-            </button>
-            <div id="login-msg" style="text-align:center; margin-top:10px; font-family:'Share Tech Mono'; height:20px;"></div>
-        </div>
-    </div>
-
-    <!-- customizationomnom -->
     <div id="customize-page" class="page-section">
         <div class="container">
             <h1 style="margin: 3rem 0; text-align: left;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle;">// PROFILE CUSTOMIZATION</span></h1>
@@ -356,19 +306,19 @@
                         <div class="inventory-card" onclick="previewTheme('neon')" id="card-neon">
                             <i class="fas fa-lock lock-icon" id="lock-neon"></i>
                             <div class="color-swatch" style="background:#00f2ff; color:#00f2ff;"></div>
-                            <div style="font-family:'Share Tech Mono'">CYBERNETIC</div>
+                            <div style="font-family:'Share Tech Mono'; color:#00f2ff;">CYBERNETIC</div>
                         </div>
     
                         <div class="inventory-card" onclick="previewTheme('gold')" id="card-gold">
                             <i class="fas fa-lock lock-icon" id="lock-gold"></i>
                             <div class="color-swatch" style="background:#ffd700; color:#ffd700;"></div>
-                            <div style="font-family:'Share Tech Mono'">PRESTIGE</div>
+                            <div style="font-family:'Share Tech Mono'; color:#ffd700;">PRESTIGE</div>
                         </div>
     
                         <div class="inventory-card" onclick="previewTheme('matrix')" id="card-matrix">
                             <i class="fas fa-lock lock-icon" id="lock-matrix"></i>
                             <div class="color-swatch" style="background:#00ff00; color:#00ff00;"></div>
-                            <div style="font-family:'Share Tech Mono'">MAINFRAME</div>
+                            <div style="font-family:'Share Tech Mono'; color:#00ff00;">MAINFRAME</div>
                         </div>
     
                     </div>
@@ -410,5 +360,37 @@
             </div>
         </div>
     </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-box tilt-card">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2 class="section-title" style="text-align:center; border:none;">LINK ACCOUNT</h2>
+            <p style="color:#888; text-align:center; margin-bottom:1.5rem; font-size:0.9rem;">
+                Type <span style="color:var(--accent); font-family:'Share Tech Mono'">/link</span> in-game to generate a code.
+            </p>
+            
+            <input type="text" id="link-code" class="search-input" placeholder="ENTER CODE (e.g. A1B2C3)" style="text-align:center; letter-spacing: 5px; font-size: 1.5rem; margin-bottom: 1.5rem; text-transform:uppercase;">
+            
+            <button class="cta-btn" onclick="submitLogin()" style="width:100%; display:flex; justify-content:center; align-items:center; gap:10px;">
+                <i class="fas fa-link"></i> CONNECT
+            </button>
+            <div id="login-msg" style="text-align:center; margin-top:10px; font-family:'Share Tech Mono'; height:20px;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="text-align:left;">
+                <div style="font-weight:bold; font-size:1.2rem; color:white; margin-bottom:5px;">SLASH<span style="color:var(--accent)">UP</span></div>
+                <div style="color:#666;">&copy; 2025 SlashUp. <br>Not affiliated with Mojang AB.</div>
+            </div>
+            <div style="display:flex; gap:20px;">
+                <a href="#" style="color:#888; text-decoration:none;">Store</a>
+                <a href="#" style="color:#888; text-decoration:none;">Rules</a>
+                <a href="#" style="color:#888; text-decoration:none;">Appeal</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
