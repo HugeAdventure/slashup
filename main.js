@@ -311,11 +311,20 @@ async function saveSettings() {
     const btn = document.querySelector('.action-bar .cta-btn');
     if(btn) btn.innerText = "SAVING...";
 
+    const payload = {
+        uuid: user.uuid,
+        theme: pendingTheme,
+        youtube: document.getElementById('in-youtube').value,
+        twitch: document.getElementById('in-twitch').value,
+        discord: document.getElementById('in-discord').value,
+        twitter: document.getElementById('in-twitter').value
+    };
+
     try {
         const res = await fetch('/api/settings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ uuid: user.uuid, theme: pendingTheme })
+            body: JSON.stringify(payload)
         });
         
         const data = await res.json();
