@@ -17,6 +17,55 @@
     --text-dim: #8888aa;
 }
 
+/* 1. Default (Red/Dark) */
+body.theme-default {
+    --accent: #ff3e3e;
+    --accent-glow: rgba(255, 62, 62, 0.5);
+    --bg: #0b0b10;
+}
+
+/* 2. Cyber Blue (VIP) */
+body.theme-neon {
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.5);
+    --bg: #050a10;
+    --loss: #00f2ff; 
+}
+
+body.theme-gold {
+    --accent: #ffd700;
+    --accent-glow: rgba(255, 215, 0, 0.5);
+    --bg: #100f05;
+    --panel: rgba(25, 22, 10, 0.95);
+    --win: #ffd700;
+}
+
+body.theme-matrix {
+    --accent: #00ff00;
+    --accent-glow: rgba(0, 255, 0, 0.5);
+    --bg: #000000;
+    --text-main: #ccffcc;
+    --panel: rgba(0, 20, 0, 0.95);
+}
+
+.theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+.theme-option {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem; cursor: pointer; text-align: center; position: relative;
+    transition: 0.2s; overflow: hidden;
+}
+.theme-option:hover { transform: scale(1.05); }
+.theme-option.active { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+.lock-icon {
+    position: absolute; top: 5px; right: 5px; color: #666; font-size: 0.8rem;
+}
+.theme-preview {
+    width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 5px auto;
+    box-shadow: 0 0 10px currentColor;
+}
+
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
