@@ -337,42 +337,77 @@
         </div>
     </div>
 
-    <!-- SETTINGS MODAL -->
-    <div id="settings-modal" class="modal-overlay">
-        <div class="modal-box tilt-card" style="width: 500px;">
-            <span class="close-modal" onclick="closeSettings()">&times;</span>
-            <h2 class="section-title" style="text-align:center; border:none;">CUSTOMIZE PROFILE</h2>
-            
-            <p style="color:#888; font-size:0.8rem; margin-bottom:10px;">SELECT INTERFACE THEME</p>
-            
-            <div class="theme-grid">
-                <div class="theme-option" onclick="previewTheme('default')" id="opt-default">
-                    <div class="theme-preview" style="background:#ff3e3e;"></div>
-                    <div style="font-family:'Share Tech Mono'">DEFAULT</div>
+    <!-- customizationomnom -->
+    <div id="customize-page" class="page-section">
+        <div class="container">
+            <h1 style="margin: 3rem 0; text-align: left;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle;">// PROFILE CUSTOMIZATION</span></h1>
+    
+            <div class="customize-grid">
+                
+                <div>
+                    <div class="section-title">SELECT INTERFACE</div>
+                    <div class="theme-inventory">
+                        
+                        <div class="inventory-card active" onclick="previewTheme('default')" id="card-default">
+                            <div class="color-swatch" style="background:#ff3e3e; color:#ff3e3e;"></div>
+                            <div style="font-family:'Share Tech Mono'">OPERATOR</div>
+                        </div>
+    
+                        <div class="inventory-card" onclick="previewTheme('neon')" id="card-neon">
+                            <i class="fas fa-lock lock-icon" id="lock-neon"></i>
+                            <div class="color-swatch" style="background:#00f2ff; color:#00f2ff;"></div>
+                            <div style="font-family:'Share Tech Mono'">CYBERNETIC</div>
+                        </div>
+    
+                        <div class="inventory-card" onclick="previewTheme('gold')" id="card-gold">
+                            <i class="fas fa-lock lock-icon" id="lock-gold"></i>
+                            <div class="color-swatch" style="background:#ffd700; color:#ffd700;"></div>
+                            <div style="font-family:'Share Tech Mono'">PRESTIGE</div>
+                        </div>
+    
+                        <div class="inventory-card" onclick="previewTheme('matrix')" id="card-matrix">
+                            <i class="fas fa-lock lock-icon" id="lock-matrix"></i>
+                            <div class="color-swatch" style="background:#00ff00; color:#00ff00;"></div>
+                            <div style="font-family:'Share Tech Mono'">MAINFRAME</div>
+                        </div>
+    
+                    </div>
                 </div>
     
-                <div class="theme-option" onclick="previewTheme('neon')" id="opt-neon">
-                    <i class="fas fa-lock lock-icon" id="lock-neon"></i>
-                    <div class="theme-preview" style="background:#00f2ff;"></div>
-                    <div style="font-family:'Share Tech Mono'; color:#00f2ff;">CYBER NEON</div>
+                <div>
+                    <div class="section-title">VISUAL DIAGNOSTIC</div>
+                    <div class="preview-deck tilt-card">
+                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:10px;">
+                            <div style="width:50px; height:50px; background:#333; border-radius:4px;"></div>
+                            <div>
+                                <h2 style="margin:0; line-height:1;">PlayerName</h2>
+                                <span class="player-tag tag-admin" style="margin:0;">ADMIN</span>
+                            </div>
+                        </div>
+    
+                        <div class="fake-stat-row">
+                            <div class="fake-card">
+                                <div style="color:#888; font-size:0.8rem;">K/D RATIO</div>
+                                <div style="font-family:'Share Tech Mono'; font-size:1.5rem;">4.20</div>
+                            </div>
+                            <div class="fake-card">
+                                <div style="color:#888; font-size:0.8rem;">WINS</div>
+                                <div style="font-family:'Share Tech Mono'; font-size:1.5rem;">1,337</div>
+                            </div>
+                        </div>
+    
+                        <button class="cta-btn" style="width:100%; margin-top:1rem;">
+                            TEST BUTTON INTERACTION
+                        </button>
+                    </div>
+    
+                    <div style="margin-top: 2rem; display:flex; gap: 1rem; justify-content: flex-end;">
+                        <button class="nav-btn" onclick="switchTab('stats')" style="border:1px solid #444; padding:10px 20px;">CANCEL</button>
+                        <button class="cta-btn" onclick="saveSettings()" style="padding:10px 40px;">CONFIRM & SAVE</button>
+                    </div>
                 </div>
     
-                <div class="theme-option" onclick="previewTheme('gold')" id="opt-gold">
-                    <i class="fas fa-lock lock-icon" id="lock-gold"></i>
-                    <div class="theme-preview" style="background:#ffd700;"></div>
-                    <div style="font-family:'Share Tech Mono'; color:#ffd700;">MIDAS GOLD</div>
-                </div>
-    
-                <div class="theme-option" onclick="previewTheme('matrix')" id="opt-matrix">
-                    <i class="fas fa-lock lock-icon" id="lock-matrix"></i>
-                    <div class="theme-preview" style="background:#00ff00;"></div>
-                    <div style="font-family:'Share Tech Mono'; color:#00ff00;">MATRIX</div>
-                </div>
             </div>
-    
-            <button class="cta-btn" onclick="saveSettings()" style="width:100%;">
-                <i class="fas fa-save"></i> SAVE CHANGES
-            </button>
         </div>
     </div>
 </body>
