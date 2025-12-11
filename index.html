@@ -232,40 +232,38 @@
                     </div>
                 </div>
         
-                <div class="player-data">
-    
-                    <div id="profile-header" class="profile-header banner-default" style="margin-bottom:1rem; display:flex; justify-content:space-between; align-items:flex-end;">
-                        <div style="width: 100%; position: relative; z-index: 2;">
+                <div id="profile-header" class="profile-header banner-default">
+                    <div style="width: 100%; position: relative; z-index: 2;">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
                             
-                            <div style="display:flex; align-items:center; gap: 15px;">
+                            <div style="display:flex; align-items:center; gap: 15px; flex-wrap: wrap;">
                                 <h2 class="skeleton" style="display:inline-block; margin:0; min-width: 150px;" id="nameDisplay">Player</h2>
                                 <span id="tagDisplay"></span> 
                                 <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
                             </div>
-                            
+                
                             <div id="badge-container" class="badge-row"></div>
                 
-                            <div style="margin-top: 10px; display: flex; align-items: center; gap: 15px;">
-                                <span class="rank-badge skeleton" id="rankDisplay"># -</span>
-                                <div id="viewContainer" class="skeleton" style="color: var(--text-dim);">
-                                    <i class="far fa-eye" style="margin-right: 5px;"></i>
-                                    <span id="viewCount">0</span>
-                                </div>
-                            </div>
-                    
-                            <div id="socials-display" class="socials-row" style="margin-top: 15px; display:none;">
-                                <a id="soc-yt" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i></a>
-                                <a id="soc-tw" target="_blank" class="soc-btn tw"><i class="fab fa-twitch"></i></a>
-                                <a id="soc-dc" target="_blank" class="soc-btn dc"><i class="fab fa-discord"></i></a>
-                                <a id="soc-x" target="_blank" class="soc-btn x"><i class="fab fa-twitter"></i></a>
-                            </div>
-                
                         </div>
+                
+                        <div style="margin-top: 5px; display: flex; align-items: center; gap: 15px;">
+                            <span class="rank-badge skeleton" id="rankDisplay"># -</span>
+                            <div id="viewContainer" class="skeleton" style="color: var(--text-dim);">
+                                <i class="far fa-eye" style="margin-right: 5px;"></i>
+                                <span id="viewCount">0</span>
+                            </div>
+                        </div>
+                
+                        <div id="socials-display" class="socials-row" style="margin-top: 15px; display:none;">
+                            <a id="soc-yt" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i></a>
+                            <a id="soc-tw" target="_blank" class="soc-btn tw"><i class="fab fa-twitch"></i></a>
+                            <a id="soc-dc" target="_blank" class="soc-btn dc"><i class="fab fa-discord"></i></a>
+                            <a id="soc-x" target="_blank" class="soc-btn x"><i class="fab fa-twitter"></i></a>
+                        </div>
+                
                     </div>
-
-
-
-            
+                </div>
                     <div class="stats-big-grid">
                         <div class="big-stat accent">
                             <div style="font-size:0.8rem; color:#888;">K/D RATIO</div>
