@@ -294,6 +294,8 @@ function updateLockState(rank) {
         'default': true,
         'neon': isHighStaff || rank === "VIP" || rank === "MVP",
         'gold': isHighStaff || rank === "MVP",
+        'zen': isHighStaff || rank === "VIP" || rank === "MVP",
+        'ronin': isHighStaff || rank === "MVP" ,
         'matrix': isHighStaff
     };
 
