@@ -1017,3 +1017,13 @@ window.addEventListener("scroll", () => {
         if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add("active");
     });
 });
+
+function switchBarracksTab(tabName) {
+    document.querySelectorAll('.barracks-tab').forEach(btn => btn.classList.remove('active'));
+    
+    document.querySelectorAll('.barracks-content').forEach(content => content.classList.remove('active'));
+    
+    document.getElementById(`tab-btn-${tabName}`).classList.add('active');
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    
+    if(typeof playSfx === 'function') playSfx('click');
