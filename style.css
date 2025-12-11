@@ -80,22 +80,26 @@ html.theme-neon body {
 
 
 .theme-ronin {
-    --accent: #d4af37; 
-    --accent-glow: rgba(212, 175, 55, 0.4);
-    --bg: #111;
-    --panel: #1a1a1a;
-    --text-main: #e0e0e0;
-    --text-dim: #888;
+    --accent: #c92a2a; /* Crimson Red (Blood/Sun) */
+    --accent-glow: rgba(201, 42, 42, 0.4);
+    --gold: #d4af37; /* Secondary Gold */
     
-    --win: #ff4500; 
-    --loss: #4a4a4a;
+    --bg: #141414;
+    --panel: #1e1e1e;
+    --panel-border: 1px solid #444;
+    
+    --text-main: #e0e0e0;
+    --text-dim: #999;
+    
+    --win: #c92a2a; 
+    --loss: #555;
 }
+
 .theme-ronin body {
     font-family: 'Noto Serif JP', serif !important;
-    background-color: #050505;
-    background-image: 
-        repeating-linear-gradient(45deg, rgba(20,20,20,0.5) 0px, rgba(20,20,20,0.5) 2px, transparent 2px, transparent 10px),
-        radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    background-color: #0a0a0a;
+    background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png"); 
+    background-attachment: fixed;
 }
 
 .theme-ronin .match-card.win .match-outcome span,
@@ -104,63 +108,73 @@ html.theme-neon body {
     text-shadow: 0 0 10px #ff4500, 0 0 20px #ff8c00;
 }
 
+.theme-ronin .logo,
+.theme-ronin .section-title, 
+.theme-ronin h1 {
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, transparent 0%, rgba(201, 42, 42, 0.2) 20%, rgba(201, 42, 42, 0.2) 80%, transparent 100%);
+    padding: 5px 20px;
+    border-left: 3px solid var(--accent);
+    border-right: 3px solid var(--accent);
+    border-bottom: none !important; 
+}
+
 .theme-ronin .panel-box, 
-.theme-ronin .nav-btn, 
-.theme-ronin .cta-btn,
-.theme-ronin .match-card {
-    border: 1px solid #444;
+.theme-ronin .match-card,
+.theme-ronin .tilt-card, 
+.theme-ronin nav {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-top: 2px solid var(--accent); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
     border-radius: 0 !important; 
-    clip-path: polygon(
-        10px 0, 100% 0, 
-        100% calc(100% - 10px), calc(100% - 10px) 100%, 
-        0 100%, 0 10px
-    );
-    transition: all 0.3s;
+    
+    background-image: url("https://www.transparenttextures.com/patterns/washi.png"); 
+}
+
+.theme-ronin .nav-btn, 
+.theme-ronin .cta-btn {
+    background: #222;
+    border: 1px solid #444;
+    color: #bbb;
+    font-family: 'Noto Serif JP', serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: 0.2s;
 }
 
 .theme-ronin .nav-btn.active, 
-.theme-ronin .cta-btn:hover {
-    background: linear-gradient(45deg, #d4af37, #8a6d1c);
-    color: black;
-    border: none;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+.theme-ronin .cta-btn:hover,
+.theme-ronin .action-bar button:hover {
+    background: var(--accent); 
+    color: white;
+    border-color: var(--accent);
+    text-shadow: 0 0 10px black;
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5); 
+}
+
+.theme-ronin .logo span {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent);
 }
 
 .theme-ronin body::before {
-    content: "武士道"; 
+    content: "浪人"; 
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 900;
+    font-size: 40vw;
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    
-    font-size: 35vw;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 900;
-    writing-mode: vertical-rl;
-    
-    color: transparent; 
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.05); 
-    
-    animation: roninBreath 8s ease-in-out infinite;
-    
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 62, 62, 0.03); 
+    z-index: 0;
     pointer-events: none;
-    z-index: 0 !important;
-}
-
-.theme-ronin .page-section {
-    z-index: 2; 
-    position: relative;
-}
-
-.theme-ronin .container, 
-.theme-ronin nav, 
-.theme-ronin .hero {
-    position: relative;
-    z-index: 2;
-}
-
-@keyframes roninBreath {
-    0%, 100% { opacity: 0.03; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.06; transform: translate(-50%, -50%) scale(1.05); }
+    writing-mode: vertical-rl;
 }
 
 
