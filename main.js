@@ -323,6 +323,7 @@ function updateLockState(rank) {
 
     const bannerUnlocks = {
         'default': true,
+        'polar': true,
         'neon': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
         'gold': ["MVP", "OWNER", "ADMIN"].includes(rank),
         'ronin': ["MVP", "OWNER", "ADMIN"].includes(rank)
