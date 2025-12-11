@@ -103,6 +103,10 @@ async function fetchStats() {
 
         document.getElementById("nameDisplay").innerText = stats.name || username;
 
+        const bannerId = stats.profile_banner || 'default';
+        const headerEl = document.getElementById('profile-header');
+        headerEl.className = `profile-header banner-${bannerId}`;
+
         const socBox = document.getElementById("socials-display");
         const socYt = document.getElementById("soc-yt");
         const socTw = document.getElementById("soc-tw");
