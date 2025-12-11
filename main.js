@@ -1028,3 +1028,39 @@ function switchBarracksTab(tabName) {
     
     if(typeof playSfx === 'function') playSfx('click');
 }
+
+
+// =====================================================
+// COMBAT BADGES LOGIC # 11
+// =====================================================
+
+function renderBadges(stats) {
+    const container = document.getElementById("badge-container");
+    if (!container) return;
+    
+    container.innerHTML = "";
+
+    const badges = [];
+
+    if (stats.kills >= 1000) badges.push({ icon: "💀", name: "REAPER // 1000+ Kills" });
+    else if (stats.kills >= 500) badges.push({ icon: "🗡️", name: "SLAYER // 500+ Kills" });
+
+    const kdr = parseFloat(stats.kdr || 0);
+    if (kdr >= 4.0) badges.push({ icon: "👽", name: "ALIEN // 4.0+ KD" });
+    else if (kdr >= 2.0) badges.push({ icon: "🎯", name: "DEADEYE // 2.0+ KD" });
+
+    if (stats.best_streak >= 20) badges.push({ icon: "⚡", name: "GODLIKE // 20 Streak" });
+    else if (stats.best_streak >= 10) badges.push({ icon: "🔥", name: "UNSTOPPABLE // 10 Streak" });
+
+    const rankName = (stats.rank_name || "").toUpperCase();
+    if (["OWNER", "ADMIN", "DEV"].includes(rankName)) badges.push({ icon: "👑", name: "AUTHORITY // Staff" });
+    else if (rankName === "MVP") badges.push({ icon: "💎", name: "PRESTIGE // MVP" });
+
+    badges.forEach(b => {
+        const div = document.createElement("div");
+        div.className = "combat-badge";
+        div.innerHTML = b.icon;
+        div.setAttribute("data-tooltip", b.name);
+        container.appendChild(div);
+    });
+}
