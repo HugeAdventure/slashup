@@ -54,10 +54,10 @@ html.theme-neon body {
     --panel: #1a1a1a;
     --text-main: #e0e0e0;
     --text-dim: #888;
-    --win: #8a2be2; 
-    --loss: #555;
+    
+    --win: #ff4500; 
+    --loss: #4a4a4a;
 }
-
 .theme-ronin body {
     font-family: 'Noto Serif JP', serif !important;
     background-color: #050505;
@@ -93,14 +93,24 @@ html.theme-neon body {
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 30vw;
-    color: rgba(255, 255, 255, 0.03);
+    font-size: 35vw; 
+    
+    color: rgba(255, 255, 255, 0.04); 
+    
     font-family: 'Noto Serif JP', serif;
     font-weight: 900;
-    pointer-events: none;
-    z-index: -2;
+    pointer-events: none; 
+    z-index: 0; 
+    
     animation: roninBreath 8s ease-in-out infinite;
     writing-mode: vertical-rl;
+}
+
+.theme-ronin .container, 
+.theme-ronin nav, 
+.theme-ronin .hero {
+    position: relative;
+    z-index: 2;
 }
 
 @keyframes roninBreath {
@@ -108,6 +118,22 @@ html.theme-neon body {
     50% { opacity: 0.06; transform: translate(-50%, -50%) scale(1.05); }
 }
 
+
+/* fixed padding */
+
+.theme-zen .nav-btn {
+    padding: 10px 30px; 
+    margin: 0 5px;
+    border-radius: 50px !important; 
+}
+
+.theme-ronin .nav-btn {
+    padding: 10px 35px; 
+    margin: 0 5px;
+    letter-spacing: 2px; 
+}
+
+/* */
 
 .theme-zen {
     --accent: #ff9eb5; 
