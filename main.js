@@ -30,7 +30,6 @@ window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     const playerParam = urlParams.get("player");
 
-    // Load Particles first so bg isn't empty
     try { initParticles(); animateParticles(); } catch(e) { console.log("Particles error", e); }
 
     if (playerParam) {
