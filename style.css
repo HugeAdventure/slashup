@@ -356,17 +356,16 @@ nav {
     flex-wrap: nowrap !important;
     
     overflow-x: auto !important;
-    overflow-y: hidden;             
+    overflow-y: hidden;
     
     width: 100%;
     max-width: 100%;
     
     gap: 1rem;
-    padding: 10px 0 20px 0; 
-    margin-bottom: 2rem;
+    padding: 10px 5px 20px 5px; 
     
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
 }
 #global-feed::-webkit-scrollbar { height: 6px; }
 #global-feed::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
@@ -963,4 +962,28 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     
     .lb-table { display: block; overflow-x: auto; }
 }
+
+.cta-btn, 
+.nav-btn, 
+.action-bar button {
+    white-space: nowrap !important; 
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-zen .cta-btn,
+.theme-zen .nav-btn,
+.theme-zen .action-bar button {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    min-width: 140px; 
+}
+
+.theme-ronin .cta-btn,
+.theme-ronin .nav-btn,
+.theme-ronin .action-bar button {
+    padding-left: 40px !important; 
+    padding-right: 40px !important;
+    letter-spacing: 1px; 
 }
