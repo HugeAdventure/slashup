@@ -838,24 +838,32 @@ class Particle {
         const isNeon = document.documentElement.classList.contains('theme-neon');
 
         this.x = Math.random() * canvas.width;
-        this.opacity = Math.random() * 0.5 + 0.1;
+        this.opacity = Math.random() * 0.5 + 0.2;
         
         
         if (isZen) {
-            this.y = initial ? Math.random() * canvas.height : -10;
-            this.size = Math.random() * 4 + 2;
-            this.speedY = Math.random() * 1 + 0.5; 
+            this.y = initial ? Math.random() * canvas.height : -20;
+            this.size = Math.random() * 5 + 3; 
+            this.speedY = Math.random() * 1.5 + 0.5; 
             this.speedX = Math.random() * 1 - 0.5; 
-            this.swaySpeed = Math.random() * 0.05 + 0.02; 
+            
+            this.swaySpeed = Math.random() * 0.03 + 0.01; 
             this.swayOffset = Math.random() * Math.PI * 2; 
-            this.color = '#ffb7c5';
+            
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = (Math.random() - 0.5) * 2;
+            this.tilt = 0;
+            this.tiltSpeed = Math.random() * 0.05 + 0.02;
+            
+            this.color = Math.random() > 0.5 ? '#ffb7c5' : '#ffdae0'; 
         } 
         else if (isRonin) {
             this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
-            this.size = Math.random() * 3;
-            this.speedY = (Math.random() * 0.5 + 0.2) * -1; 
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.color = Math.random() > 0.9 ? '#d4af37' : '#333'; 
+            this.size = Math.random() * 3 + 1;
+            this.speedY = (Math.random() * 1 + 0.2) * -1; 
+            this.speedX = Math.random() * 0.6 - 0.3; 
+            this.color = Math.random() > 0.8 ? '#d4af37' : '#222'; 
+            this.rotation = 0; 
         }
         else if (isMatrix) {
             this.y = initial ? Math.random() * canvas.height : -10;
@@ -863,6 +871,7 @@ class Particle {
             this.speedY = Math.random() * 5 + 5; 
             this.speedX = 0;
             this.color = '#00ff00';
+            this.rotation = 0;
         }
         else if (isNeon) {
             this.y = Math.random() * canvas.height;
@@ -871,6 +880,7 @@ class Particle {
             this.speedY = 0;
             this.size = Math.random() * 2;
             this.color = '#00f2ff';
+            this.rotation = 0;
         }
         else {
             this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
@@ -878,6 +888,7 @@ class Particle {
             this.speedX = Math.random() * 0.5 - 0.25;
             this.size = Math.random() * 3 + 1;
             this.color = '#ff3e3e';
+            this.rotation = 0;
         }
     }
 
@@ -887,31 +898,42 @@ class Particle {
 
         if (document.documentElement.classList.contains('theme-zen')) {
             this.x += Math.sin(this.y * this.swaySpeed + this.swayOffset) * 0.5;
-            this.size = Math.abs(Math.sin(this.y * 0.05)) * 3 + 2; 
+            this.tilt += this.tiltSpeed;
+            this.rotation += this.rotationSpeed;
         }
 
-        if (this.y > canvas.height + 20 || this.y < -20 || this.x > canvas.width + 20) {
+        if (this.y > canvas.height + 20 || this.y < -30 || this.x > canvas.width + 20 || this.x < -20) {
             this.reset();
         }
     }
 
     draw() {
         if(!ctx) return;
+        
+        const isZen = document.documentElement.classList.contains('theme-zen');
+        const isMatrix = document.documentElement.classList.contains('theme-matrix');
+
         ctx.fillStyle = this.color;
         ctx.globalAlpha = this.opacity;
-        
-        if (document.documentElement.classList.contains('theme-matrix')) {
-            ctx.fillRect(this.x, this.y, 2, 10);
-        } 
-        else if (document.documentElement.classList.contains('theme-zen')) {
-            // Draw Petal (Oval)
+
+        if (isZen) {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation * Math.PI / 180);
+            ctx.scale(1, Math.abs(Math.sin(this.tilt))); 
+            
             ctx.beginPath();
-            ctx.ellipse(this.x, this.y, this.size, this.size * 0.6, Math.PI / 4, 0, Math.PI * 2);
+            ctx.ellipse(0, 0, this.size, this.size * 0.6, 0, 0, Math.PI * 2);
             ctx.fill();
+            ctx.restore();
+        } 
+        else if (isMatrix) {
+            ctx.fillRect(this.x, this.y, 2, 12);
         }
         else {
             ctx.fillRect(this.x, this.y, this.size, this.size);
         }
+        
         ctx.globalAlpha = 1.0;
     }
 }
