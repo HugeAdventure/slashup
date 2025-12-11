@@ -311,144 +311,128 @@
 
     <div id="customize-page" class="page-section">
         <div class="container" style="height: calc(100vh - 100px); display: flex; flex-direction: column;">
-            <h1 style="margin: 2rem 0; font-size: 2.5rem;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle; letter-spacing: 2px;">// INTERFACE OVERRIDE</span></h1>
+            <h1 style="margin: 2rem 0; font-size: 2.5rem;">BARRACKS <span style="font-size:1rem; color:#666; vertical-align:middle; letter-spacing: 2px;">// CONFIGURATION</span></h1>
     
             <div class="customize-layout">
                 <div class="theme-selector-col">
                     
-                    <div class="section-title">AVAILABLE MODULES</div>
-                    <div class="theme-list" id="theme-list-container">
-                        
-                        <div class="theme-card active" onclick="previewTheme('default')" id="card-default">
-                            <div class="theme-icon" style="background: #ff3e3e;"></div>
-                            <div class="theme-info">
-                                <div class="theme-name">OPERATOR</div>
-                                <div class="theme-desc">Standard issue interface.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-check"></i></div>
-                        </div>
+                    <div class="barracks-tabs">
+                        <button class="barracks-tab active" onclick="switchBarracksTab('interface')" id="tab-btn-interface">
+                            <i class="fas fa-desktop"></i> INTERFACE
+                        </button>
+                        <button class="barracks-tab" onclick="switchBarracksTab('identity')" id="tab-btn-identity">
+                            <i class="fas fa-id-card"></i> IDENTITY
+                        </button>
+                    </div>
     
-                        <div class="theme-card locked" onclick="previewTheme('neon')" id="card-neon" data-req="VIP">
-                            <div class="theme-icon" style="background: #00f2ff; box-shadow: 0 0 10px #00f2ff;"></div>
-                            <div class="theme-info">
-                                <div class="theme-name" style="color:#00f2ff;">CYBERNETIC</div>
-                                <div class="theme-desc">High contrast neon metrics.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-lock"></i></div>
-                            <div class="lock-overlay">REQUIRES <span style="color:#fff">VIP</span></div>
-                        </div>
-    
-                        <div class="theme-card locked" onclick="previewTheme('gold')" id="card-gold" data-req="MVP">
-                            <div class="theme-icon" style="background: #ffd700; box-shadow: 0 0 10px #ffd700;"></div>
-                            <div class="theme-info">
-                                <div class="theme-name" style="color:#ffd700;">PRESTIGE</div>
-                                <div class="theme-desc">Luxurious gold plating.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-lock"></i></div>
-                            <div class="lock-overlay">REQUIRES <span style="color:#fff">MVP</span></div>
-                        </div>
-
-                        <div class="theme-card locked" onclick="previewTheme('ronin')" id="card-ronin" data-req="MVP">
-                            <div class="theme-icon" style="background: #1a1a1a; border:1px solid #d4af37; display:flex; align-items:center; justify-content:center; font-family:serif; color:#d4af37; font-size:1.2rem;">武</div>
-                            <div class="theme-info">
-                                <div class="theme-name" style="color:#d4af37; font-family:'Noto Serif JP', serif;">RONIN</div>
-                                <div class="theme-desc">Bushido aesthetics.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-lock"></i></div>
-                            <div class="lock-overlay">REQUIRES <span style="color:#fff">MVP</span></div>
-                        </div>
-                        
-                        <div class="theme-card locked" onclick="previewTheme('zen')" id="card-zen" data-req="VIP">
-                            <div class="theme-icon" style="background: #ffb7c5; box-shadow: 0 0 10px #ffb7c5;"></div>
-                            <div class="theme-info">
-                                <div class="theme-name" style="color:#ffb7c5;">ZEN GARDEN</div>
-                                <div class="theme-desc">Peaceful sakura fall.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-lock"></i></div>
-                            <div class="lock-overlay">REQUIRES <span style="color:#fff">VIP</span></div>
-                        </div>
-                        
-                        <div class="theme-card locked" onclick="previewTheme('matrix')" id="card-matrix" data-req="ADMIN">
-                            <div class="theme-icon" style="background: #00ff00; box-shadow: 0 0 10px #00ff00;"></div>
-                            <div class="theme-info">
-                                <div class="theme-name" style="color:#00ff00;">MAINFRAME</div>
-                                <div class="theme-desc">Raw code output.</div>
-                            </div>
-                            <div class="theme-status"><i class="fas fa-lock"></i></div>
-                            <div class="lock-overlay">ADMIN ONLY</div>
-                        </div>
-                    </div> 
-
-                    <div class="section-title" style="margin-top: 2rem;">PROFILE SIGNATURE</div>
-                        <div class="banner-grid">
+                    <div id="tab-interface" class="barracks-content active">
+                        <div class="section-title">SYSTEM THEME</div>
+                        <div class="theme-list">
                             
+                            <div class="theme-card active" onclick="previewTheme('default')" id="card-default">
+                                <div class="theme-icon" style="background: #ff3e3e;"></div>
+                                <div class="theme-info">
+                                    <div class="theme-name">OPERATOR</div>
+                                    <div class="theme-desc">Standard issue interface.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-check"></i></div>
+                            </div>
+    
+                            <div class="theme-card locked" onclick="previewTheme('neon')" id="card-neon">
+                                <div class="theme-icon" style="background: #00f2ff; box-shadow: 0 0 10px #00f2ff;"></div>
+                                <div class="theme-info">
+                                    <div class="theme-name" style="color:#00f2ff;">CYBERNETIC</div>
+                                    <div class="theme-desc">High contrast neon metrics.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            </div>
+    
+                            <div class="theme-card locked" onclick="previewTheme('gold')" id="card-gold">
+                                <div class="theme-icon" style="background: #ffd700; box-shadow: 0 0 10px #ffd700;"></div>
+                                <div class="theme-info">
+                                    <div class="theme-name" style="color:#ffd700;">PRESTIGE</div>
+                                    <div class="theme-desc">Luxurious gold plating.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            </div>
+    
+                            <div class="theme-card locked" onclick="previewTheme('ronin')" id="card-ronin">
+                                <div class="theme-icon" style="background: #1a1a1a; border:1px solid #d4af37; display:flex; align-items:center; justify-content:center; color:#d4af37;">武</div>
+                                <div class="theme-info">
+                                    <div class="theme-name" style="color:#d4af37;">RONIN</div>
+                                    <div class="theme-desc">Bushido aesthetics.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            </div>
+                            
+                            <div class="theme-card locked" onclick="previewTheme('zen')" id="card-zen">
+                                <div class="theme-icon" style="background: #ffb7c5; box-shadow: 0 0 10px #ffb7c5;"></div>
+                                <div class="theme-info">
+                                    <div class="theme-name" style="color:#ffb7c5;">ZEN GARDEN</div>
+                                    <div class="theme-desc">Peaceful sakura fall.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            </div>
+    
+                            <div class="theme-card locked" onclick="previewTheme('matrix')" id="card-matrix">
+                                <div class="theme-icon" style="background: #00ff00; box-shadow: 0 0 10px #00ff00;"></div>
+                                <div class="theme-info">
+                                    <div class="theme-name" style="color:#00ff00;">MAINFRAME</div>
+                                    <div class="theme-desc">Raw code output.</div>
+                                </div>
+                                <div class="theme-status"><i class="fas fa-lock"></i></div>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <div id="tab-identity" class="barracks-content">
+                        <div class="section-title">PROFILE SIGNATURE</div>
+                        <div class="banner-grid">
                             <div class="banner-option active" onclick="selectBanner('default')" id="ban-default">
                                 <div class="ban-preview banner-default"></div>
                                 <span>DEFAULT</span>
                             </div>
-                        
                             <div class="banner-option locked" onclick="selectBanner('neon')" id="ban-neon">
                                 <div class="ban-preview banner-neon"></div>
-                                <span>CYBER GRID</span>
-                                <i class="fas fa-lock lock-icon"></i>
+                                <span>CYBER GRID</span><i class="fas fa-lock lock-icon"></i>
                             </div>
-                        
                             <div class="banner-option locked" onclick="selectBanner('gold')" id="ban-gold">
                                 <div class="ban-preview banner-gold"></div>
-                                <span>MIDAS TOUCH</span>
-                                <i class="fas fa-lock lock-icon"></i>
+                                <span>MIDAS TOUCH</span><i class="fas fa-lock lock-icon"></i>
                             </div>
-                        
                             <div class="banner-option locked" onclick="selectBanner('ronin')" id="ban-ronin">
                                 <div class="ban-preview banner-ronin"></div>
-                                <span>RED SUN</span>
-                                <i class="fas fa-lock lock-icon"></i>
+                                <span>RED SUN</span><i class="fas fa-lock lock-icon"></i>
                             </div>
-                        
                         </div>
-                    
-                    <div class="section-title" style="margin-top: 2rem;">SOCIAL UPLINK</div>
-                    <div class="social-inputs">
-                        <div class="input-group">
-                            <i class="fab fa-youtube" style="color:#ff0000"></i>
-                            <input type="text" id="in-youtube" placeholder="YouTube URL">
-                        </div>
-                        <div class="input-group">
-                            <i class="fab fa-twitch" style="color:#9146ff"></i>
-                            <input type="text" id="in-twitch" placeholder="Twitch URL">
-                        </div>
-                        <div class="input-group">
-                            <i class="fab fa-discord" style="color:#5865F2"></i>
-                            <input type="text" id="in-discord" placeholder="Discord Invite">
-                        </div>
-                        <div class="input-group">
-                            <i class="fab fa-twitter" style="color:#1DA1F2"></i>
-                            <input type="text" id="in-twitter" placeholder="Twitter/X URL">
+    
+                        <div class="section-title" style="margin-top: 1rem;">SOCIAL UPLINK</div>
+                        <div class="social-inputs">
+                            <div class="input-group"><i class="fab fa-youtube" style="color:#ff0000"></i><input type="text" id="in-youtube" placeholder="YouTube URL"></div>
+                            <div class="input-group"><i class="fab fa-twitch" style="color:#9146ff"></i><input type="text" id="in-twitch" placeholder="Twitch URL"></div>
+                            <div class="input-group"><i class="fab fa-discord" style="color:#5865F2"></i><input type="text" id="in-discord" placeholder="Discord Invite"></div>
+                            <div class="input-group"><i class="fab fa-twitter" style="color:#1DA1F2"></i><input type="text" id="in-twitter" placeholder="Twitter/X URL"></div>
                         </div>
                     </div>
                     
                     <div class="action-bar">
                         <button class="nav-btn" onclick="cancelCustomization()" style="flex:1; border:1px solid #444;">DISCARD</button>
-                        <button class="cta-btn" onclick="saveSettings()" style="flex:2;">INSTALL THEME</button>
+                        <button class="cta-btn" onclick="saveSettings()" style="flex:2;">SAVE CHANGES</button>
                     </div>
                 </div>
     
                 <div class="preview-stage">
                     <div class="preview-label">LIVE SYSTEM DIAGNOSTIC</div>
-                    
                     <div class="mini-ui-container">
                         <div class="mini-nav">
                             <div style="font-weight:bold;">SLASH<span style="color:var(--accent)">UP</span></div>
-                            <div class="mini-links">
-                                <div style="background:var(--accent); height:2px; width:20px;"></div>
-                            </div>
+                            <div class="mini-links"><div style="background:var(--accent); height:2px; width:20px;"></div></div>
                         </div>
-    
                         <div class="mini-hero">
                             <div style="font-size:1.5rem; font-weight:bold;">VICTORY</div>
                             <div style="color:var(--accent); font-family:'Share Tech Mono'">RANK #1</div>
                         </div>
-    
                         <div class="mini-stats-row">
                             <div class="mini-card">
                                 <span style="color:#666; font-size:0.7rem;">K/D RATIO</span>
@@ -459,7 +443,6 @@
                                 <div style="color:var(--text-main); font-size:1.2rem; font-family:'Share Tech Mono'">1,337</div>
                             </div>
                         </div>
-                        
                         <button class="mini-btn">BUTTON INTERACTION</button>
                     </div>
                 </div>
@@ -467,7 +450,6 @@
         </div>
     </div>
 
-    <!-- LOGIN MODAL -->
     <div id="login-modal" class="modal-overlay">
         <div class="modal-box tilt-card">
             <span class="close-modal" onclick="closeLoginModal()">&times;</span>
