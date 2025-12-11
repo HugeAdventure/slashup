@@ -1161,3 +1161,58 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     background-color: #000;
     background-image: radial-gradient(circle at 80% 50%, #8b0000 0%, transparent 50%);
 }
+
+.barracks-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.barracks-tab {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--text-dim);
+    padding: 12px;
+    font-family: 'Share Tech Mono';
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.barracks-tab:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+.barracks-tab.active {
+    background: var(--accent);
+    color: #000; 
+    border-color: var(--accent);
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.barracks-content {
+    display: none; 
+    flex: 1;
+    overflow-y: auto; 
+    padding-right: 5px;
+}
+
+.barracks-content.active {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.barracks-content::-webkit-scrollbar { width: 4px; }
+.barracks-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+.barracks-content::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
