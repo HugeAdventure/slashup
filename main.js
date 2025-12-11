@@ -115,6 +115,31 @@ async function fetchStats() {
         const socX = document.getElementById("soc-x");
     
         let hasSocials = false;
+
+        document.getElementById("nameDisplay").innerText = stats.name || username;
+
+        // --- NATION LOGIC ---
+        const countryCode = stats.country || 'xx';
+        const flagImg = document.getElementById('nationFlag');
+        
+        if(countryCode !== 'xx') {
+            flagImg.src = `https://flagcdn.com/w80/${countryCode}.png`;
+            flagImg.style.display = "block";
+        } else {
+            flagImg.style.display = "none";
+        }
+
+        const bannerId = stats.profile_banner || 'default';
+        const headerEl = document.getElementById('profile-header');
+        headerEl.className = `profile-header banner-${bannerId}`;
+        
+        headerEl.style.backgroundImage = '';
+
+        if(bannerId === 'patriot' && countryCode !== 'xx') {
+            headerEl.style.backgroundImage = `url('https://flagcdn.com/w1280/${countryCode}.png')`;
+            headerEl.style.backgroundSize = "cover";
+            headerEl.style.backgroundPosition = "center";
+        }
     
         const setSocial = (el, link) => {
             if (link && link.length > 2) {
@@ -285,6 +310,7 @@ async function openCustomizePage() {
         console.log("Barracks Debug -> Raw:", rawRank, "Clean:", cleanRank);
 
         if(data.stats) {
+            document.getElementById('in-country').value = data.stats.country || "xx";
             document.getElementById('in-youtube').value = data.stats.social_youtube || "";
             document.getElementById('in-twitch').value = data.stats.social_twitch || "";
             document.getElementById('in-discord').value = data.stats.social_discord || "";
@@ -324,6 +350,7 @@ function updateLockState(rank) {
     const bannerUnlocks = {
         'default': true,
         'polar': true,
+        'patriot': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
         'neon': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
         'gold': ["MVP", "OWNER", "ADMIN"].includes(rank),
         'ronin': ["MVP", "OWNER", "ADMIN"].includes(rank)
@@ -400,6 +427,7 @@ async function saveSettings() {
         uuid: user.uuid,
         theme: pendingTheme,
         banner: pendingBanner,
+        country: document.getElementById('in-country').value,
         youtube: document.getElementById('in-youtube').value,
         twitch: document.getElementById('in-twitch').value,
         discord: document.getElementById('in-discord').value,
