@@ -1216,3 +1216,7 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 .barracks-content::-webkit-scrollbar { width: 4px; }
 .barracks-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
 .barracks-content::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+#login-btn[style*="none"] {
+    display: none !important;
+}
