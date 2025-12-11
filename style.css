@@ -243,7 +243,6 @@ html.theme-gold body {
     --text-main: #f0e6d2; 
     --text-dim: #998866;
 
-    background-image: url("https://www.transparenttextures.com/patterns/stardust.png"), radial-gradient(circle at top, #1a1505, #000);
     background-attachment: fixed;
 }
 
