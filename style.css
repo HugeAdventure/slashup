@@ -1335,8 +1335,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 }
 
 
-/* --- THEME OVERRIDES --- */
-
 .theme-ronin .combat-badge {
     border-radius: 0;
     border: 1px solid #d4af37;
@@ -1365,4 +1363,31 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     border: 1px solid #d4af37;
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
     color: #ffd700;
+}
+
+
+.country-select {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 12px 0;
+    font-family: 'Share Tech Mono';
+    outline: none;
+    cursor: pointer;
+}
+.country-select option {
+    background: #111; 
+    color: white;
+}
+
+
+.banner-patriot {
+    background-color: #111;
+    background-image: url('https://www.transparenttextures.com/patterns/shattered-island.png'), linear-gradient(45deg, #333, #111);
+    border: 1px solid #555;
+}
+
+.profile-header.banner-patriot::before {
+    background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 100%);
 }
