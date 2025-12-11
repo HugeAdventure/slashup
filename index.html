@@ -232,38 +232,46 @@
                     </div>
                 </div>
         
-                <div id="profile-header" class="profile-header banner-default">
-                    <div style="width: 100%; position: relative; z-index: 2;">
-                        
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                <div class="player-data">
+                    <!-- 1. PROFILE HEADER (Banner, Name, Badges, Socials) -->
+                    <div id="profile-header" class="profile-header banner-default">
+                        <div style="width: 100%; position: relative; z-index: 2;">
                             
-                            <div style="display:flex; align-items:center; gap: 15px; flex-wrap: wrap;">
-                                <h2 class="skeleton" style="display:inline-block; margin:0; min-width: 150px;" id="nameDisplay">Player</h2>
-                                <span id="tagDisplay"></span> 
-                                <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
+                            <!-- Row 1: Name & Badges -->
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                                
+                                <!-- Left: Name & Tag -->
+                                <div style="display:flex; align-items:center; gap: 15px; flex-wrap: wrap;">
+                                    <h2 class="skeleton" style="display:inline-block; margin:0; min-width: 150px;" id="nameDisplay">Player</h2>
+                                    <span id="tagDisplay"></span> 
+                                    <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
+                                </div>
+                
+                                <!-- Right: Combat Badges -->
+                                <div id="badge-container" class="badge-row"></div>
                             </div>
                 
-                            <div id="badge-container" class="badge-row"></div>
-                
-                        </div>
-                
-                        <div style="margin-top: 5px; display: flex; align-items: center; gap: 15px;">
-                            <span class="rank-badge skeleton" id="rankDisplay"># -</span>
-                            <div id="viewContainer" class="skeleton" style="color: var(--text-dim);">
-                                <i class="far fa-eye" style="margin-right: 5px;"></i>
-                                <span id="viewCount">0</span>
+                            <!-- Row 2: Rank & Views -->
+                            <div style="margin-top: 5px; display: flex; align-items: center; gap: 15px;">
+                                <span class="rank-badge skeleton" id="rankDisplay"># -</span>
+                                <div id="viewContainer" class="skeleton" style="color: var(--text-dim);">
+                                    <i class="far fa-eye" style="margin-right: 5px;"></i>
+                                    <span id="viewCount">0</span>
+                                </div>
                             </div>
-                        </div>
                 
-                        <div id="socials-display" class="socials-row" style="margin-top: 15px; display:none;">
-                            <a id="soc-yt" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i></a>
-                            <a id="soc-tw" target="_blank" class="soc-btn tw"><i class="fab fa-twitch"></i></a>
-                            <a id="soc-dc" target="_blank" class="soc-btn dc"><i class="fab fa-discord"></i></a>
-                            <a id="soc-x" target="_blank" class="soc-btn x"><i class="fab fa-twitter"></i></a>
-                        </div>
+                            <!-- Row 3: Social Links -->
+                            <div id="socials-display" class="socials-row" style="margin-top: 15px; display:none;">
+                                <a id="soc-yt" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i></a>
+                                <a id="soc-tw" target="_blank" class="soc-btn tw"><i class="fab fa-twitch"></i></a>
+                                <a id="soc-dc" target="_blank" class="soc-btn dc"><i class="fab fa-discord"></i></a>
+                                <a id="soc-x" target="_blank" class="soc-btn x"><i class="fab fa-twitter"></i></a>
+                            </div>
                 
+                        </div>
                     </div>
-                </div>
+                
+                    <!-- 2. BIG STATS GRID (K/D, Wins, Streak) -->
                     <div class="stats-big-grid">
                         <div class="big-stat accent">
                             <div style="font-size:0.8rem; color:#888;">K/D RATIO</div>
@@ -278,13 +286,15 @@
                             <div class="big-stat-val skeleton" id="streakVal">-</div>
                         </div>
                     </div>
-
+                
+                    <!-- 3. PERFORMANCE CHART -->
                     <div class="chart-container skeleton" id="chartBox">
                         <div class="section-title" style="font-size:1rem; border:none; margin-bottom:5px;">Performance History</div>
                         <div id="sequenceTicker" class="sequence-box"></div>
                         <canvas id="performanceChart"></canvas>
                     </div>
-            
+                
+                    <!-- 4. WIN RATE BAR -->
                     <div class="win-rate-container skeleton" id="wrBox">
                         <div class="wr-label">
                             <span>WIN RATE</span><span id="wr-percent">50%</span>
@@ -294,7 +304,8 @@
                             <div id="bar-loss" class="wr-loss" style="width: 50%"></div>
                         </div>
                     </div>
-            
+                
+                    <!-- 5. MATCH HISTORY -->
                     <div class="panel-box">
                         <div class="section-title" style="font-size:1rem;">Recent Matches</div>
                         <div id="matchHistoryList" class="match-list">
@@ -302,6 +313,8 @@
                             <div class="match-card skeleton" style="height: 60px;"></div>
                         </div>
                     </div>
+                
+                </div>
                 </div>
             </div>
         </div>
