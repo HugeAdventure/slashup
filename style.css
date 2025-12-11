@@ -111,7 +111,12 @@ html.theme-neon body {
     animation: roninBreath 8s ease-in-out infinite;
     
     pointer-events: none;
-    z-index: -1 !important;
+    z-index: 0 !important;
+}
+
+.theme-ronin .page-section {
+    z-index: 2; 
+    position: relative;
 }
 
 .theme-ronin .container, 
