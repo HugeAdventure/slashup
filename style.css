@@ -1077,7 +1077,6 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     transition: all 0.3s ease;
 }
 
-/* Darken overlay so text is readable */
 .profile-header::before {
     content: "";
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -1085,40 +1084,14 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     z-index: 1;
 }
 
-/* --- BANNER STYLES (Pure CSS Patterns) --- */
-
-/* Default: Simple Dark Gradient */
-.banner-default {
-    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-}
-
-/* Neon: Cyber Grid */
-.banner-neon {
-    background-color: #050510;
-    background-image: 
-        linear-gradient(rgba(0, 242, 255, 0.2) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 255, 0.2) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-
-/* Gold: Luxury Radial */
-.banner-gold {
-    background: radial-gradient(circle at top right, #d4af37, #111);
-}
-
-/* Ronin: Rising Sun / Blood */
-.banner-ronin {
-    background-color: #000;
-    background-image: radial-gradient(circle at 80% 50%, #8b0000 0%, transparent 50%);
-}
-
 /* --- BARRACKS SELECTION UI --- */
 .banner-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; 
     gap: 10px;
     margin-bottom: 2rem;
-    flex-shrink: 0;
+    flex-shrink: 0; 
+    width: 100%;
 }
 
 .banner-option {
@@ -1127,16 +1100,65 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     padding: 10px;
     cursor: pointer;
     position: relative;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
 }
-.banner-option:hover { border-color: white; }
-.banner-option.active { border-color: var(--accent); background: rgba(255, 255, 255, 0.1); }
-.banner-option.locked { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+
+.banner-option:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+.banner-option.active {
+    border: 1px solid var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.banner-option.locked {
+    opacity: 0.5;
+    filter: grayscale(1);
+    cursor: not-allowed;
+}
 
 .ban-preview {
     height: 40px;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.3);
 }
-.banner-option span { font-size: 0.8rem; color: #888; font-family: 'Share Tech Mono'; }
+
+.banner-option span {
+    font-size: 0.8rem;
+    color: #bbb;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 1px;
+}
+
+/* --- BANNER PATTERNS (The visuals inside the box) --- */
+
+.banner-default {
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+}
+
+.banner-neon {
+    background-color: #050510;
+    background-image: 
+        linear-gradient(rgba(0, 242, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.banner-gold {
+    background: radial-gradient(circle at top right, #d4af37, #111);
+}
+
+.banner-ronin {
+    background-color: #000;
+    background-image: radial-gradient(circle at 80% 50%, #8b0000 0%, transparent 50%);
+}
