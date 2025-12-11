@@ -46,6 +46,83 @@ html.theme-neon body {
     background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
+.theme-ronin {
+    --accent: #d4af37; 
+    --accent-glow: rgba(212, 175, 55, 0.3);
+    --bg: #1a1a1a;
+    --panel: #242424;
+    --text-main: #e0e0e0;
+    --text-dim: #a0a0a0;
+    --win: #bf3f3f; 
+    --loss: #5c5c5c; 
+}
+
+.theme-ronin body {
+    font-family: 'Noto Serif JP', serif !important; 
+    background-color: #1a1a1a;
+    background-image: url("https://www.transparenttextures.com/patterns/black-paper.png");
+}
+
+.theme-ronin body::before {
+    content: "武士道"; 
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25vw;
+    color: rgba(0,0,0,0.2);
+    font-family: 'Noto Serif JP', serif;
+    pointer-events: none;
+    z-index: -1;
+    writing-mode: vertical-rl; 
+}
+
+.theme-ronin .panel-box, 
+.theme-ronin .nav-btn,
+.theme-ronin .tilt-card {
+    border: 1px solid #444;
+    border-radius: 0; 
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.5); 
+}
+
+.theme-ronin .section-title {
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: 3px;
+}
+
+
+.theme-zen {
+    --accent: #ffb7c5; 
+    --accent-glow: rgba(255, 183, 197, 0.6);
+    --bg: #2a2a35;
+    --panel: rgba(255, 255, 255, 0.05);
+    --text-main: #ffffff;
+    --text-dim: #ffdae0;
+    --win: #ffb7c5;
+    --loss: #a688fa;
+}
+
+.theme-zen body {
+    background: radial-gradient(circle at top, #3a3a45, #1a1a20);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.theme-zen .panel-box, 
+.theme-zen .match-card,
+.theme-zen nav {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px; 
+}
+
+.theme-zen .nav-btn.active {
+    background: rgba(255, 183, 197, 0.1);
+    border-radius: 20px;
+}
+
+
+
 html.theme-gold body {
     --accent: #ffd700;
     --accent-glow: rgba(255, 215, 0, 0.6);
