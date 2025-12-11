@@ -1027,3 +1027,4 @@ function switchBarracksTab(tabName) {
     document.getElementById(`tab-${tabName}`).classList.add('active');
     
     if(typeof playSfx === 'function') playSfx('click');
+}
