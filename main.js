@@ -876,18 +876,20 @@ class Particle {
         else if (isNeon) {
             this.y = Math.random() * canvas.height;
             this.x = initial ? Math.random() * canvas.width : -10;
-            this.speedX = Math.random() * 4 + 2;
+            this.speedX = Math.random() * 5 + 3; 
             this.speedY = 0;
-            this.size = Math.random() * 2;
+            this.size = Math.random() * 2 + 0.5; 
             this.color = '#00f2ff';
             this.rotation = 0;
         }
         else {
             this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
-            this.speedY = (Math.random() * 1 + 0.5) * -1;
+            this.speedY = (Math.random() * 0.8 + 0.2) * -1; 
             this.speedX = Math.random() * 0.5 - 0.25;
+            
+            const isGold = document.documentElement.classList.contains('theme-gold');
+            this.color = isGold ? '#d4af37' : '#ff3e3e';
             this.size = Math.random() * 3 + 1;
-            this.color = '#ff3e3e';
             this.rotation = 0;
         }
     }
