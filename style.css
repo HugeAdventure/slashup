@@ -344,9 +344,17 @@ nav {
     text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;
 }
 
+
 #global-feed {
-    display:flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: thin;
-    margin-bottom: 4rem;
+    width: 100%;
+    max-width: 100%;
+    
+    box-sizing: border-box;
+    
+    margin-left: 0;
+    margin-right: 0;
+    
+    padding-bottom: 15px; 
 }
 #global-feed::-webkit-scrollbar { height: 6px; }
 #global-feed::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
