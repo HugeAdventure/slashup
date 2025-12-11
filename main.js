@@ -851,7 +851,7 @@ function showToast(title, msg, type = "success") {
 }
 
 // =====================================================
-// 10. DYNAMIC BACKGROUND PARTICLES
+// 10. DYNAMIC BACKGROUND 
 // =====================================================
 
 const canvas = document.getElementById("bg-canvas");
@@ -880,7 +880,8 @@ class Particle {
         const isZen = document.documentElement.classList.contains('theme-zen');
         const isMatrix = document.documentElement.classList.contains('theme-matrix');
         const isNeon = document.documentElement.classList.contains('theme-neon');
-        const isGold = document.documentElement.classList.contains('theme-gold'); // Detect Gold
+        const isGold = document.documentElement.classList.contains('theme-gold');
+        const isPolar = document.documentElement.classList.contains('theme-polar');
 
         this.x = Math.random() * canvas.width;
         this.opacity = Math.random() * 0.5 + 0.2;
@@ -926,6 +927,18 @@ class Particle {
             this.speedY = 0;
             this.size = Math.random() * 2 + 0.5; 
             this.color = '#00f2ff';
+            this.rotation = 0;
+        }
+        else if (isPolar) {
+            this.y = initial ? Math.random() * canvas.height : -10;
+            this.x = Math.random() * canvas.width;
+            
+            this.size = Math.random() * 3 + 1;
+            this.speedY = Math.random() * 1 + 0.5;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            
+            this.color = '#ffffff';
+            this.opacity = Math.random() * 0.8 + 0.2;
             this.rotation = 0;
         }
         else if (isGold) {
