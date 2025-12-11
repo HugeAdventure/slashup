@@ -857,11 +857,16 @@ class Particle {
         } 
         else if (isRonin) {
             this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
-            this.size = Math.random() * 3 + 1;
-            this.speedY = (Math.random() * 1 + 0.2) * -1; 
-            this.speedX = Math.random() * 0.6 - 0.3; 
-            this.color = Math.random() > 0.8 ? '#d4af37' : '#222'; 
-            this.rotation = 0; 
+            this.size = Math.random() * 4 + 1; 
+            this.speedY = (Math.random() * 0.8 + 0.3) * -1; 
+            this.speedX = Math.random() * 1.5 - 0.75; 
+            
+            const rand = Math.random();
+            if (rand > 0.9) this.color = '#ff4500'; 
+            else if (rand > 0.6) this.color = '#8b0000'; 
+            else this.color = '#333'; 
+            
+            this.rotation = Math.random() * 360; 
         }
         else if (isMatrix) {
             this.y = initial ? Math.random() * canvas.height : -10;
