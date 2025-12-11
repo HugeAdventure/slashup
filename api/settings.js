@@ -1,20 +1,17 @@
 const mysql = require('mysql2/promise');
 
 module.exports = async (req, res) => {
-  // 1. CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight check
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  // 2. Get Data from Request
-  // We added 'banner' to this list
-  const { uuid, theme, banner, youtube, twitch, discord, twitter } = req.body;
+
+  const { uuid, theme, banner, country, youtube, twitch, discord, twitter } = req.body;
 
   if (!uuid) {
     return res.status(400).json({ error: 'Missing UUID' });
@@ -30,8 +27,7 @@ module.exports = async (req, res) => {
       port: 3306
     });
 
-    // 3. Build Dynamic Query
-    // This allows updating just the banner, just the theme, or everything at once.
+
     const updates = [];
     const params = [];
 
@@ -45,6 +41,11 @@ module.exports = async (req, res) => {
         params.push(banner); 
     }
 
+    if (country) { 
+        updates.push('country = ?'); 
+        params.push(country); 
+    }
+    
     if (youtube !== undefined) { updates.push('social_youtube = ?'); params.push(youtube); }
     if (twitch !== undefined) { updates.push('social_twitch = ?'); params.push(twitch); }
     if (discord !== undefined) { updates.push('social_discord = ?'); params.push(discord); }
