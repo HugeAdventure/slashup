@@ -1229,9 +1229,8 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 .badge-row {
     display: flex;
     gap: 8px;
-    margin-top: 8px; 
-    min-height: 24px; 
-    flex-wrap: wrap;
+    margin: 0; 
+    justify-content: flex-end;
 }
 
 .combat-badge {
@@ -1239,52 +1238,53 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32px; height: 32px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-size: 1.1rem;
-    cursor: help; 
+    width: 36px; 
+    height: 36px;
+    background: rgba(0, 0, 0, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: help;
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .combat-badge:hover {
-    transform: translateY(-3px) scale(1.1);
+    transform: scale(1.15);
     background: var(--panel);
     border-color: var(--accent);
     box-shadow: 0 0 15px var(--accent-glow);
-    z-index: 10;
+    z-index: 100; 
     color: white;
 }
 
 .combat-badge::after {
-    content: attr(data-tooltip); 
+    content: attr(data-tooltip);
     position: absolute;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    background: rgba(10, 10, 12, 0.95);
-    color: white;
-    padding: 6px 12px;
+
+    top: 125%; 
+    right: 0; 
+    
+    background: #000; 
+    color: var(--accent);
+    padding: 6px 10px;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: bold;
     white-space: nowrap;
     opacity: 0;
-    pointer-events: none; 
+    pointer-events: none;
     transition: all 0.2s ease;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
     font-family: 'Share Tech Mono', monospace;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    z-index: 100;
+    text-transform: uppercase;
 }
 
-/* Show Tooltip on Hover */
 .combat-badge:hover::after {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
-    bottom: 135%;
+    top: 115%; 
 }
+
 
 /* --- THEME OVERRIDES --- */
 
