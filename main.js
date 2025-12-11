@@ -312,10 +312,12 @@ function updateLockState(rank) {
     
     const unlocks = {
         'default': true,
+        'polar': true,
         'neon': isHighStaff || rank === "VIP" || rank === "MVP",
         'gold': isHighStaff || rank === "MVP",
         'zen': isHighStaff || rank === "VIP" || rank === "MVP",
         'ronin': isHighStaff || rank === "MVP" ,
+        
         'matrix': isHighStaff
     };
 
