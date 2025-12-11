@@ -1061,3 +1061,82 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     padding-right: 40px !important;
     letter-spacing: 1px; 
 }
+
+
+
+/* --- PROFILE HEADER BANNER --- */
+.profile-header {
+    position: relative;
+    padding: 2rem;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Darken overlay so text is readable */
+.profile-header::before {
+    content: "";
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+}
+
+/* --- BANNER STYLES (Pure CSS Patterns) --- */
+
+/* Default: Simple Dark Gradient */
+.banner-default {
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+}
+
+/* Neon: Cyber Grid */
+.banner-neon {
+    background-color: #050510;
+    background-image: 
+        linear-gradient(rgba(0, 242, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Gold: Luxury Radial */
+.banner-gold {
+    background: radial-gradient(circle at top right, #d4af37, #111);
+}
+
+/* Ronin: Rising Sun / Blood */
+.banner-ronin {
+    background-color: #000;
+    background-image: radial-gradient(circle at 80% 50%, #8b0000 0%, transparent 50%);
+}
+
+/* --- BARRACKS SELECTION UI --- */
+.banner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 2rem;
+    flex-shrink: 0;
+}
+
+.banner-option {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+}
+.banner-option:hover { border-color: white; }
+.banner-option.active { border-color: var(--accent); background: rgba(255, 255, 255, 0.1); }
+.banner-option.locked { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+
+.ban-preview {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+.banner-option span { font-size: 0.8rem; color: #888; font-family: 'Share Tech Mono'; }
