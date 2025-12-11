@@ -412,6 +412,8 @@ async function saveSettings() {
         });
         
         const data = await res.json();
+
+        playSfx('success');
         
         if(data.success) {
             showToast("System Updated", "Interface theme installed.", "success");
