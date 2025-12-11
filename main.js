@@ -163,6 +163,8 @@ async function fetchStats() {
             renderChart(matches, username);
             renderBiometrics(stats);
         }
+
+        renderBadges(stats);
         
         findNemesis(matches, username);
         renderTicker(matches, username);
