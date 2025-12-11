@@ -249,25 +249,29 @@
                 </div>
         
                 <div class="player-data">
-                    <!-- 1. PROFILE HEADER (Banner, Name, Badges, Socials) -->
                     <div id="profile-header" class="profile-header banner-default">
                         <div style="width: 100%; position: relative; z-index: 2;">
                             
-                            <!-- Row 1: Name & Badges -->
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
                                 
-                                <!-- Left: Name & Tag -->
                                 <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
                                     <h2 class="skeleton" style="display:inline-block; margin:0" id="nameDisplay">Player</h2>
                                     <span id="tagDisplay"></span> 
                                     <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
                                 </div>
+
+                                <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
+    
+                                    <img id="nationFlag" src="" style="display:none; width: 28px; border-radius: 4px; box-shadow: 0 0 5px rgba(0,0,0,0.5);" alt="Flag">
+                                    
+                                    <h2 class="skeleton" style="margin:0; font-size: 2rem; line-height: 1;" id="nameDisplay">Player</h2>
+                                    <span id="tagDisplay"></span> 
+                                    <button class="share-btn" onclick="shareProfile()"><i class="fas fa-share-alt"></i></button>
+                                </div>
                 
-                                <!-- Right: Combat Badges -->
                                 <div id="badge-container" class="badge-row"></div>
                             </div>
                 
-                            <!-- Row 2: Rank & Views -->
                             <div style="margin-top: 5px; display: flex; align-items: center; gap: 15px;">
                                 <span class="rank-badge skeleton" id="rankDisplay"># -</span>
                                 <div id="viewContainer" class="skeleton" style="color: var(--text-dim);">
