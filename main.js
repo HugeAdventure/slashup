@@ -9,6 +9,8 @@ const SPECIAL_TAGS = {
     dev_name: { text: "DEV", class: "tag-dev" }
 };
 
+let pendingBanner = 'default';
+
 let myChart = null;
 let myRadar = null;
 
@@ -243,6 +245,19 @@ function renderMatchHistory(matches, username) {
 // 5. BARRACKS / CUSTOMIZATION (FIXED)
 // =====================================================
 
+function selectBanner(bannerId) {
+    const el = document.getElementById(`ban-${bannerId}`);
+    if(el && el.classList.contains('locked')) {
+        showToast("Locked", "Rank required.", "error");
+        return;
+    }
+
+    pendingBanner = bannerId;
+    
+    document.querySelectorAll('.banner-option').forEach(b => b.classList.remove('active'));
+    if(el) el.classList.add('active');
+}
+
 async function openCustomizePage() {
     const user = JSON.parse(localStorage.getItem('slashup_user'));
     
@@ -302,6 +317,26 @@ function updateLockState(rank) {
         'ronin': isHighStaff || rank === "MVP" ,
         'matrix': isHighStaff
     };
+
+    const bannerUnlocks = {
+        'default': true,
+        'neon': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
+        'gold': ["MVP", "OWNER", "ADMIN"].includes(rank),
+        'ronin': ["MVP", "OWNER", "ADMIN"].includes(rank)
+    };
+
+    for (const [id, unlocked] of Object.entries(bannerUnlocks)) {
+        const el = document.getElementById(`ban-${id}`);
+        if(el) {
+            if(unlocked) {
+                el.classList.remove('locked');
+                const lock = el.querySelector('.lock-icon');
+                if(lock) lock.style.display = 'none';
+            } else {
+                el.classList.add('locked');
+            }
+        }
+    }
 
     for (const [theme, unlocked] of Object.entries(unlocks)) {
         const card = document.getElementById(`card-${theme}`);
