@@ -80,9 +80,9 @@ html.theme-neon body {
 
 
 .theme-ronin {
-    --accent: #c92a2a; /* Crimson Red (Blood/Sun) */
+    --accent: #c92a2a; 
     --accent-glow: rgba(201, 42, 42, 0.4);
-    --gold: #d4af37; /* Secondary Gold */
+    --gold: #d4af37; 
     
     --bg: #141414;
     --panel: #1e1e1e;
@@ -125,13 +125,11 @@ html.theme-neon body {
 .theme-ronin .match-card,
 .theme-ronin .tilt-card, 
 .theme-ronin nav {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-top: 2px solid var(--accent); 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-    border-radius: 0 !important; 
-    
-    background-image: url("https://www.transparenttextures.com/patterns/washi.png"); 
+    background: #0f0f0f; 
+    border-bottom: 1px solid #333;
+    border-top: 3px solid var(--accent); 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.9);
+    background-image: none !important; 
 }
 
 .theme-ronin .nav-btn, 
