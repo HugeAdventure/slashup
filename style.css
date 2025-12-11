@@ -15,6 +15,54 @@
     --bronze: #cd7f32;
 }
 
+html.theme-polar body {
+    --accent: #22d3ee; 
+    --accent-glow: rgba(34, 211, 238, 0.5);
+    --bg: #0f172a; 
+    --panel: rgba(30, 41, 59, 0.9);
+    --panel-border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    --win: #22d3ee;
+    --loss: #ff4d4d; 
+    --text-main: #f1f5f9;
+    --text-dim: #94a3b8;
+
+    background-image: linear-gradient(135deg, #020617 0%, #1e293b 100%);
+    background-attachment: fixed;
+}
+
+.theme-polar .panel-box,
+.theme-polar .match-card, 
+.theme-polar .nav-btn {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 6px !important;
+}
+
+.theme-polar .cta-btn,
+.theme-polar .nav-btn.active {
+    background: linear-gradient(45deg, #22d3ee, #0ea5e9);
+    color: #0f172a;
+    font-weight: bold;
+    border: 1px solid #fff;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+}
+
+.banner-polar {
+    background-color: #0f172a;
+    background-image: 
+        radial-gradient(white 15%, transparent 16%),
+        radial-gradient(white 15%, transparent 16%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+    opacity: 1;
+}
+.banner-polar::after {
+    content: ""; position: absolute; top:0; left:0; width:100%; height:100%;
+    background: linear-gradient(to right, #0f172a 30%, transparent 100%);
+}
+
 
 html.theme-default body {
     --accent: #ff3e3e;
