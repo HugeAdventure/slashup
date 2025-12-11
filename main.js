@@ -103,71 +103,13 @@ async function fetchStats() {
         const matches = data.matches || [];
 
         document.getElementById("nameDisplay").innerText = stats.name || username;
-
-        const bannerId = stats.profile_banner || 'default';
-        const headerEl = document.getElementById('profile-header');
-        headerEl.className = `profile-header banner-${bannerId}`;
-
-        const socBox = document.getElementById("socials-display");
-        const socYt = document.getElementById("soc-yt");
-        const socTw = document.getElementById("soc-tw");
-        const socDc = document.getElementById("soc-dc");
-        const socX = document.getElementById("soc-x");
-    
-        let hasSocials = false;
-
-        document.getElementById("nameDisplay").innerText = stats.name || username;
-
-        // --- NATION LOGIC ---
-        const countryCode = stats.country || 'xx';
-        const flagImg = document.getElementById('nationFlag');
-        
-        if(countryCode !== 'xx') {
-            flagImg.src = `https://flagcdn.com/w80/${countryCode}.png`;
-            flagImg.style.display = "block";
-        } else {
-            flagImg.style.display = "none";
-        }
-
-        const bannerId = stats.profile_banner || 'default';
-        const headerEl = document.getElementById('profile-header');
-        headerEl.className = `profile-header banner-${bannerId}`;
-        
-        headerEl.style.backgroundImage = '';
-
-        if(bannerId === 'patriot' && countryCode !== 'xx') {
-            headerEl.style.backgroundImage = `url('https://flagcdn.com/w1280/${countryCode}.png')`;
-            headerEl.style.backgroundSize = "cover";
-            headerEl.style.backgroundPosition = "center";
-        }
-    
-        const setSocial = (el, link) => {
-            if (link && link.length > 2) {
-                el.href = link.startsWith('http') ? link : `https://${link}`;
-                el.style.display = "flex";
-                hasSocials = true;
-            } else {
-                el.style.display = "none";
-            }
-        };
-    
-        setSocial(socYt, stats.social_youtube);
-        setSocial(socTw, stats.social_twitch);
-        setSocial(socDc, stats.social_discord);
-        setSocial(socX, stats.social_twitter);
-    
-        socBox.style.display = hasSocials ? "flex" : "none";
-        
         document.getElementById("kdrVal").innerText = parseFloat(stats.kdr || 0).toFixed(2);
         document.getElementById("winsVal").innerText = stats.wins || 0;
         document.getElementById("streakVal").innerText = stats.best_streak || 0;
         document.getElementById("viewCount").innerText = stats.views || 0;
 
-        // Rank Styling
         const rankEl = document.getElementById("rankDisplay");
         rankEl.innerText = `#${stats.rank || "-"}`;
-        
-        // Reset colors
         rankEl.style.background = "var(--panel)";
         rankEl.style.color = "var(--text-dim)";
         
@@ -175,49 +117,107 @@ async function fetchStats() {
         else if (stats.rank === 2) { rankEl.style.background = "var(--silver)"; rankEl.style.color = "black"; }
         else if (stats.rank === 3) { rankEl.style.background = "var(--bronze)"; rankEl.style.color = "black"; }
 
-        // Winrate
         const totalGames = (stats.wins || 0) + (stats.losses || 0);
         const winPercent = totalGames > 0 ? Math.round((stats.wins / totalGames) * 100) : 50;
         document.getElementById("wr-percent").innerText = `${winPercent}%`;
         document.getElementById("bar-win").style.width = `${winPercent}%`;
         document.getElementById("bar-loss").style.width = `${100 - winPercent}%`;
 
-        // Load Graphs
+        const countryCode = stats.country || 'xx';
+        const flagImg = document.getElementById('nationFlag');
+        if(flagImg) {
+            if(countryCode !== 'xx') {
+                flagImg.src = `https://flagcdn.com/w80/${countryCode}.png`;
+                flagImg.style.display = "block";
+            } else {
+                flagImg.style.display = "none";
+            }
+        }
+
+        const bannerId = stats.profile_banner || 'default';
+        const headerEl = document.getElementById('profile-header');
+        if(headerEl) {
+            headerEl.className = `profile-header banner-${bannerId}`;
+            headerEl.style.backgroundImage = ''; 
+
+            if(bannerId === 'patriot' && countryCode !== 'xx') {
+                headerEl.style.backgroundImage = `url('https://flagcdn.com/w1280/${countryCode}.png')`;
+                headerEl.style.backgroundSize = "cover";
+                headerEl.style.backgroundPosition = "center";
+            }
+        }
+
+        const socBox = document.getElementById("socials-display");
+        const socYt = document.getElementById("soc-yt");
+        const socTw = document.getElementById("soc-tw");
+        const socDc = document.getElementById("soc-dc");
+        const socX = document.getElementById("soc-x");
+    
+        const setSocial = (el, link) => {
+            if (link && link.length > 2) {
+                el.href = link.startsWith('http') ? link : `https://${link}`;
+                el.style.display = "flex";
+                return true;
+            } else {
+                el.style.display = "none";
+                return false;
+            }
+        };
+    
+        let hasSocials = false;
+        if(setSocial(socYt, stats.social_youtube)) hasSocials = true;
+        if(setSocial(socTw, stats.social_twitch)) hasSocials = true;
+        if(setSocial(socDc, stats.social_discord)) hasSocials = true;
+        if(setSocial(socX, stats.social_twitter)) hasSocials = true;
+    
+        if(socBox) socBox.style.display = hasSocials ? "flex" : "none";
+
         if(window.Chart) {
             renderChart(matches, username);
             renderBiometrics(stats);
         }
-
         renderBadges(stats);
-        
         findNemesis(matches, username);
         renderTicker(matches, username);
         renderMatchHistory(matches, username);
 
-        // Load Skin
         const skinContainer = document.getElementById("skinContainer");
-        const skinImg = document.getElementById("skinImg");
-        
-        skinContainer.innerHTML = "";
-        skinContainer.classList.remove("skeleton");
+        if(skinContainer) {
+            skinContainer.innerHTML = "";
+            skinContainer.classList.remove("skeleton");
 
-        const newImg = document.createElement("img");
-        newImg.id = "skinImg";
-        newImg.className = "skin-img floating-skin"; 
-        newImg.src = `https://visage.surgeplay.com/full/512/${username}`;
-        
-        newImg.onload = () => {
-            newImg.classList.add("loaded");
-        };
+            if(typeof skinview3d !== 'undefined') {
+                const skinViewer = new skinview3d.SkinViewer({
+                    canvas: document.createElement("canvas"),
+                    width: 300,
+                    height: 400,
+                    skin: `https://visage.surgeplay.com/skin/${username}`
+                });
+                skinViewer.canvas.classList.add("floating-skin");
+                skinViewer.animation = new skinview3d.WalkingAnimation();
+                skinViewer.animation.speed = 0.5;
+                skinViewer.globalLight.intensity = 1.0; 
+                skinViewer.cameraLight.intensity = 0.8; 
+                skinViewer.zoom = 1.1;
+                skinViewer.fov = 70;
+                skinViewer.controls.enableRotate = true;
+                skinViewer.controls.enableZoom = false;
+                skinContainer.appendChild(skinViewer.canvas);
+            } else {
+                const newImg = document.createElement("img");
+                newImg.className = "skin-img floating-skin loaded"; 
+                newImg.src = `https://visage.surgeplay.com/full/512/${username}`;
+                skinContainer.appendChild(newImg);
+            }
+        }
 
-        skinContainer.appendChild(newImg);
-
-        // Special Tags
         const tagEl = document.getElementById("tagDisplay");
-        tagEl.innerHTML = "";
-        if (SPECIAL_TAGS[username.toLowerCase()]) {
-            const tagData = SPECIAL_TAGS[username.toLowerCase()];
-            tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
+        if(tagEl) {
+            tagEl.innerHTML = "";
+            if (SPECIAL_TAGS[username.toLowerCase()]) {
+                const tagData = SPECIAL_TAGS[username.toLowerCase()];
+                tagEl.innerHTML = `<span class="player-tag ${tagData.class}">${tagData.text}</span>`;
+            }
         }
 
         cleanSkeletons(idsToLoad);
