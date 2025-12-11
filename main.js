@@ -832,29 +832,27 @@ class Particle {
     reset(initial = false) {
         if(!canvas) return;
 
+        // Detect themes
         const isRonin = document.documentElement.classList.contains('theme-ronin');
         const isZen = document.documentElement.classList.contains('theme-zen');
         const isMatrix = document.documentElement.classList.contains('theme-matrix');
         const isNeon = document.documentElement.classList.contains('theme-neon');
+        const isGold = document.documentElement.classList.contains('theme-gold'); // Detect Gold
 
         this.x = Math.random() * canvas.width;
         this.opacity = Math.random() * 0.5 + 0.2;
         
-        
         if (isZen) {
             this.y = initial ? Math.random() * canvas.height : -20;
-            this.size = Math.random() * 5 + 3; 
-            this.speedY = Math.random() * 1.5 + 0.5; 
-            this.speedX = Math.random() * 1 - 0.5; 
-            
+            this.size = Math.random() * 5 + 3;
+            this.speedY = Math.random() * 1.5 + 0.5;
+            this.speedX = Math.random() * 1 - 0.5;
             this.swaySpeed = Math.random() * 0.03 + 0.01; 
             this.swayOffset = Math.random() * Math.PI * 2; 
-            
             this.rotation = Math.random() * 360;
             this.rotationSpeed = (Math.random() - 0.5) * 2;
             this.tilt = 0;
             this.tiltSpeed = Math.random() * 0.05 + 0.02;
-            
             this.color = Math.random() > 0.5 ? '#ffb7c5' : '#ffdae0'; 
         } 
         else if (isRonin) {
@@ -882,14 +880,20 @@ class Particle {
             this.color = '#00f2ff';
             this.rotation = 0;
         }
+        else if (isGold) {
+            this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
+            this.size = Math.random() * 4 + 2; 
+            this.speedY = (Math.random() * 0.5 + 0.2) * -1; 
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.color = '#ffd700'; 
+            this.rotation = 0;
+        }
         else {
             this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
-            this.speedY = (Math.random() * 0.8 + 0.2) * -1; 
+            this.speedY = (Math.random() * 1 + 0.5) * -1;
             this.speedX = Math.random() * 0.5 - 0.25;
-            
-            const isGold = document.documentElement.classList.contains('theme-gold');
-            this.color = isGold ? '#d4af37' : '#ff3e3e';
             this.size = Math.random() * 3 + 1;
+            this.color = '#ff3e3e';
             this.rotation = 0;
         }
     }
