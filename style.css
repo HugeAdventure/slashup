@@ -66,6 +66,12 @@ html.theme-neon body {
         radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
 }
 
+.theme-ronin .match-card.win .match-outcome span,
+.theme-ronin .big-stat.accent .big-stat-val {
+    color: #ff4500;
+    text-shadow: 0 0 10px #ff4500, 0 0 20px #ff8c00;
+}
+
 .theme-ronin .panel-box, 
 .theme-ronin .nav-btn, 
 .theme-ronin .cta-btn,
@@ -93,17 +99,19 @@ html.theme-neon body {
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 35vw; 
     
-    color: rgba(255, 255, 255, 0.04); 
-    
+    font-size: 35vw;
     font-family: 'Noto Serif JP', serif;
     font-weight: 900;
-    pointer-events: none; 
-    z-index: 0; 
+    writing-mode: vertical-rl;
+    
+    color: transparent; 
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.05); 
     
     animation: roninBreath 8s ease-in-out infinite;
-    writing-mode: vertical-rl;
+    
+    pointer-events: none;
+    z-index: -1 !important;
 }
 
 .theme-ronin .container, 
@@ -271,6 +279,7 @@ body::after {
 
 #bg-canvas {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+    z-index: -2 !important;
 }
 
 nav {
@@ -279,7 +288,7 @@ nav {
     border-bottom: var(--panel-border);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 5000 !important;
     padding: 1.5rem 0;
 }
 
@@ -309,6 +318,8 @@ nav {
 
 .hero {
     height: 60vh;
+    z-index: 1; 
+    pointer-events: auto;
     display: flex; align-items: center; justify-content: center; text-align: center;
     background: radial-gradient(circle at center, rgba(255,62,62,0.08) 0%, transparent 60%);
     margin-bottom: 3rem;
@@ -578,7 +589,14 @@ html, body {
 .skeleton * { opacity: 0; }
 @keyframes shine { to { background-position: -200% 0; } }
 
-.page-section { display: none; padding-bottom: 5rem; animation: fadeIn 0.5s ease-out; }
+.page-section { 
+    position: relative;
+    z-index: 1;
+    display: none; 
+    padding-bottom: 5rem; 
+    animation: fadeIn 0.5s ease-out; 
+}
+
 .page-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -617,7 +635,7 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
     flex-direction: column;
     margin-top: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    z-index: 1001;
+    z-index: 5001 !important;
 }
 .profile-dropdown.show { display: flex; animation: fadeIn 0.2s; }
 .profile-dropdown div {
