@@ -351,15 +351,22 @@ nav {
 
 
 #global-feed {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    
+    overflow-x: auto !important;
+    overflow-y: hidden;             
+    
     width: 100%;
     max-width: 100%;
     
-    box-sizing: border-box;
+    gap: 1rem;
+    padding: 10px 0 20px 0; 
+    margin-bottom: 2rem;
     
-    margin-left: 0;
-    margin-right: 0;
-    
-    padding-bottom: 15px; 
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
 }
 #global-feed::-webkit-scrollbar { height: 6px; }
 #global-feed::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
