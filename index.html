@@ -24,6 +24,22 @@
 
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
+
+    <div id="audio-container" style="display:none;">
+        <audio id="sfx-hover" preload="auto" src="sounds/hover.mp3"></audio>
+        <audio id="sfx-click" preload="auto" src="sounds/click.mp3"></audio>
+        <audio id="sfx-success" preload="auto" src="sounds/success.mp3"></audio>
+    </div>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const sounds = ['sfx-hover', 'sfx-click', 'sfx-success'];
+            sounds.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.volume = 0.2; 
+            });
+        });
+    </script>
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
