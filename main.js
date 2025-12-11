@@ -356,6 +356,7 @@ async function saveSettings() {
     const payload = {
         uuid: user.uuid,
         theme: pendingTheme,
+        banner: pendingBanner,
         youtube: document.getElementById('in-youtube').value,
         twitch: document.getElementById('in-twitch').value,
         discord: document.getElementById('in-discord').value,
