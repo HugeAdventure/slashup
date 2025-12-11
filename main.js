@@ -1066,3 +1066,66 @@ function renderBadges(stats) {
         container.appendChild(div);
     });
 }
+
+// =====================================================
+// 12. AUDIO / SFX SYSTEM (Complete)
+// =====================================================
+
+const audioCtx = {
+    hover: document.getElementById('sfx-hover'),
+    click: document.getElementById('sfx-click'),
+    success: document.getElementById('sfx-success')
+};
+
+function playSfx(type) {
+    const sound = audioCtx[type];
+    
+    if (!sound) return; 
+
+    try {
+        sound.currentTime = 0; 
+        sound.volume = (type === 'hover') ? 0.1 : 0.2; 
+        
+        const playPromise = sound.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+            });
+        }
+    } catch(e) {
+        console.warn("Audio Error:", e);
+    }
+}
+
+function attachSounds() {
+    const interactables = document.querySelectorAll(`
+        button, 
+        a,
+        input,
+        .nav-btn, 
+        .cta-btn, 
+        .theme-card, 
+        .inventory-card,
+        .banner-option,
+        .soc-btn, 
+        .match-card,
+        .logo-container,
+        .nav-profile,
+        .barracks-tab
+    `);
+
+    interactables.forEach(el => {
+        if(el.dataset.hasSound) return;
+        el.dataset.hasSound = "true";
+
+        el.addEventListener('mouseenter', () => playSfx('hover'));
+        
+        el.addEventListener('mousedown', () => playSfx('click'));
+    });
+}
+
+window.addEventListener('load', attachSounds);
+
+const observerSound = new MutationObserver((mutations) => {
+    attachSounds(); 
+});
+observerSound.observe(document.body, { childList: true, subtree: true });
