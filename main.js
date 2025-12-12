@@ -142,6 +142,9 @@ async function fetchStats() {
 
             if(bannerId === 'patriot' && countryCode !== 'xx') {
                 headerEl.style.backgroundImage = `url('https://flagcdn.com/w1280/${countryCode}.png')`;
+
+                headerEl.style.backgroundSize = ''; 
+                headerEl.style.backgroundAttachment = '';
                 headerEl.style.backgroundSize = "cover";
                 headerEl.style.backgroundPosition = "center";
             }
