@@ -1174,3 +1174,261 @@ const observerSound = new MutationObserver((mutations) => {
     attachSounds(); 
 });
 observerSound.observe(document.body, { childList: true, subtree: true });
+
+/*
+ Country data
+*/
+
+const countryData = [
+    { code: "xx", name: "Global / Unknown" },
+
+    // Africa
+    { code: "dz", name: "Algeria" },
+    { code: "ao", name: "Angola" },
+    { code: "bj", name: "Benin" },
+    { code: "bw", name: "Botswana" },
+    { code: "bf", name: "Burkina Faso" },
+    { code: "bi", name: "Burundi" },
+    { code: "cv", name: "Cape Verde" },
+    { code: "cm", name: "Cameroon" },
+    { code: "cf", name: "Central African Republic" },
+    { code: "td", name: "Chad" },
+    { code: "km", name: "Comoros" },
+    { code: "cd", name: "Congo (DRC)" },
+    { code: "cg", name: "Congo (Republic)" },
+    { code: "ci", name: "Côte d’Ivoire" },
+    { code: "dj", name: "Djibouti" },
+    { code: "eg", name: "Egypt" },
+    { code: "gq", name: "Equatorial Guinea" },
+    { code: "er", name: "Eritrea" },
+    { code: "et", name: "Ethiopia" },
+    { code: "ga", name: "Gabon" },
+    { code: "gm", name: "Gambia" },
+    { code: "gh", name: "Ghana" },
+    { code: "gn", name: "Guinea" },
+    { code: "gw", name: "Guinea-Bissau" },
+    { code: "ke", name: "Kenya" },
+    { code: "ls", name: "Lesotho" },
+    { code: "lr", name: "Liberia" },
+    { code: "ly", name: "Libya" },
+    { code: "mg", name: "Madagascar" },
+    { code: "mw", name: "Malawi" },
+    { code: "ml", name: "Mali" },
+    { code: "mr", name: "Mauritania" },
+    { code: "mu", name: "Mauritius" },
+    { code: "ma", name: "Morocco" },
+    { code: "mz", name: "Mozambique" },
+    { code: "na", name: "Namibia" },
+    { code: "ne", name: "Niger" },
+    { code: "ng", name: "Nigeria" },
+    { code: "rw", name: "Rwanda" },
+    { code: "st", name: "Sao Tome & Principe" },
+    { code: "sn", name: "Senegal" },
+    { code: "sc", name: "Seychelles" },
+    { code: "sl", name: "Sierra Leone" },
+    { code: "so", name: "Somalia" },
+    { code: "ss", name: "South Sudan" },
+    { code: "sd", name: "Sudan" },
+    { code: "tz", name: "Tanzania" },
+    { code: "tg", name: "Togo" },
+    { code: "tn", name: "Tunisia" },
+    { code: "ug", name: "Uganda" },
+    { code: "zm", name: "Zambia" },
+    { code: "zw", name: "Zimbabwe" },
+
+    // Asia
+    { code: "af", name: "Afghanistan" },
+    { code: "am", name: "Armenia" },
+    { code: "az", name: "Azerbaijan" },
+    { code: "bh", name: "Bahrain" },
+    { code: "bd", name: "Bangladesh" },
+    { code: "bt", name: "Bhutan" },
+    { code: "bn", name: "Brunei" },
+    { code: "kh", name: "Cambodia" },
+    { code: "cn", name: "China" },
+    { code: "ge", name: "Georgia" },
+    { code: "hk", name: "Hong Kong" },
+    { code: "in", name: "India" },
+    { code: "id", name: "Indonesia" },
+    { code: "ir", name: "Iran" },
+    { code: "iq", name: "Iraq" },
+    { code: "il", name: "Israel" },
+    { code: "jp", name: "Japan" },
+    { code: "jo", name: "Jordan" },
+    { code: "kz", name: "Kazakhstan" },
+    { code: "kw", name: "Kuwait" },
+    { code: "kg", name: "Kyrgyzstan" },
+    { code: "la", name: "Laos" },
+    { code: "lb", name: "Lebanon" },
+    { code: "mo", name: "Macau" },
+    { code: "my", name: "Malaysia" },
+    { code: "mv", name: "Maldives" },
+    { code: "mn", name: "Mongolia" },
+    { code: "mm", name: "Myanmar" },
+    { code: "np", name: "Nepal" },
+    { code: "kp", name: "North Korea" },
+    { code: "om", name: "Oman" },
+    { code: "pk", name: "Pakistan" },
+    { code: "ps", name: "Palestine" },
+    { code: "ph", name: "Philippines" },
+    { code: "qa", name: "Qatar" },
+    { code: "sa", name: "Saudi Arabia" },
+    { code: "sg", name: "Singapore" },
+    { code: "kr", name: "South Korea" },
+    { code: "lk", name: "Sri Lanka" },
+    { code: "sy", name: "Syria" },
+    { code: "tw", name: "Taiwan" },
+    { code: "tj", name: "Tajikistan" },
+    { code: "th", name: "Thailand" },
+    { code: "tl", name: "Timor-Leste" },
+    { code: "tm", name: "Turkmenistan" },
+    { code: "ae", name: "UAE" },
+    { code: "uz", name: "Uzbekistan" },
+    { code: "vn", name: "Vietnam" },
+    { code: "ye", name: "Yemen" },
+
+    // Europe
+    { code: "al", name: "Albania" },
+    { code: "ad", name: "Andorra" },
+    { code: "at", name: "Austria" },
+    { code: "by", name: "Belarus" },
+    { code: "be", name: "Belgium" },
+    { code: "ba", name: "Bosnia & Herzegovina" },
+    { code: "bg", name: "Bulgaria" },
+    { code: "hr", name: "Croatia" },
+    { code: "cy", name: "Cyprus" },
+    { code: "cz", name: "Czech Republic" },
+    { code: "dk", name: "Denmark" },
+    { code: "ee", name: "Estonia" },
+    { code: "fi", name: "Finland" },
+    { code: "fr", name: "France" },
+    { code: "de", name: "Germany" },
+    { code: "gr", name: "Greece" },
+    { code: "hu", name: "Hungary" },
+    { code: "is", name: "Iceland" },
+    { code: "ie", name: "Ireland" },
+    { code: "it", name: "Italy" },
+    { code: "lv", name: "Latvia" },
+    { code: "li", name: "Liechtenstein" },
+    { code: "lt", name: "Lithuania" },
+    { code: "lu", name: "Luxembourg" },
+    { code: "mt", name: "Malta" },
+    { code: "md", name: "Moldova" },
+    { code: "mc", name: "Monaco" },
+    { code: "me", name: "Montenegro" },
+    { code: "nl", name: "Netherlands" },
+    { code: "mk", name: "North Macedonia" },
+    { code: "no", name: "Norway" },
+    { code: "pl", name: "Poland" },
+    { code: "pt", name: "Portugal" },
+    { code: "ro", name: "Romania" },
+    { code: "ru", name: "Russia" },
+    { code: "sm", name: "San Marino" },
+    { code: "rs", name: "Serbia" },
+    { code: "sk", name: "Slovakia" },
+    { code: "si", name: "Slovenia" },
+    { code: "es", name: "Spain" },
+    { code: "se", name: "Sweden" },
+    { code: "ch", name: "Switzerland" },
+    { code: "ua", name: "Ukraine" },
+    { code: "gb", name: "United Kingdom" },
+    { code: "va", name: "Vatican City" },
+
+    // North America
+    { code: "ag", name: "Antigua & Barbuda" },
+    { code: "bs", name: "Bahamas" },
+    { code: "bb", name: "Barbados" },
+    { code: "bz", name: "Belize" },
+    { code: "ca", name: "Canada" },
+    { code: "cr", name: "Costa Rica" },
+    { code: "cu", name: "Cuba" },
+    { code: "dm", name: "Dominica" },
+    { code: "do", name: "Dominican Republic" },
+    { code: "sv", name: "El Salvador" },
+    { code: "gd", name: "Grenada" },
+    { code: "gt", name: "Guatemala" },
+    { code: "ht", name: "Haiti" },
+    { code: "hn", name: "Honduras" },
+    { code: "jm", name: "Jamaica" },
+    { code: "mx", name: "Mexico" },
+    { code: "ni", name: "Nicaragua" },
+    { code: "pa", name: "Panama" },
+    { code: "kn", name: "Saint Kitts & Nevis" },
+    { code: "lc", name: "Saint Lucia" },
+    { code: "vc", name: "Saint Vincent & the Grenadines" },
+    { code: "tt", name: "Trinidad & Tobago" },
+    { code: "us", name: "United States" },
+
+    // South America
+    { code: "ar", name: "Argentina" },
+    { code: "bo", name: "Bolivia" },
+    { code: "br", name: "Brazil" },
+    { code: "cl", name: "Chile" },
+    { code: "co", name: "Colombia" },
+    { code: "ec", name: "Ecuador" },
+    { code: "gy", name: "Guyana" },
+    { code: "py", name: "Paraguay" },
+    { code: "pe", name: "Peru" },
+    { code: "sr", name: "Suriname" },
+    { code: "uy", name: "Uruguay" },
+    { code: "ve", name: "Venezuela" },
+
+    // Oceania
+    { code: "au", name: "Australia" },
+    { code: "fj", name: "Fiji" },
+    { code: "ki", name: "Kiribati" },
+    { code: "mh", name: "Marshall Islands" },
+    { code: "fm", name: "Micronesia" },
+    { code: "nr", name: "Nauru" },
+    { code: "nz", name: "New Zealand" },
+    { code: "pw", name: "Palau" },
+    { code: "pg", name: "Papua New Guinea" },
+    { code: "ws", name: "Samoa" },
+    { code: "sb", name: "Solomon Islands" },
+    { code: "to", name: "Tonga" },
+    { code: "tv", name: "Tuvalu" },
+    { code: "vu", name: "Vanuatu" }
+];
+
+
+function initCountryDropdown() {
+    const list = document.getElementById("country-list");
+    if(!list) return;
+
+    list.innerHTML = ""; 
+
+    countryData.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "country-option";
+        div.innerHTML = `<img src="https://flagcdn.com/w40/${c.code}.png"> ${c.name}`;
+        
+        div.onclick = () => selectCountry(c.code, c.name);
+        
+        list.appendChild(div);
+    });
+}
+
+function toggleCountryMenu() {
+    const list = document.getElementById("country-list");
+    list.classList.toggle("open");
+    playSfx('click');
+}
+
+function selectCountry(code, name) {
+    document.getElementById("in-country").value = code;
+    
+    document.getElementById("selected-flag-icon").src = `https://flagcdn.com/w40/${code}.png`;
+    document.getElementById("selected-country-name").innerText = name;
+    
+    document.getElementById("country-list").classList.remove("open");
+    playSfx('click');
+}
+
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('country-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        document.getElementById("country-list").classList.remove("open");
+    }
+});
+
+window.addEventListener('load', initCountryDropdown);
