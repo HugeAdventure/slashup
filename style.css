@@ -65,6 +65,18 @@ html.theme-polar body {
     background: linear-gradient(to right, rgba(2, 6, 23, 0.9) 0%, rgba(34, 211, 238, 0.1) 100%) !important;
 }
 
+@keyframes rgb-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.banner-chroma {
+    background: linear-gradient(-45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400% 400%;
+    animation: rgb-flow 15s ease infinite;
+}
+
 html.theme-default body {
     --accent: #ff3e3e;
     --accent-glow: rgba(255, 62, 62, 0.5);
