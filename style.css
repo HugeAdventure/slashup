@@ -15,6 +15,7 @@
     --bronze: #cd7f32;
 }
 
+
 html.theme-polar body {
     --accent: #22d3ee; 
     --accent-glow: rgba(34, 211, 238, 0.5);
@@ -72,9 +73,13 @@ html.theme-polar body {
 }
 
 .banner-chroma {
-    background: linear-gradient(-45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    background-size: 400% 400%;
-    animation: rgb-flow 15s ease infinite;
+    background: linear-gradient(-45deg, #00c6ff, #0072ff, #7a00ff, #ff0055);
+    
+    background-size: 300% 300% !important; 
+    
+    animation: nebula-flow 8s ease infinite !important;
+    
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
 }
 
 html.theme-default body {
