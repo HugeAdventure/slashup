@@ -1490,3 +1490,8 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 .dropdown-search-box i {
     color: #666;
 }
+
+.profile-header.banner-patriot h2,
+.profile-header.banner-patriot span {
+    text-shadow: 0 5px 15px #000 !important;
+}
