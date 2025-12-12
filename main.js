@@ -310,6 +310,15 @@ async function openCustomizePage() {
         console.log("Barracks Debug -> Raw:", rawRank, "Clean:", cleanRank);
 
         if(data.stats) {
+            const savedCountry = data.stats.country || "xx";
+        
+            document.getElementById('in-country').value = savedCountry;
+            
+            const countryObj = countryData.find(c => c.code === savedCountry) || { name: "Global / Unknown" };
+            
+            document.getElementById("selected-flag-icon").src = `https://flagcdn.com/w40/${savedCountry}.png`;
+            
+            document.getElementById("selected-country-name").innerText = countryObj.name;
             document.getElementById('in-country').value = data.stats.country || "xx";
             document.getElementById('in-youtube').value = data.stats.social_youtube || "";
             document.getElementById('in-twitch').value = data.stats.social_twitch || "";
