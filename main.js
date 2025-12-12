@@ -362,7 +362,8 @@ function updateLockState(rank) {
         'patriot': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
         'neon': ["VIP", "MVP", "OWNER", "ADMIN"].includes(rank),
         'gold': ["MVP", "OWNER", "ADMIN"].includes(rank),
-        'ronin': ["MVP", "OWNER", "ADMIN"].includes(rank)
+        'ronin': ["MVP", "OWNER", "ADMIN"].includes(rank),
+        'chroma': ["MVP", "OWNER", "ADMIN"].includes(rank),
     };
 
     for (const [id, unlocked] of Object.entries(bannerUnlocks)) {
