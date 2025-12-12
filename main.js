@@ -1401,25 +1401,48 @@ const countryData = [
 
 
 function initCountryDropdown() {
-    const list = document.getElementById("country-list");
-    if(!list) return;
+    const listArea = document.getElementById("country-scroll-area");
+    const searchInput = document.getElementById("country-search-input");
+    
+    if(!listArea) return;
 
-    list.innerHTML = ""; 
+    countryData.sort((a, b) => {
+        if(a.code === 'xx') return -1;
+        if(b.code === 'xx') return 1;
+        return a.name.localeCompare(b.name);
+    });
 
-    countryData.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "country-option";
-        div.innerHTML = `<img src="https://flagcdn.com/w40/${c.code}.png"> ${c.name}`;
+    function renderList(filterText = "") {
+        listArea.innerHTML = ""; 
         
-        div.onclick = () => selectCountry(c.code, c.name);
-        
-        list.appendChild(div);
+        const lowerFilter = filterText.toLowerCase();
+
+        countryData.forEach(c => {
+            if (c.name.toLowerCase().includes(lowerFilter)) {
+                const div = document.createElement("div");
+                div.className = "country-option";
+                div.innerHTML = `<img src="https://flagcdn.com/w40/${c.code}.png"> ${c.name}`;
+                div.onclick = () => selectCountry(c.code, c.name);
+                listArea.appendChild(div);
+            }
+        });
+    }
+
+    renderList();
+
+    searchInput.addEventListener("input", (e) => {
+        renderList(e.target.value);
     });
 }
 
 function toggleCountryMenu() {
     const list = document.getElementById("country-list");
     list.classList.toggle("open");
+    
+    if(list.classList.contains("open")) {
+        setTimeout(() => document.getElementById("country-search-input").focus(), 100);
+    }
+    
     playSfx('click');
 }
 
