@@ -1391,3 +1391,70 @@ footer { margin-top: auto; border-top: var(--panel-border); padding: 3rem 0; tex
 .profile-header.banner-patriot::before {
     background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 100%);
 }
+
+/* --- CUSTOM COUNTRY DROPDOWN --- */
+
+.custom-dropdown {
+    width: 100%;
+    position: relative;
+    font-family: 'Share Tech Mono';
+    cursor: pointer;
+}
+
+.dropdown-selected {
+    padding: 10px 0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dd-flag {
+    width: 24px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -40px;
+    width: calc(100% + 40px); 
+    background: #0b0b10;
+    border: 1px solid var(--accent);
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    border-radius: 0 0 4px 4px;
+}
+
+.dropdown-options.open {
+    display: block; 
+    animation: fadeIn 0.2s ease-out;
+}
+
+.country-option {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: 0.2s;
+    color: #888;
+}
+
+.country-option:hover {
+    background: var(--accent); 
+    color: #000;
+}
+
+.country-option img {
+    width: 24px;
+    border-radius: 2px;
+}
+
+.dropdown-options::-webkit-scrollbar { width: 5px; }
+.dropdown-options::-webkit-scrollbar-track { background: #111; }
+.dropdown-options::-webkit-scrollbar-thumb { background: var(--accent); }
