@@ -360,7 +360,8 @@
                                 </div>
                                 <div class="theme-status"><i class="fas fa-check"></i></div>
                             </div>
-                            <div class="theme-card active" onclick="previewTheme('polar')" id="card-polar">
+
+                            <div class="theme-card" onclick="previewTheme('polar')" id="card-polar">
                                 <div class="theme-icon" style="background: #22d3ee; box-shadow: 0 0 10px #22d3ee;">❄️</div>
                                 <div class="theme-info">
                                     <div class="theme-name" style="color:#22d3ee;">POLAR</div>
@@ -418,6 +419,7 @@
                     </div>
     
                     <div id="tab-identity" class="barracks-content">
+                        
                         <div class="section-title">PROFILE SIGNATURE</div>
                         <div class="banner-grid">
                             <div class="banner-option active" onclick="selectBanner('default')" id="ban-default">
@@ -451,7 +453,6 @@
                             <i class="fas fa-globe"></i>
                             
                             <div class="custom-dropdown" id="country-dropdown">
-                                
                                 <div class="dropdown-selected" onclick="toggleCountryMenu()">
                                     <div style="display:flex; align-items:center; gap:10px;">
                                         <img id="selected-flag-icon" src="https://flagcdn.com/w40/xx.png" class="dd-flag">
@@ -461,22 +462,17 @@
                                 </div>
                         
                                 <div class="dropdown-options" id="country-list">
-                                    
                                     <div class="dropdown-search-box">
                                         <input type="text" id="country-search-input" placeholder="Search..." onclick="event.stopPropagation()">
                                         <i class="fas fa-search"></i>
                                     </div>
-                        
-                                    <div id="country-scroll-area">
-                                    </div>
+                                    <div id="country-scroll-area"></div>
                                 </div>
-                                </div>
-                        
-                                <input type="hidden" id="in-country" value="xx">
                             </div>
+                            <input type="hidden" id="in-country" value="xx">
                         </div>
     
-                        <div class="section-title" style="margin-top: 1rem;">SOCIAL UPLINK</div>
+                        <div class="section-title" style="margin-top: 2rem;">SOCIAL UPLINK</div>
                         <div class="social-inputs">
                             <div class="input-group"><i class="fab fa-youtube" style="color:#ff0000"></i><input type="text" id="in-youtube" placeholder="YouTube URL"></div>
                             <div class="input-group"><i class="fab fa-twitch" style="color:#9146ff"></i><input type="text" id="in-twitch" placeholder="Twitch URL"></div>
