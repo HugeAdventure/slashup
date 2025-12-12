@@ -66,20 +66,29 @@ html.theme-polar body {
     background: linear-gradient(to right, rgba(2, 6, 23, 0.9) 0%, rgba(34, 211, 238, 0.1) 100%) !important;
 }
 
-@keyframes rgb-flow {
+@keyframes nebula-animation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-.banner-chroma {
-    background: linear-gradient(-45deg, #00c6ff, #0072ff, #7a00ff, #ff0055);
+.profile-header.banner-chroma {
+    background-image: linear-gradient(-45deg, #00c6ff, #0072ff, #7a00ff, #ff0055) !important;
     
-    background-size: 300% 300% !important; 
+    background-size: 400% 400% !important;
     
-    animation: nebula-flow 8s ease infinite !important;
+    background-attachment: scroll !important;
     
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
+    animation: nebula-animation 10s ease infinite !important;
+    
+    background-origin: border-box;
+    background-clip: border-box;
+}
+
+.ban-preview.banner-chroma {
+    background-image: linear-gradient(-45deg, #00c6ff, #0072ff, #7a00ff, #ff0055);
+    background-size: 400% 400%;
+    animation: nebula-animation 10s ease infinite;
 }
 
 html.theme-default body {
