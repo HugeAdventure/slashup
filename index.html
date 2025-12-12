@@ -447,27 +447,25 @@
                         </div>
 
                         <div class="section-title" style="margin-top: 2rem;">NATIONALITY</div>
-                            <div class="input-group">
-                                <i class="fas fa-globe"></i>
-                                <select id="in-country" class="country-select">
-                                    <option value="xx">Global / Unknown</option>
-                                    <option value="us">United States</option>
-                                    <option value="gb">United Kingdom</option>
-                                    <option value="ca">Canada</option>
-                                    <option value="de">Germany</option>
-                                    <option value="fr">France</option>
-                                    <option value="nl">Netherlands</option>
-                                    <option value="se">Sweden</option>
-                                    <option value="no">Norway</option>
-                                    <option value="dk">Denmark</option>
-                                    <option value="fi">Finland</option>
-                                    <option value="pl">Poland</option>
-                                    <option value="br">Brazil</option>
-                                    <option value="jp">Japan</option>
-                                    <option value="kr">South Korea</option>
-                                    <option value="au">Australia</option>
-                                </select>
+                        <div class="input-group" style="position: relative; z-index: 50;">
+                            <i class="fas fa-globe"></i>
+                            
+                            <div class="custom-dropdown" id="country-dropdown">
+                                
+                                <div class="dropdown-selected" onclick="toggleCountryMenu()">
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <img id="selected-flag-icon" src="https://flagcdn.com/w40/xx.png" class="dd-flag">
+                                        <span id="selected-country-name">Global / Unknown</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                        
+                                <div class="dropdown-options" id="country-list">
+                                </div>
+                        
+                                <input type="hidden" id="in-country" value="xx">
                             </div>
+                        </div>
     
                         <div class="section-title" style="margin-top: 1rem;">SOCIAL UPLINK</div>
                         <div class="social-inputs">
